@@ -1,0 +1,18 @@
+<h3>Template para a Demonstração no Coq II</h3>
+
+
+<p>Bom, agora que já vimos os templates de demonstração, para iniciar a demonstração é preciso o comando:</p>
+
+<p><code>Proof.</code></p><br/>
+
+No nosso exemplo anterior, iniciamos uma demonstração assim:<br/>
+
+<p><code>
+	Require Import ProofWeb.
+	Variables A B C : Prop.
+	Theorem example_01 : (A /\ B) -> (B /\ A).
+	Proof.
+</code></p><br/>
+
+<p>Agora, podemos inserir as regras de inferência adequadas até demonstrarmos o desejado.</p>
+<br/>

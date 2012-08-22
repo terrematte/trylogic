@@ -1,0 +1,25 @@
+<h3>Template para a Demonstração no Coq I</h3>
+
+
+<p>O primeiro comando a ser feito no Assistente de Demonstração -- o Coq --, deve ser carregar a teoria que vamos utilizar para realizar as demonstrações em Dedução Natural.</p>
+
+<p><code>Require Import ProofWeb.</code></p><br/>
+
+<p>Com este comando, carregamos todas as regras de inferência, que 
+precisaremos para realizar demonstrações em Dedução Natural.</p>
+<br/>
+
+<p>Em seguida, declaramos as <b>variáveis</b> que utilizaremos na demonstração: </p>
+
+<p><code>Variables A B C : Prop.</code></p><br/>
+
+<p>Observe que declaramos <b>A B C</b> são do tipo <b>Prop</b>, ou seja, são <i>variáveis proposicionais</i>.</p>
+<br/>
+
+<p>Na sequência, declaramos o que desejamos demonstrar, por exemplo:</p>
+
+<p><code>Theorem example_01 : (A /\ B) -> (B /\ A).</code></p><br/>
+
+<p>Neste caso, é parte da <i>comutatividade da conjunção</i>, (α ∧ β) → (β ∧ α).</p>
+<br/>
+
