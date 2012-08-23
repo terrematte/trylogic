@@ -2,12 +2,12 @@
 
 TryLogic is the easiest way to learn Formal Logic.
 
-A funny way to learn the language OCaml. It is available here:
+A funny way to learn Logic. It is available here:
 
-http://try.ocamlpro.com/
+http://lolita.dimap.ufrn.br/trylogic
 
-TryOCaml is based on
-(http://ocsigen.org/js_of_ocaml/files/toplevel/index.html) built with
+TryLogic is based on ProofWeb (http://prover.cs.ru.nl/ ) and the TryOCaml (http://try.ocamlpro.com/) 
+developed with (http://ocsigen.org/js_of_ocaml/files/toplevel/index.html) and built with
 js_of_ocaml (see http://ocsigen.org/js_of_ocaml/).
 
 # Requirements
