@@ -1,7 +1,8 @@
 # Overview
 
-TryOCaml is the easiest way to learn how to code in OCaml language. A
-funny way to learn the language. It is available here:
+TryLogic is the easiest way to learn Formal Logic.
+
+A funny way to learn the language OCaml. It is available here:
 
 http://try.ocamlpro.com/
 
