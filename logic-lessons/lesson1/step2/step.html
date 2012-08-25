@@ -1,25 +1,17 @@
-<h3>Template para a Demonstração no Coq I</h3>
+<h3>Sistema dedutivo N<sub>p</sub> no Coq</h3>
+
+<b>Dedução Natural serve para:</b> <br/> 
+<p>Demonstrar a validade de um sequente ou um argumento Lógico; Extrair conclusões de um conjunto de Premissas; Verificar que um conjunto de premissas acarreta em uma conclusão. Basicamente, <i>manipulação sintática</i> através de passos, i.e. regras de inferências que introduzem, ou eliminam operadores lógicos. </p><br/> 
+
+<p> Com Dedução Natural, construímos demonstrações da validade de um sequente representado por  "Γ ⊢ α", i.e. "alfa (α) é conclusão (consequência sintática) de um conjunto de premissas Gama (Γ)", ou ainda, "Gama (Γ) <i>deriva</i> alfa (α)". </p><br/>
+
+<p>Uma demonstração em Dedução Natural é um estrutura de dados chamada de <i>árvore de derivação</i>. Demonstrar que "Γ ⊢ α", significa garantir que <i>existe pelo menos uma</i> árvore etiquetada construída com sucessivas regras de inferência, nas quais as <i>folhas abertas</i> são as premissas gama (Γ) e a <i>raiz</i> é a conclusão alfa (α). Por exemplo:</p><br/>
+
+<center><img  src="images/logic/ex1.png" alt="Example of Deduction 1" width="320"  /></center><br/><br/>
+
+<b>Dedução Natural <i>NÃO</i> serve para:</b> <br/>
+<p>Apresentar um contra-exemplo de um sequente; Extrair sentenças inválidas a partir de Premissas; Verificar se premissas não acarretam em uma conclusão; Em suma, com Dedução Natural <i>não podemos refutar argumentos</i>.</p>
 
 
-<p>O primeiro comando a ser feito no Assistente de Demonstração -- o Coq --, deve ser carregar a teoria que vamos utilizar para realizar as demonstrações em Dedução Natural.</p>
 
-<p><code>Require Import ProofWeb.</code></p><br/>
-
-<p>Com este comando, carregamos todas as regras de inferência, que 
-precisaremos para realizar demonstrações em Dedução Natural.</p>
-<br/>
-
-<p>Em seguida, declaramos as <b>variáveis</b> que utilizaremos na demonstração: </p>
-
-<p><code>Variables A B C : Prop.</code></p><br/>
-
-<p>Observe que declaramos <b>A B C</b> são do tipo <b>Prop</b>, ou seja, são <i>variáveis proposicionais</i>.</p>
-<br/>
-
-<p>Na sequência, declaramos o que desejamos demonstrar, por exemplo:</p>
-
-<p><code>Theorem example_01 : (A /\ B) -> (B /\ A).</code></p><br/>
-
-<p>Neste caso, é parte da <i>comutatividade da conjunção</i>, (α ∧ β) → (β ∧ α).</p>
-<br/>
 

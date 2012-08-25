@@ -1,18 +1,36 @@
-<h3>Template para a Demonstração no Coq II</h3>
+<h3>Template para a Demonstração no Coq</h3>
 
+<p>Um sistema dedutivo é formado basicamente por um conjunto de <i>regras de inferência</i>.</p><br/>
+<p>O primeiro comando a ser feito no Assistente de Demonstração -- o Coq --, deve ser carregar a teoria que vamos utilizar para realizar as demonstrações em Dedução Natural.</p>
 
-<p>Bom, agora que já vimos os templates de demonstração, para iniciar a demonstração é preciso o comando:</p>
+<p><code>Require Import ProofWeb.</code></p><br/>
 
-<p><code>Proof.</code></p><br/>
-
-No nosso exemplo anterior, iniciamos uma demonstração assim:<br/>
-
-<p><code>
-	Require Import ProofWeb.
-	Variables A B C : Prop.
-	Theorem example_01 : (A /\ B) -> (B /\ A).
-	Proof.
-</code></p><br/>
-
-<p>Agora, podemos inserir as regras de inferência adequadas até demonstrarmos o desejado.</p>
+<p>Com este comando, carregamos todas as regras de inferência, que 
+precisaremos para realizar demonstrações em Dedução Natural.</p>
 <br/>
+
+<p>Em seguida, declaramos as <b>variáveis</b> que utilizaremos na demonstração: </p>
+
+<p><code>Variables A B C : Prop.</code></p><br/>
+
+<p>Observe que <b>A B C</b> são do tipo <b>Prop</b>, ou seja, são <i>variáveis proposicionais</i>.</p>
+<br/>
+
+<p>Na sequência, declaramos o que desejamos demonstrar, por exemplo:</p>
+
+<p><code>Theorem example_01 : (A /\ B) -> (B /\ A).</code></p><br/>
+
+<p>Neste caso, é parte da <i>comutatividade da conjunção</i>, ⊢ (α ∧ β) → (β ∧ α).</p>
+<br/>
+
+<p>Para iniciar a demonstração é preciso o comando:</p>
+
+<code>Proof.</code><br/><br/>
+
+<p>Agora, sim podemos inserir as regras de inferência adequadas até demonstrarmos o desejado. <i>Vemos nos próximos passos.</i></p><br/><br/>
+
+Confira também: <br/>
+
+- <a href="http://lolita.dimap.ufrn.br/proofweb/">ProofWeb - Interface de demonstração do Coq</a><br/>
+- <a href="http://lolita.dimap.ufrn.br/proofweb/tutorial-video.htm">Video tutorial para o ProofWeb</a><br/>
+- <a href="http://lolita.dimap.ufrn.br/proofweb/man.pdf">Manual do Proofweb</a><br/>
