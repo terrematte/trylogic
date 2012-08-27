@@ -1,36 +1,19 @@
-<h3>Template para a Demonstração no Coq</h3>
+<h3>Regras de Introdução e Eliminação</h3>
 
-<p>Um sistema dedutivo é formado basicamente por um conjunto de <i>regras de inferência</i>.</p><br/>
-<p>O primeiro comando a ser feito no Assistente de Demonstração -- o Coq --, deve ser carregar a teoria que vamos utilizar para realizar as demonstrações em Dedução Natural.</p>
 
-<p><code>Require Import ProofWeb.</code></p><br/>
-
-<p>Com este comando, carregamos todas as regras de inferência, que 
-precisaremos para realizar demonstrações em Dedução Natural.</p>
 <br/>
 
-<p>Em seguida, declaramos as <b>variáveis</b> que utilizaremos na demonstração: </p>
+<b>Estratégias de Demonstração:</b><br/>
 
-<p><code>Variables A B C : Prop.</code></p><br/>
+<p>- <i>Backward:</i> Da raiz às folhas da árvore, i.e. partindo da conclusão às premissas. Este é o modo mais natural de se demonstrar, já que fixando a conclusão, a estratégia consiste apenas em chegar nas premissas, ao passo que se partirmos das premissas corremos o risco de aplicar não aplicarmos as regras adequadas para se obter a conclusão desejada.</p><br/>
 
-<p>Observe que <b>A B C</b> são do tipo <b>Prop</b>, ou seja, são <i>variáveis proposicionais</i>.</p>
-<br/>
+<p>- <i>Forward:</i> Das folhas da árvore à raiz, i. e. partindo das premissas até a conclusão.</p><br/>
 
-<p>Na sequência, declaramos o que desejamos demonstrar, por exemplo:</p>
+<p>Independente a abordagem (Backward/Forward), uma estratégia geral básica consiste em desconstruir as premissas usando regras de eliminação e <i>construir</i> a conclusão aplicando regras de introdução dos operadores lógicos.</p><br/>
 
-<p><code>Theorem example_01 : (A /\ B) -> (B /\ A).</code></p><br/>
+Aqui estão as regras de cada conectivo que iremos apresentar passo-a-passo:
 
-<p>Neste caso, é parte da <i>comutatividade da conjunção</i>, ⊢ (α ∧ β) → (β ∧ α).</p>
-<br/>
+<center><img  src="images/logic/all-r-dn.png" alt="Rules of Natural Deduction" width="550"  /></center><br/>
 
-<p>Para iniciar a demonstração é preciso o comando:</p>
-
-<code>Proof.</code><br/><br/>
-
-<p>Agora, sim podemos inserir as regras de inferência adequadas até demonstrarmos o desejado. <i>Vemos nos próximos passos.</i></p><br/><br/>
-
-Confira também: <br/>
-
-- <a href="http://lolita.dimap.ufrn.br/proofweb/">ProofWeb - Interface de demonstração do Coq</a><br/>
-- <a href="http://lolita.dimap.ufrn.br/proofweb/tutorial-video.htm">Video tutorial para o ProofWeb</a><br/>
-- <a href="http://lolita.dimap.ufrn.br/proofweb/man.pdf">Manual do Proofweb</a><br/>
+<p>Observe que para cada conectivo há regras de introdução e eliminação. <br/>
+Note também que algumas regras são acompanhadas de sub-fórmulas, ou etiquetas de hipóteses criadas. </p>

@@ -1,0 +1,45 @@
+<h3>Regras da Conjunção 1</h3>
+
+<center><img  src="images/logic/r-conj.png" alt="Rules of Conjuction" width="550"  /></center><br/><br/>
+
+
+Regra para introdução da Conjunção (∧ I):
+
+
+
+con_i
+con_e1 (?)
+con_e2 (?)
+
+dis_i1
+dis_i2
+dis_e (? \/ ?) ? ?
+
+imp_i ?
+imp_e (?)
+
+neg_i ?
+neg_e (?)
+fls_e
+PBC ?
+
+iff_e1 (?)
+iff_e2 (?)
+iff_i ? ?
+
+
+
+
+<p>Agora, vamos apresentar uma demonstração de ⊢ (α ∧ β) → (β ∧ α).</p>
+<br/>
+
+Usando regras <i>Backward</i>:
+Require Import ProofWeb.
+Variables A B C : Prop.
+
+(* Primeiro uma demonstração usando apenas regras "Backward" *)
+(* (para trás - seguindo da conclusão às premissas) *)
+
+
+Theorem example_01 : A /\ B -> B /\ A.
+Proof.

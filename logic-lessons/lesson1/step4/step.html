@@ -1,10 +1,34 @@
-<h3>Regras de Introdução e Eliminação</h3>
+<h3>Template para a Demonstração no Coq</h3>
 
+<p>Vamos aplicar o Coq demonstrando o argumento: "α, α → β, β → (γ ∧ δ) ⊢ γ".<br/>
+ Nossa tarefa é produzir uma árvore de derivação, na qual as premissas pertencem às Folhas abertas, i.e. {α, α → β, β → (γ ∧ δ)} ⊂ <i>F<sub>p</sub></i>, e γ é o nó raiz .</p><br/>
 
-<br/>
+<p>Primeiro, carregamos a teoria com as regras de inferência:</p>
 
-<b>Estratégias de Demonstração:</b><br/>
+<p><code>Require Import ProofWeb.</code></p><br/>
 
-- <i>Backward:</i> Da raiz às folhas da árvore, i.e. partindo da conclusão às premissas. Este é o modo mais natural de se demonstrar, já que fixando a conclusão, a estratégia consiste apenas em chegar nas premissas, ao passo que se partirmos das premissas corremos o risco de aplicar não aplicarmos as regras adequadas para se obter a conclusão desejada.
+<p>Em seguida, declaramos as <b>variáveis</b> que utilizaremos na demonstração: </p>
 
-- <i>Forward:</i> Das folhas da árvore à raiz, i. e. partindo das premissas até a conclusão. 
+<p><code>Variables A B C D: Prop.</code></p><br/>
+
+<p>Observe que <b>A B C</b> são do tipo <b>Prop</b>, ou seja, são <i>variáveis proposicionais</i>.</p><br/>
+<p>Na sequência, declaramos as etiquetas <b>P1</b>, <b>P2</b> e <b>P3</b> para as Premissas:</p>
+<pre><code>Hypothesis P1 : A.
+Hypothesis P2: (A -> B).
+Hypothesis P3: (B -> (C /\ D)).</code></pre>
+
+E declaramos o que desejamos demonstrar :</p>
+
+<code>Theorem exemple0 : C.</code><br/>
+
+<p>Para iniciar a demonstração é preciso o comando:</p>
+
+<code>Proof.</code><br/>
+
+<p>Agora, sim podemos inserir as regras de inferência adequadas até demonstrarmos o desejado. <i>Vemos nos próximos passos.</i></p><br/>
+
+Confira também: <br/>
+
+- <a href="http://lolita.dimap.ufrn.br/proofweb/">ProofWeb - Interface de demonstração do Coq</a><br/>
+- <a href="http://lolita.dimap.ufrn.br/proofweb/tutorial-video.htm">Video tutorial para o ProofWeb</a><br/>
+- <a href="http://lolita.dimap.ufrn.br/proofweb/man.pdf">Manual do Proofweb</a><br/>
