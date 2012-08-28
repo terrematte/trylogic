@@ -2,7 +2,7 @@
 
 <p>Neste passo, vamos aprender mais duas regras para negação que -- juntamente a (¬ I) e (¬ E) -- completam a caracterização da negação clássica: <b>⊥<sub>c</sub></b> e <b>⊥<sub>int</sub></b>.</p><br/>
  
-<p><i>- Absurdo intuicionista</i> <b>(⊥<sub>int</sub>)</b>: Permite obter uma derivação de um γ <i>qualquer</i>, a partir de uma derivação de ⊥. Intuitivamente, expressa que se verificamos o absurdo, então qualquer fórmula pode ser verificada, raciocínio também chamado de <a href="http://pt.wikipedia.org/wiki/Princ%C3%ADpio_de_explos%C3%A3o">princípio da explosão</a>, <i>ex falso quodlibet</i> ou <i>ex contradictione sequitur quodlibet</i>.No Coq, o comando utilizado é <b>fls_e</b>.</p>
+<p><i>- Absurdo intuicionista</i> <b>(⊥<sub>int</sub>)</b>: Permite obter uma derivação de um γ <i>qualquer</i>, a partir de uma derivação de ⊥. Intuitivamente, expressa que se verificamos o absurdo, então qualquer fórmula pode ser verificada, raciocínio também chamado de <a href="http://pt.wikipedia.org/wiki/Princ%C3%ADpio_de_explos%C3%A3o">princípio da explosão</a>, <i>ex falso quodlibet</i> ou <i>ex contradictione sequitur quodlibet</i>. No Coq, o comando utilizado é <b>fls_e</b>.</p>
 
 <p><i>- Absurdo Clássico</i> <b>(⊥<sub>c</sub>)</b>: Permite obter uma derivação de α, a partir de uma derivação de ⊥, e um conjunto de hipóteses que <i>pode</i> conter (¬ α). No Coq, o comando utilizado é <b>PCB h</b>, passando como parâmetro uma marca <i>h</i> para a hipótese <b>(¬ α)</b> que eventualmente pode ser descartada. Esta marca <i>h</i> na regra <b>(⊥<sub>c</sub>)</b> deve pelo menos ser:</p><br/>
 <b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula <b>(¬ α)</b> -- representando o antecedente da implicação introduzida, ou <br/>
@@ -19,6 +19,11 @@ Hypothesis P2 : (~ B).
 Theorem example_09 : ~A.
 Proof.</code></pre>
 
+<p>Nossa dica é sempre buscar usar as regras que descartem hipótese -- tais como (→ I), (¬ I) e (⊥<sub>c</sub>) -- e em particular, a regra (⊥<sub>c</sub>) pois por descartar uma fórmula negada, a regra tem <i>maior força dedutiva</i> que a (¬ I). Com hábito é melhor pensar em estratégias usando a regra (⊥<sub>c</sub>), para se demonstrar :</p>
+
+<code>
+
+</code>
 
 
 <p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 1, págs. 32-35. )</i></p>

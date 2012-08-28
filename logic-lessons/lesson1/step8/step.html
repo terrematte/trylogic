@@ -1,7 +1,5 @@
 <h3>Regras da Implicação I</h3>
 
-<center><img  src="images/logic/r-imp.png" alt="Rules of Implication" width="550"  /></center><br/><br/>
-
 <p><i>- Introdução da implicação</i> (→ I): Permite obter uma derivação α → β, a partir de uma derivação de β, e um conjunto de hipóteses que <i>pode</i> conter α. No Coq, o comando utilizado é <b>imp_i h</b> , passando como parâmetro uma marca <i>h</i> para a hipótese α que eventualmente pode ser descartada. Esta marca <i>h</i> na regra (→ I) deve pelo menos ser:</p><br/>
 <b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula α -- representando o antecedente da implicação introduzida, ou <br/>
 <b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação.<br/>
@@ -38,3 +36,6 @@ exact P1.
 <code>
 Qed.
 </code>
+
+<center><img  src="images/logic/r-imp.png" alt="Rules of Implication" width="550"  /></center><br/><br/>
+
