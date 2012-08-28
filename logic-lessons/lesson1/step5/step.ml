@@ -1,2 +1,2 @@
 fun input output ->
-  find_in  "- : char =" output
+  find_in  "example_00" output

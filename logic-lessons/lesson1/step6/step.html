@@ -1,14 +1,14 @@
-<h3>Regras da Conjunção</h3>
+<h3>Regras da Conjunção I</h3>
 
 <p>Agora que vimos um primeiro exemplo, vamos nos concentrar nas regras de cada conectivo.</p> <br/>
 
 <p><i>- Introdução da conjunção</i> (∧ I): Representa o raciocínio em que se as asserções α e β verificam-se em separado, então verifica-se a sua conjunção. No Coq, o comando utilizado é <b>con_i</b>.</p><br/>
 
 <p><i>- Eliminação da conjunção à direita</i> (∧ E<sub>d</sub>): Significa que se as asserções α e β se verificam, então verifica-se α em particular. 
-No Coq, o comando utilizado é <b>con_e1 β</b>, passando como parâmetro a fórmula proposicional à <i>direita</i> da conjunção eliminada.</p><br/>
+No Coq, o comando utilizado é <b>con_e1 β</b>, passando como parâmetro a fórmula proposicional à <i>direita</i> da conjunção eliminada.</p>
  
 <p><i>- Eliminação da conjunção à esquerda</i> (∧ E<sub>e</sub>): De forma análoga, significa que se as asserções α e β se verificam, então verifica-se β em particular. 
-No Coq, o comando utilizado é <b>con_e2 α</b>, passando como parâmetro a fórmula proposicional à <i>esquerda</i> da conjunção eliminada.</p><br/>
+No Coq, o comando utilizado é <b>con_e2 α</b>, passando como parâmetro a fórmula proposicional à <i>esquerda</i> da conjunção eliminada.</p>
 
 
 <p>Vamos demonstrar a comutatividade da conjunção: "(α ∧ β) ⊢ (β ∧ α)". </p>
@@ -20,14 +20,13 @@ Theorem example_02 : (B /\ A).
 Proof.</code></pre>
 
 
-<p>Como nossa conclusão possui a conjunção  como conectivo principal, podemos aplicar a regra de introdução da conjunção:</p><br/>
-
+<p>Como nossa conclusão possui a conjunção  como conectivo principal, podemos aplicar a regra de introdução da conjunção:</p>
 <code>
 con_i.
 </code><br/>
 
 
-Agora, devemos indicar de onde vieram <b>B</b> e <b>A</b>, ou seja, através das regras de (∧ E) :<br/>
+<p>Agora, devemos indicar de onde vieram <b>B</b> e <b>A</b>, ou seja, através das regras de (∧ E) :</p>
 <code>
 con_e2 A.
 </code><br/>
@@ -38,7 +37,7 @@ Seguida da identificação exata de P1:<br/>
 exact P1.
 </code><br/>
 
-Para ter certeza que você entendeu, complete o restante da demonstração, antes de passar para o próximo passo!<br/>
+<b><i>Para ter certeza que você entendeu, complete o restante da demonstração, antes de passar para o próximo passo!</i></b><br/>
 <code>
 ? ? ?
 </code>

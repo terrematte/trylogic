@@ -1,0 +1,54 @@
+<h3>Regras da Negação I</h3>
+
+<p>Na Lógica Proposicional, podemos -- em parte -- entender a <i>negação</i> (¬) através da <i>implicação</i>, a constante de absurdo (⊥) e mais algumas regras que vamos aprender.</p><br/>
+
+<center><b>¬ α ≡ α → ⊥ </b></center><br/>
+
+<p>Por isso, as regras da negação (¬ I) e (¬ E) são semelhantes às regras da implicação (→ I) e (→ E):</p>
+
+ 
+<p><i>- Introdução da negação </i> (¬ I): Permite obter uma derivação ¬ α, a partir de uma derivação de ⊥, e um conjunto de hipóteses que <i>pode</i> conter α. No Coq, o comando utilizado é <b>neg_i h</b> , passando como parâmetro uma marca <i>h</i> para a hipótese α que eventualmente pode ser descartada. Esta marca <i>h</i> na regra (¬ I) deve pelo menos ser:</p><br/>
+<b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula α -- representando o antecedente da implicação introduzida, ou <br/>
+<b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação.<br/>
+
+<p><i>- Eliminação da implicação</i> (¬ E): Permite concluir ⊥, a partir de derivações de "¬ α" e "α". No Coq, o comando utilizado é <b>neg_e α</b>, passando como parâmetro a fórmula contraditória α.</p> <br/>
+
+
+<p>Vamos demonstrar o seguinte teorema: " ⊢ ¬ ¬( ¬ ¬ α → α)". </p>
+
+<pre><code>Require Import ProofWeb.
+Variables A : Prop.
+Theorem example_07 : ~~(~~A -> A).
+Proof.</code></pre>
+
+<p>Como nosso conectivo mais externo é uma negação, nossa estratégia é usar a regra (¬ I), obtendo uma nova hipótese <b>h1</b>:</p> 
+<code>
+neg_i h1.
+</code><br/>
+
+<p>Agora temos que decidir de qual regra obtivemos o ⊥, a princípio poderíamos obter de qualquer aplicação da (¬ E) com diferentes parâmetros. Por praticidade, vamos dizer o ⊥ foi obtido por  (¬ E) em  <b>~(~~A -> A)</b> e <b>(~~A -> A)</b>, justamente para podermos identificá-lo com a hipótese  <b>h1</b>:</p> 
+<pre><code>neg_e (~~A -> A).
+exact h1.</code></pre>
+
+<p>Em seguida, como temos uma <b>→</b>, usamos (→ I) e ganhamos uma nova hipótese <b>h1</b>:</p> 
+<code>
+imp_i h2.
+</code><br/>
+
+<p>Para de imediato usarmos a nova hipótese <b>h1</b>, indicamos que ⊥ foi obtido por (¬ E) em  <b>(~~A)</b> e <b>(~A)</b>:</p>
+<pre><code>neg_e (~A).
+exact h2.</code></pre>
+
+<p>Nesse momento usamos a (¬ I) e obtemos uma nova hipótese <b>(A)</b> com a marca <b>h3</b>.</p>
+<code>
+neg_i h3.
+</code><br/>
+
+<p>Bom, a demonstração está quase no fim, <b><i>qual a sua sugestão para o parâmetro da (¬ E) ? Poderia completá-la?</i></b></p>
+<code>
+neg_e ??
+</code><br/>
+
+<p><i><b>Dica:</b> Explore as opções possíveis: <b>(A)</b>, <b>(~A)</b> e <b>(~~A -> A)</b></i></p>
+
+<center><img  src="images/logic/r-neg.png" alt="Rules of Negation" width="550"  /></center><br/><br/>
