@@ -1,0 +1,26 @@
+<h3>Regras da Negação II</h3>
+
+<p>Neste passo, vamos aprender mais duas regras para negação que -- juntamente a (¬ I) e (¬ E) -- completam a caracterização da negação clássica: <b>⊥<sub>c</sub></b> e <b>⊥<sub>int</sub></b>.</p><br/>
+ 
+<p><i>- Absurdo intuicionista</i> <b>(⊥<sub>int</sub>)</b>: Permite obter uma derivação de um γ <i>qualquer</i>, a partir de uma derivação de ⊥. Intuitivamente, expressa que se verificamos o absurdo, então qualquer fórmula pode ser verificada, raciocínio também chamado de <a href="http://pt.wikipedia.org/wiki/Princ%C3%ADpio_de_explos%C3%A3o">princípio da explosão</a>, <i>ex falso quodlibet</i> ou <i>ex contradictione sequitur quodlibet</i>.No Coq, o comando utilizado é <b>fls_e</b>.</p>
+
+<p><i>- Absurdo Clássico</i> <b>(⊥<sub>c</sub>)</b>: Permite obter uma derivação de α, a partir de uma derivação de ⊥, e um conjunto de hipóteses que <i>pode</i> conter (¬ α). No Coq, o comando utilizado é <b>PCB h</b>, passando como parâmetro uma marca <i>h</i> para a hipótese <b>(¬ α)</b> que eventualmente pode ser descartada. Esta marca <i>h</i> na regra <b>(⊥<sub>c</sub>)</b> deve pelo menos ser:</p><br/>
+<b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula <b>(¬ α)</b> -- representando o antecedente da implicação introduzida, ou <br/>
+<b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação de ⊥.<br/>
+
+<p>Note que a regra <b>(⊥<sub>int</sub>)</b> é um caso particular de <b>(⊥<sub>c</sub>)</b>, só que sem hipóteses descartadas.</p>
+
+<p>Vamos demonstrar o seguinte : " α → β, ¬ β ⊢ ¬ α". </p>
+
+<pre><code>Require Import ProofWeb.
+Variables A B: Prop.
+Hypothesis P1 : (A -> B).
+Hypothesis P2 : (~ B).
+Theorem example_09 : ~A.
+Proof.</code></pre>
+
+
+
+<p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 1, págs. 32-35. )</i></p>
+
+<center><img  src="images/logic/r-neg.png" alt="Rules of Negation" width="550"  /></center><br/><br/>
