@@ -1,41 +1,21 @@
-<h3>Regras da Disjunção III</h3>
+<h3>Regras da Disjunção - Autoavaliação</h3>
 
-<p>Neste passo vamos explorar a regra <b>(∨ E)</b>, demonstrando que "α ∨ β, α → γ, β → δ ⊢ (γ ∨ δ)":</p>
+<p>Vimos as regras (∨ I <sub>1</sub>), (∨ I <sub>2</sub>) e (∨ E). </p><br/>
+
+<p>Confira demonstrando que : "⊢ (α ∨ (β ∧ γ)) → ((α ∨ β) ∧ (α ∨ γ))".</p>
+ 
 <pre><code>Require Import ProofWeb.
-Variables A B C D : Prop.
-Hypothesis P1 : A \/ B.
-Hypothesis P2 : A -> C.
-Hypothesis P3 : B -> D.
-Theorem example_13 :  (C \/ D).
+Variables A B C : Prop.
+Theorem example_14 :  (A \/ (B /\ C)) -> ((A \/ B) /\ (A \/ C)).
 Proof.</code></pre>
 
-<p>Bom, a regra <b>(∨ E)</b>, significa que se verificamos uma disjunção como "α ∨ β", assim como verificamos que de α derivamos uma fórmula φ e também verificamos que de  β derivamos igualmente uma fórmula φ, então pela regra <b>(∨ E)</b> verifica-se φ. Assim como a regra (⊥<sub>c</sub>), ela possibilita o uso de hipótese, funciona do seguinte modo: </p>
-<pre><code>dis_e (A \/ B) h0 h1.
-ass P1.</code></pre>
-
-<p>Observe os parâmetros da regra são a fórmula com a disjunção a ser eliminada (α ∨ β), e duas marcas novas h0 e h1, para as respectivas fórmulas da disjunção (α) e  (β). Escolhemos justamente a disjunção da premissa P1.</p>
-
-<p>Agora, continuamos a demonstração realizando a derivação de (C \/ D),  a partir da hipótese h1 com (A).</p>
-
-<pre><code>dis_i1.
-imp_e A.
-exact P2.
-exact h0.</code></pre>
-
-<p>Você poderia continuar a demonstração realizando a derivação de (C \/ D),  a partir da hipótese h2?</p>
+Mãos a obra! <br/>
 
 <code>
-???
+? ? ?
 </code>
+<br/>
 
+<p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 1, págs. 30-31. )</i></p><br/>
 
-<p><i>- Eliminação da disjunção</i> (∨ E): Significa que temos uma derivação de ψ, se tivermos as seguintes três condições: 
-<b>(a)</b> a asserção "α ∨ β" se verifica com uma uma derivação D<sub>1</sub><br/>
-<b>(b)</b> se supondo α com uma marca nova h<sub>i</sub>, temos uma derivação D<sub>2</sub> de ψ.<br/>
-<b>(c)</b> se supondo β com uma marca nova h<sub>j</sub>, temos uma derivação D<sub>3</sub> de ψ.<br/>
-<b>(d)</b> não ocorra conflito de marcas nas derivações, que a marca h<sub>i</sub> só descarte hipótese α na derivação D<sub>2</sub> e que marca h<sub>j</sub> só descarte hipótese β na derivação D<sub>3</sub>.</p><br/>
-<p>No Coq, o comando utilizado é <b>dis_e (α ∨ β) h<sub>i</sub> h<sub>j</sub></b>, com três parâmetros, tal que (α ∨ β) é a .</p>
-
-<p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 1, <b>págs. 36-39</b>. )</i></p>
-
-<center><img  src="images/logic/r-dis.png" alt="Rules of Disjunction" width="550"  /></center><br/><br/>
+<center><img  src="images/logic/r-disj.png" alt="Rules of Disjunction" width="550"  /></center><br/><br/>

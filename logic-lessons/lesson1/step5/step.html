@@ -1,36 +1,46 @@
-<h3>Exemplo de Demonstração no Coq</h3>
+<h3>Regras da Conjunção I</h3>
 
-<p>Com regras <i>Backward</i>, continuando a demonstração de "α, α → β, β → (γ ∧ δ) ⊢ γ" </p>
+<p>Agora que vimos um primeiro exemplo, vamos nos concentrar nas regras de cada conectivo.</p> <br/>
 
-<p>Observamos que a conclusão δ está também na premissa "β → (γ ∧ δ)".  Portanto, aplicamos a regra de eliminação da conjunção, passando como parâmetro o lado direito da conjunção: </p> 
+<p><i>- Introdução da conjunção</i> (∧ I): Representa o raciocínio em que se as asserções α e β verificam-se em separado, então verifica-se a sua conjunção. No Coq, o comando utilizado é <b>con_i</b>.</p><br/>
+
+<p><i>- Eliminação da conjunção à direita</i> (∧ E<sub>1</sub>): Significa que se a asserção α ∧ β se verifica, então verifica-se α em particular. 
+No Coq, o comando utilizado é <b>con_e1 β</b>, passando como parâmetro a fórmula proposicional à <i>direita</i> da conjunção eliminada.</p><br/>
+ 
+<p><i>- Eliminação da conjunção à esquerda</i> (∧ E<sub>2</sub>): De forma análoga, significa que se a asserção α ∧ β se verifica, então verifica-se β em particular. 
+No Coq, o comando utilizado é <b>con_e2 α</b>, passando como parâmetro a fórmula proposicional à <i>esquerda</i> da conjunção eliminada.</p><br/>
+
+
+<p>Vamos demonstrar a comutatividade da conjunção: "(α ∧ β) ⊢ (β ∧ α)". </p>
+
+<pre><code>Require Import ProofWeb.
+Variables A B : Prop.
+Hypothesis P1 : (A /\ B).
+Theorem example_02 : (B /\ A).
+Proof.</code></pre>
+
+
+<p>Como nossa conclusão possui a conjunção  como conectivo principal, podemos aplicar a regra de introdução da conjunção:</p>
 <code>
-con_e1 D.
-</code><br/> 
+con_i.
+</code><br/>
 
-<p>Esta conjunção -- (γ ∧ δ) -- é obtida através da eliminação da implicação (→ E), passando como parâmetro o antecedente da implicação β:</p>
-<code>
-imp_e B.
-</code><br/> 
 
-<p>E esta é exatamente a Premissa 3 --  "β → (γ ∧ δ)" --, por isso aplicamos o comando:</p>
+<p>Agora, devemos indicar de onde vieram <b>B</b> e <b>A</b>, ou seja, através das regras de (∧ E<sub>2</sub>) :</p>
 <code>
-exact P3.
-</code><br/> 
+con_e2 A.
+</code><br/>
 
-<p>Agora, nos resta verificar de onde obtemos a fórmula β. Analisando a premissa P2 -- "α → β" -- temos que β se verificarmos α, mas justamente α é a premissa P1, portanto, podemos aplicar a eliminação da implicação (→ E), dessa vez passando como parâmetro α:</p>
+
+Seguida da identificação exata de P1:<br/>
 <code>
-imp_e A.
+exact P1.
+</code><br/>
+
+<p><b><i>Para ter certeza que você entendeu, complete o restante da demonstração, antes de passar para o próximo passo!</i></b></p><br/>
+<code>
+? ? ?
 </code>
+<br/><br/>
 
-<p>E <i>voilá</i>, é só dizer que estas são exatamente as premissas <b>P2</b> (α → β) e <b>P1</b> (α).</p>
-<pre><code>exact P2.
-exact P1.</code></pre>
-
-Só completamos a demonstração com o comando, <i>como queríamos demonstrar</i>:<br/>
-<code>
-Qed.
-</code><br/><br/>
-
-<p>Usamos duas aplicações de <i>Eliminação da Implicação</i> (→ I) e uma aplicação de Eliminação da Conjunção a direita (∧ E<sub>d</sub>): </p><br/>
-<center><img  src="images/logic/r-ex0.png" alt="Rules of Implication" width="400"  /></center>
-
+<center><img  src="images/logic/r-conj.png" alt="Rules of Conjuction" width="550"  /></center>

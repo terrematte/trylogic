@@ -1,34 +1,36 @@
-<h3>Template para a Demonstração no Coq</h3>
+<h3>Exemplo de Demonstração no Coq</h3>
 
-<p>Vamos aplicar o Coq demonstrando o argumento: "α, α → β, β → (γ ∧ δ) ⊢ γ".<br/>
- Nossa tarefa é produzir uma árvore de derivação, na qual as premissas pertencem às Folhas abertas, i.e. {α, α → β, β → (γ ∧ δ)} ⊂ <i>F<sub>p</sub></i>, e γ é o nó raiz .</p><br/>
+<p>Continuando a demonstração de "α, α → β, β → (γ ∧ δ) ⊢ γ" </p><br/>
 
-<p>Primeiro, carregamos a teoria com as regras de inferência:</p>
+<p>Observamos que a conclusão δ está também na premissa "β → (γ ∧ δ)".  Portanto, aplicamos a regra de eliminação da conjunção, passando como parâmetro o lado direito da conjunção: </p> 
+<code>
+con_e1 D.
+</code><br/> 
 
-<p><code>Require Import ProofWeb.</code></p><br/>
+<p>Esta conjunção (γ ∧ δ) é obtida através da eliminação da implicação (→ E), passando como parâmetro o antecedente da implicação β:</p>
+<code>
+imp_e B.
+</code><br/> 
 
-<p>Em seguida, declaramos as <b>variáveis</b> que utilizaremos na demonstração: </p>
+<p>E esta é exatamente a premissa P3 (β → (γ ∧ δ)), por isso aplicamos o comando:</p>
+<code>
+exact P3.
+</code><br/> 
 
-<p><code>Variables A B C D: Prop.</code></p><br/>
+<p>Agora, nos resta verificar de onde obtemos a fórmula β. Analisando a premissa P2 (α → β) temos que β se verificarmos α, mas justamente α é a premissa P1, portanto, podemos aplicar a eliminação da implicação (→ E), dessa vez passando como parâmetro α:</p>
+<code>
+imp_e A.
+</code>
 
-<p>Observe que <b>A B C</b> são do tipo <b>Prop</b>, ou seja, são <i>variáveis proposicionais</i>.</p><br/>
-<p>Na sequência, declaramos as marcas <b>P1</b>, <b>P2</b> e <b>P3</b> para as Premissas:</p>
-<pre><code>Hypothesis P1 : A.
-Hypothesis P2: (A -> B).
-Hypothesis P3: (B -> (C /\ D)).</code></pre>
+<p>E <i>voilá</i>, é só dizer que estas são exatamente as premissas P2 (α → β) e P1 (α).</p>
+<pre><code>exact P2.
+exact P1.</code></pre>
 
-E declaramos o que desejamos demonstrar :</p>
+Só completamos a demonstração com o comando, <i>como queríamos demonstrar</i>:<br/>
+<code>
+Qed.
+</code><br/><br/>
 
-<code>Theorem example_00 : C.</code><br/>
+<p>Usamos duas aplicações de <i>Eliminação da Implicação</i> (→ I) e uma aplicação de Eliminação da Conjunção a direita (∧ E<sub>d</sub>): </p><br/>
+<center><img  src="images/logic/r-ex0.png" alt="Rules of Implication" width="350"  /></center>
 
-<p>Para iniciar a demonstração é preciso o comando:</p>
-
-<code>Proof.</code><br/>
-
-<p>Agora, sim podemos inserir as regras de inferência adequadas até demonstrarmos o desejado. <i>Vemos nos próximos passos.</i></p><br/>
-
-Confira também: <br/>
-
-- <a href="http://lolita.dimap.ufrn.br/proofweb/">ProofWeb - Interface de demonstração do Coq</a><br/>
-- <a href="http://lolita.dimap.ufrn.br/proofweb/tutorial-video.htm">Video tutorial para o ProofWeb</a><br/>
-- <a href="http://lolita.dimap.ufrn.br/proofweb/man.pdf">Manual do Proofweb</a><br/>

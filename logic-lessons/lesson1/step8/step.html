@@ -1,41 +1,37 @@
-<h3>Regras da Implicação I</h3>
+<h3>Regras da Implicação II</h3>
 
-<p><i>- Introdução da implicação</i> (→ I): Permite obter uma derivação α → β, a partir de uma derivação de β, e um conjunto de hipóteses que <i>pode</i> conter α. No Coq, o comando utilizado é <b>imp_i h</b> , passando como parâmetro uma marca <i>h</i> para a hipótese α que eventualmente pode ser descartada. Esta marca <i>h</i> na regra (→ I) deve pelo menos ser:</p><br/>
-<b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula α -- representando o antecedente da implicação introduzida, ou <br/>
-<b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação.<br/>
+<p>Vamos entender melhor o significado do <i>descarte</i> de hipóteses da regra <b>(→ I)</b>. Primeiro, vamos entender que o descarte de hipótese é um direito, i.e. com a regra <b>(→ I)</b> <i>ganhamos</i> hipóteses que podem eventualmente ser utilizadas, ou seja, pode ser que não precisemos. Informalmente, podemos supor diversas hipótese, mas não precisamos usar todas hipóteses para se chegar a determinada conclusão.</p><br/>
 
-<p><i>- Eliminação da implicação</i> (→ E): Permite concluir β, a partir de derivações de "α → β" e "β", também conhecido como <i>modus pones</i>. No Coq, o comando utilizado é <b>imp_e α</b>, passando como parâmetro o antecedente α da implicação a ser eliminada.</p> <br/>
-
-
-<p>Vamos demonstrar que "α → β, β → γ ⊢ α → γ".</p> 
-<br/>
-
+<p>Exemplificando com o teorema: "⊢ α → (β → α)"</p>
+ 
 <pre><code>Require Import ProofWeb.
-Variables A B C : Prop.
-Hypothesis P1 : A -> B.
-Hypothesis P2 : B -> C.
-Theorem example_04 : A -> C.
+Variables A B : Prop.
+Theorem example_05 :  A -> (B -> A).
 Proof.</code></pre>
 
-<p>Começamos pela introdução da implicação (→ I), passando a marca <b>h1</b> para representar a hipótese <b>A</b>: </p><br/>
+<p> Pelas lição anteriores, vimos que precisamos analisar os conectivos de todas fórmulas do que precisamos demonstrar. No caso, como temos uma implicação, tentar usar a regra <b>(→ I)</b>, com a marca h1 (poderia ser qualquer marca que fosse nova). </p> 
 <code>
 imp_i h1.
 </code><br/>
 
-Agora, podemos obter <b>C</b>, através de <b>P2</b> eliminando a implicação, passando o antecedente <b>B</b> como parâmetro, por fim, identificamos a premissa <b>P2</b>:<br/>
-<pre><code>imp_e B.
-exact P2.
-</code></pre>
+<p> Agora ganhamos uma nova hipótese <b>A</b> com a marca <b>h1</b>. Mas ainda não podemos fazer muita coisa. Vamos tentar aplicar a regra <b>(→ I)</b>:</p> 
+<code>
+imp_i h1.
+</code><br/>
 
-<p>Dessa vez, de forma análoga, eliminamos a implicação em <b>P1</b> com <b>A</b>.</p>
-<pre><code>imp_e A.
-exact P1.
-</code></pre>
+<p><i><b>Ops! Há um erro, você poderia corrigi-lo? Só escrever ao lado o comando correto.</b></i> Lembre-se das restrições das marcas.</p><br/>
 
-<p>Assim, completamos a demonstração.</p>
+<p>Bom, agora só dizer que esta fórmula é extamente a mesma da marca <b>h1</b>:</p>
+<code>
+exact h1.
+</code><br/>
+
+<p>Note que não usamos a hipótese <b>B</b> e a marca que você inseriu. Este é um exemplo de que <i>não somos obrigados</i> a usar todas as hipóteses descartadas pela regra (→ I), nem todas premissas para completar uma derivação.</p>
+
+<p>Pronto, completamos a demonstração:</p><br/>
 <code>
 Qed.
 </code>
-
+<br/>
+<br/>
 <center><img  src="images/logic/r-imp.png" alt="Rules of Implication" width="550"  /></center><br/><br/>
-
