@@ -4,10 +4,10 @@
 
 <p><i>- Introdução da conjunção</i> (∧ I): Representa o raciocínio em que se as asserções α e β verificam-se em separado, então verifica-se a sua conjunção. No Coq, o comando utilizado é <b>con_i</b>.</p><br/>
 
-<p><i>- Eliminação da conjunção à direita</i> (∧ E<sub>d</sub>): Significa que se as asserções α e β se verificam, então verifica-se α em particular. 
+<p><i>- Eliminação da conjunção à direita</i> (∧ E<sub>1</sub>): Significa que se a asserção α ∧ β se verifica, então verifica-se α em particular. 
 No Coq, o comando utilizado é <b>con_e1 β</b>, passando como parâmetro a fórmula proposicional à <i>direita</i> da conjunção eliminada.</p>
  
-<p><i>- Eliminação da conjunção à esquerda</i> (∧ E<sub>e</sub>): De forma análoga, significa que se as asserções α e β se verificam, então verifica-se β em particular. 
+<p><i>- Eliminação da conjunção à esquerda</i> (∧ E<sub>2</sub>): De forma análoga, significa que se a asserção α ∧ β se verifica, então verifica-se β em particular. 
 No Coq, o comando utilizado é <b>con_e2 α</b>, passando como parâmetro a fórmula proposicional à <i>esquerda</i> da conjunção eliminada.</p>
 
 
@@ -26,7 +26,7 @@ con_i.
 </code><br/>
 
 
-<p>Agora, devemos indicar de onde vieram <b>B</b> e <b>A</b>, ou seja, através das regras de (∧ E) :</p>
+<p>Agora, devemos indicar de onde vieram <b>B</b> e <b>A</b>, ou seja, através das regras de (∧ E<sub>2</sub>) :</p>
 <code>
 con_e2 A.
 </code><br/>

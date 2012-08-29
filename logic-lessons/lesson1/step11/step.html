@@ -4,14 +4,8 @@
 
 <center><b>¬ α ≡ α → ⊥ </b></center><br/>
 
-<p>Por isso, as regras da negação (¬ I) e (¬ E) são semelhantes às regras (→ I) e (→ E):</p>
+<p>Por isso, as regras da negação (¬ I) e (¬ E) são semelhantes às regras (→ I) e (→ E)</p>
  
-<p><i>- Introdução da negação </i> (¬ I): Permite obter uma derivação ¬ α, a partir de uma derivação de ⊥, e um conjunto de hipóteses que <i>pode</i> conter α. No Coq, o comando utilizado é <b>neg_i h</b> , passando como parâmetro uma marca <i>h</i> para a hipótese α que eventualmente pode ser descartada. Esta marca <i>h</i> na regra (¬ I) deve pelo menos ser:</p>
-<b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula α -- representando o antecedente da implicação introduzida, ou <br/>
-<b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação.<br/>
-
-<p><i>- Eliminação da implicação</i> (¬ E): Permite concluir ⊥, a partir de derivações de "¬ α" e "α". No Coq, o comando utilizado é <b>neg_e α</b>, passando como parâmetro a fórmula contraditória α.</p> <br/>
-
 <p>Vamos demonstrar o seguinte teorema: " ⊢ ¬ ¬( ¬ ¬ α → α)". </p>
 
 <pre><code>Require Import ProofWeb.
@@ -48,5 +42,12 @@ neg_e ??
 </code><br/>
 
 <p><i><b>Dica:</b> Explore as opções possíveis: <b>(A)</b>, <b>(~A)</b> e <b>(~~A -> A)</b></i></p>
+
+<p><i>- Introdução da negação </i> (¬ I): Permite obter uma derivação ¬ α, a partir de uma derivação de ⊥, e um conjunto de hipóteses que <i>pode</i> conter α. No Coq, o comando utilizado é <b>neg_i h</b> , passando como parâmetro uma marca <i>h</i> para a hipótese α que eventualmente pode ser descartada. Esta marca <i>h</i> na regra (¬ I) deve pelo menos ser:</p>
+<b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula α -- representando o antecedente da implicação introduzida, ou <br/>
+<b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação.<br/>
+
+<p><i>- Eliminação da implicação</i> (¬ E): Permite concluir ⊥, a partir de derivações de "¬ α" e "α". No Coq, o comando utilizado é <b>neg_e α</b>, passando como parâmetro a fórmula contraditória α.</p> <br/>
+
 
 <center><img  src="images/logic/r-neg.png" alt="Rules of Negation" width="550"  /></center><br/><br/>
