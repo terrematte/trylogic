@@ -1,22 +1,46 @@
-<h3>Lógica de Primeira Ordem no Coq</h3>
+<h3>Regras da Conjunção I</h3>
 
-<p>Nesta lição vamos apresentar um sistema dedutivo para a Lógica de Primeira Ordem: o sistema de dedução natural <i>N<sub>c</sub></i>.</p><br/>
+<p>Agora que vimos um primeiro exemplo, vamos nos concentrar nas regras de cada conectivo.</p> <br/>
 
+<p><i>- Introdução da conjunção</i> (∧ I): Representa o raciocínio em que se as asserções α e β verificam-se em separado, então verifica-se a sua conjunção. No Coq, o comando utilizado é <b>con_i</b>.</p><br/>
 
-<p><i>(Detalhes? leia o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 3.1, págs. 27-43. )</i></p><br/>
-
-<p><i>(Materiais e Exercicios <a href="http://sites.google.com/site/sequiturquodlibet/courses/laac/dn-lcpo">aqui</a>.)</i></p><br/>
-
-Confira também os Verbetes wikipédicos:<br/>
-- <a href="http://pt.wikipedia.org/wiki/L%C3%B3gica_de_primeira_ordem"> Lógica de primeira ordem</a><br/>
-- <a href="http://pt.wikipedia.org/wiki/L%C3%B3gica_de_segunda_ordem">Lógica de segunda ordem</a><br/>
-- <a href="http://pt.wikipedia.org/wiki/L%C3%B3gica_de_ordem_superior">Lógica de ordem superior</a><br/>
-- <a href="http://pt.wikipedia.org/wiki/Quantifica%C3%A7%C3%A3o">Quantificação</a><br/>
-- <a href="http://pt.wikipedia.org/wiki/Quantifica%C3%A7%C3%A3o_universal">Quantificação universal</a><br/>
-- <a href="http://pt.wikipedia.org/wiki/Quantifica%C3%A7%C3%A3o_existencial">Quantificação existencial</a><br/>
-- <a href="http://pt.wikipedia.org/wiki/Atribui%C3%A7%C3%A3o_%28l%C3%B3gica%29">Atribuição</a><br/>
-
-<br/>
+<p><i>- Eliminação da conjunção à direita</i> (∧ E<sub>1</sub>): Significa que se a asserção α ∧ β se verifica, então verifica-se α em particular. 
+No Coq, o comando utilizado é <b>con_e1 β</b>, passando como parâmetro a fórmula proposicional à <i>direita</i> da conjunção eliminada.</p><br/>
+ 
+<p><i>- Eliminação da conjunção à esquerda</i> (∧ E<sub>2</sub>): De forma análoga, significa que se a asserção α ∧ β se verifica, então verifica-se β em particular. 
+No Coq, o comando utilizado é <b>con_e2 α</b>, passando como parâmetro a fórmula proposicional à <i>esquerda</i> da conjunção eliminada.</p><br/>
 
 
+<p>Vamos demonstrar a comutatividade da conjunção: "(α ∧ β) ⊢ (β ∧ α)". </p>
 
+<pre><code>Require Import ProofWeb.
+Variables A B : Prop.
+Hypothesis P1 : (A /\ B).
+Theorem example_02 : (B /\ A).
+Proof.</code></pre>
+
+
+<p>Como nossa conclusão possui a conjunção  como conectivo principal, podemos aplicar a regra de introdução da conjunção:</p>
+<code>
+con_i.
+</code><br/>
+
+
+<p>Agora, devemos indicar de onde vieram <b>B</b> e <b>A</b>, ou seja, através das regras de (∧ E<sub>2</sub>) :</p>
+<code>
+con_e2 A.
+</code><br/>
+
+
+Seguida da identificação exata de P1:<br/>
+<code>
+exact P1.
+</code><br/>
+
+<p><b><i>Para ter certeza que você entendeu, complete o restante da demonstração, antes de passar para o próximo passo!</i></b></p><br/>
+<code>
+? ? ?
+</code>
+<br/><br/>
+
+<center><img  src="images/logic/r-conj.png" alt="Rules of Conjuction" width="550"  /></center>
