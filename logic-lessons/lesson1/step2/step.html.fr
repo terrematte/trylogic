@@ -1,2 +1,0 @@
-<h3>Système de Deduction N<sub>p</sub> avec le Coq</h3>
-

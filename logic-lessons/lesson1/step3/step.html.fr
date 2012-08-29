@@ -1,1 +1,0 @@
-<h3>Standard de Demonstration avec l'assistant Coq I</h3>
