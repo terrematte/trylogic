@@ -6,6 +6,7 @@ A funny way to learn Logic. It is available here:
 
 http://lolita.dimap.ufrn.br/trylogic
 
+
 TryLogic is based on ProofWeb (http://prover.cs.ru.nl/ ) and the TryOCaml (http://try.ocamlpro.com/) 
 developed with (http://ocsigen.org/js_of_ocaml/files/toplevel/index.html) and built with
 js_of_ocaml (see http://ocsigen.org/js_of_ocaml/).
