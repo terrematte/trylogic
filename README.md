@@ -19,9 +19,9 @@ js_of_ocaml (see http://ocsigen.org/js_of_ocaml/).
 
     $ make
 
-Then, with your favorite browser launch tryocaml/index.html:
+Then, you will need to install the ProofWeb, ass descrived here http://prover.cs.ru.nl/install.php and copy the 'pub/' directory to the CHROOT diretory of the ProofWeb.
 
-    $ chromium-browser tryocaml/index.html
+Finally use the Firefox to lauch the TryLogic.
 
 # Contribute lessons/steps/fixes
 
