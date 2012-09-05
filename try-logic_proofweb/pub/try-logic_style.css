@@ -35,7 +35,7 @@ body {
 #toplevel-container {
    padding: 10px;
    height: 100px;
-   width: 700px;
+   width: 100%;
    overflow: auto;
    overflow-x: hidden;
    color: #CCC;
@@ -44,10 +44,11 @@ body {
    -webkit-border-radius: 20px;
    -khtml-border-radius: 20px;
    border-radius: 20px;
+   margin-left :-20px;
 }
 
 .content {
-  padding-top: 50px;
+  padding-top: 0px;
   padding-bottom: 50px;
   min-height: 400px;
   background-color: white;
@@ -107,6 +108,11 @@ dl dt {
 
 #lesson-position {
     text-align: center;
+}
+
+#lesson-text {
+	height:390px; overflow: auto; overflow-x: hidden;
+	padding: 10px;
 }
 
 #lesson-text h3 {

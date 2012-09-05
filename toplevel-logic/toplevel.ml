@@ -66,7 +66,7 @@ let exec ppf s =
       (!Toploop.parse_use_file lb)
   with
     | Exit -> ()
-    (*| x    -> Errors.report_error ppf x*)
+    | x    -> Errors.report_error ppf x
 
 let _ =
   Toploop.set_exn_printer 
@@ -140,7 +140,7 @@ let rec refill_lexbuf s p ppf buffer len =
         let c = s.[!p] in
         incr p;
         buffer.[0] <- c;
-        if !at_bol then Format.fprintf ppf "";
+        if !at_bol then Format.fprintf ppf "#";
         at_bol := (c = '\n');
         if c = '\n' then
           Format.fprintf ppf "@."
@@ -237,7 +237,7 @@ let loop s ppf buffer =
         if s.[i] = ';' && s.[i+1] = ';' then need_terminator := false;
       done;
       output := [];
-      if !need_terminator then s else s
+      if !need_terminator then s ^ ";;" else s
     end
   in
   let lb = Lexing.from_function (refill_lexbuf s (ref 0) ppf) in
@@ -273,7 +273,7 @@ let loop s ppf buffer =
           End_of_input ->
             ensure_at_bol ppf;
             raise End_of_input
-        (*| x ->
+        | x ->
           let do_report_error =
             if !Tutorial.use_multiline then
               match !output with
@@ -285,7 +285,7 @@ let loop s ppf buffer =
             output := [];
             ensure_at_bol ppf;
             Errors.report_error ppf x
-          end *)
+          end 
       end;
     done
     with End_of_input ->
@@ -477,7 +477,7 @@ let run () =
         Js._true);
     reader##readAsText ((file :> (File.blob Js.t)));
     Js._false);
-  DragnDrop.make ~events:ev container;
+  DragnDrop.make ~events:ev container; *)
   (* End of Drag and drop part *)
   
   let tbox_init_size = textbox##style##height in
@@ -522,7 +522,7 @@ let run () =
 	       Js._false
 	     | _ -> Js._true
 	 end
-	 | _ -> Js._true)); *)
+	 | _ -> Js._true));
   
   let clear () = 
     output_area##innerHTML <- (Js.string "");
