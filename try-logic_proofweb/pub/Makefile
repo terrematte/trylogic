@@ -1,4 +1,4 @@
-ROOT=..
+ROOT=../..
 TRYLOGIC_NAME=try-logic
 LESSON_SET=$(ROOT)/logic-lessons
 
@@ -13,6 +13,6 @@ include $(ROOT)/Makefile.trylogic
 include $(ROOT)/Makefile.rules
 
 upload:
-	$(SCP) -C index.html webmaster@ssh.ocamlpro.com:/home/try.ocamlpro.com/www/index.html
+#	$(SCP) -C index.html webmaster@ssh.ocamlpro.com:/home/try.ocamlpro.com/www/index.html
 #	$(SCP) -C try-logic.js webmaster@
-	$(SCP) -C style.css webmaster@ssh.ocamlpro.com:/home/try.ocamlpro.com/www/style.css
+#	$(SCP) -C style.css webmaster@ssh.ocamlpro.com:/home/try.ocamlpro.com/www/style.css

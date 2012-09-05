@@ -41,6 +41,7 @@ end
 
 external global_data : unit -> global_data Js.t = "caml_get_global_data"
 
+
 let g = global_data ()
 
 let _ =
@@ -55,6 +56,7 @@ let _ =
   in
   g##compile <- compile (*XXX HACK!*)
 
+
 let exec ppf s =
   let lb = Lexing.from_string s in
   try
@@ -64,7 +66,7 @@ let exec ppf s =
       (!Toploop.parse_use_file lb)
   with
     | Exit -> ()
-    | x    -> Errors.report_error ppf x
+    (*| x    -> Errors.report_error ppf x*)
 
 let _ =
   Toploop.set_exn_printer 
@@ -80,7 +82,7 @@ let _ =
     )
 
 let start ppf =
-  Format.fprintf ppf "        Welcome to TryOCaml (v. %s)@.@." Sys.ocaml_version;
+  Format.fprintf ppf "Welcome to TryOCaml (v. %s)@.@." Sys.ocaml_version;
   Toploop.initialize_toplevel_env ();
   Toploop.input_name := "";
   List.iter (fun s ->
@@ -89,19 +91,20 @@ let start ppf =
     with e ->
       Printf.printf "Exception %s while processing [%s]\n%!" (Printexc.to_string e) s
   )  [
-    "Toploop.set_wrap true";
+    "Toploop.set_wrap false";
     "open Tutorial";
-    "#install_printer Toploop.print_hashtbl";
+ (*   "#install_printer Toploop.print_hashtbl";
     "#install_printer Toploop.print_queue";
     "#install_printer Toploop.print_stack";
     "#install_printer Toploop.print_lazy";
     "#install_printer N.print";
 
-(* for Num/Big_int: *)
+(*	for Num/Big_int: 	*)
     "#install_printer Topnum.print_big_int";
     "#install_printer Topnum.print_num";
     "#install_printer Toploop.print_exn";    
-    "open Topnum";
+    "open Topnum";*)
+    "lesson 1 ;;";
   ];
   ()
 
@@ -137,7 +140,7 @@ let rec refill_lexbuf s p ppf buffer len =
         let c = s.[!p] in
         incr p;
         buffer.[0] <- c;
-        if !at_bol then Format.fprintf ppf "# ";
+        if !at_bol then Format.fprintf ppf "";
         at_bol := (c = '\n');
         if c = '\n' then
           Format.fprintf ppf "@."
@@ -234,7 +237,7 @@ let loop s ppf buffer =
         if s.[i] = ';' && s.[i+1] = ';' then need_terminator := false;
       done;
       output := [];
-      if !need_terminator then s ^ ";;" else s
+      if !need_terminator then s else s
     end
   in
   let lb = Lexing.from_function (refill_lexbuf s (ref 0) ppf) in
@@ -270,7 +273,7 @@ let loop s ppf buffer =
           End_of_input ->
             ensure_at_bol ppf;
             raise End_of_input
-        | x ->
+        (*| x ->
           let do_report_error =
             if !Tutorial.use_multiline then
               match !output with
@@ -282,7 +285,7 @@ let loop s ppf buffer =
             output := [];
             ensure_at_bol ppf;
             Errors.report_error ppf x
-          end
+          end *)
       end;
     done
     with End_of_input ->
@@ -381,7 +384,7 @@ let add_history s =
 
 let run () =
   let top = get_element_by_id "toplevel"  in
-  let output_area = get_element_by_id "output" in
+  let output_area =  get_element_by_id "output" in    
   let buffer = Buffer.create 1000 in
   let ppf =
     let b = Buffer.create 80 in
@@ -406,23 +409,23 @@ let run () =
   let history_bckwrd = ref !history in
   let history_frwrd = ref [] in
 
-  let rec make_code_clickable () =
-    let textbox = get_element_by_id "console" in
-    let textbox = match Js.Opt.to_option (Html.CoerceTo.textarea textbox) with
-      | None   -> assert false
-      | Some t -> t in
+(* @terrematte : onclick -> ProofWeb *)
+  let make_code_clickable () =      
     let codes = Dom.list_of_nodeList (doc##getElementsByTagName(Js.string "code")) in
     List.iter (fun code ->
       let html =  code##innerHTML in
       let txt = text_of_html (Js.to_string html) in
       code##title <- Js.string (Tutorial.translate "Click here to execute this code");
-      code##onclick <- Html.handler (fun _ ->
-        textbox##value <- Js.string ( txt ^ ";;" );
-        execute ();
-        Js._true)
-    ) codes
-      
-  and execute () =
+      code##onclick <- Html.handler (fun _ -> 
+			Js.Unsafe.fun_call  (Js.Unsafe.variable "code_proof")[|Js.Unsafe.inject txt|]; 
+      Js._true)          
+  ) codes in
+
+  let execute () =
+    let textbox = get_element_by_id "console" in
+    let textbox = match Js.Opt.to_option (Html.CoerceTo.textarea textbox) with
+      | None   -> assert false
+      | Some t -> t in
     let s = Js.to_string textbox##value in
     if s <> "" then
       begin
@@ -434,14 +437,15 @@ let run () =
     textbox##value <- Js.string "";
     (try loop s ppf buffer with _ -> ());
     Tutorial.debug_fun := (fun s -> Firebug.console##log (Js.string s));
-    make_code_clickable ();
     textbox##focus();
     container##scrollTop <- container##scrollHeight 
   in 
   container##onclick <- Html.handler 
     (fun _ ->
-      textbox##focus();  textbox##select();  Js._true);
+      textbox##focus();  textbox##select();  Js._true);   
 
+(* @terrematte : Removed Drag and Drop. *)
+(*
   (* Start drag and drop part *)
   let ev = DragnDrop.init () in  
   (* Customize dropable part *)
@@ -518,7 +522,7 @@ let run () =
 	       Js._false
 	     | _ -> Js._true
 	 end
-	 | _ -> Js._true));
+	 | _ -> Js._true)); *)
   
   let clear () = 
     output_area##innerHTML <- (Js.string "");
@@ -606,28 +610,28 @@ let run () =
          init := true;
 
          append_children "lesson-left-button" [
-           Button.create_with_image "images/left2.png" 16 (Tutorial.translate "left2")
+           Button.create_with_image "pub/images/left2.png" 16 (Tutorial.translate "left2")
              (fun _ ->
                Tutorial.lesson (!Tutorial.this_lesson-1);
                update_lesson ();
              );
          ];
          append_children "lesson-right-button" [
-           Button.create_with_image "images/right2.png" 16 (Tutorial.translate "right2")
+           Button.create_with_image "pub/images/right2.png" 16 (Tutorial.translate "right2")
              (fun _ ->
                Tutorial.lesson (!Tutorial.this_lesson+1);
                update_lesson ();
              );
          ];
          append_children "step-left-button" [
-           Button.create_with_image "images/left1.png" 16 (Tutorial.translate"left1")
+           Button.create_with_image "pub/images/left1.png" 16 (Tutorial.translate"left1")
              (fun _ ->
                Tutorial.back();
              update_lesson ();
            );
          ];
          append_children "step-right-button" [
-           Button.create_with_image "images/right1.png" 16 (Tutorial.translate "right1")
+           Button.create_with_image "pub/images/right1.png" 16 (Tutorial.translate "right1")
              (fun _ ->
              Tutorial.next();
              update_lesson ();

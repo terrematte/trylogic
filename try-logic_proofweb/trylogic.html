@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Try Logic - Beta Version</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <link type="text/css" href="__PREFIX__try-logic_bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="__PREFIX__try-logic_style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="__PREFIX__webproof.css">
+    
+    <script type="text/javascript">
+	  var prover="__PROVER__"; 
+	  var user="__USER__"; 
+	  var design="__DESIGN__"; 
+	  var session="__SESSION__"; 
+	  var prefix="__PREFIX__"; 
+	  var provedit; 
+	  var mode="__MODE__"; 
+	  var login="__USER__"; 
+	  var pass="__PASS__"; 
+	  var file_name="__FILENAME__"; 
+	  var trees = 0;
+	</script>
+	<script type="text/javascript" src="__PREFIX__ajax.js"></script>
+	<script type="text/javascript" src="__PREFIX__browser.js"></script>
+	<script type="text/javascript" src="__PREFIX__buffer.js"></script>
+	<script type="text/javascript" src="__PREFIX____PROVER__.js"></script>
+	<script type="text/javascript" src="__PREFIX__prover.js"></script>
+	<script language="javascript" src="__PREFIX__domLib.js"></script>
+	<script language="javascript" src="__PREFIX__domMenu.js"></script>
+	<script language="javascript" src="__PREFIX__domMenu_items.js"></script>
+    </head>
+    
+<body onunload="unload()">
+	
+<div id="hidetext" style="visibility:hidden; height: 0px; ">__INP__</div>
+
+<table cellpadding=0 cellspacing=0 height="100%" width="100%">
+	<tr>
+		<td style="padding:0px;">
+			<div class="p" id="domMenu_BJ"></div>
+			<script language="javascript">domMenu_activate('domMenu_BJ');</script>
+		</td>
+	</tr>
+	<tr>	
+		<textarea tabindex='1' accesskey="," name="wpTextbox1" id="wpTextbox1" style="visibility: hidden; height: 1px; position: absolute; ">
+		</textarea>
+		<td width="2px">
+		</td>
+	</tr>
+</table>			
+<div>
+	<div class="content">
+		<div class="container">
+			<div class="row">
+				<div class="span7">
+					<div id="lesson-position">
+						<span id="lesson-left-button"></span>
+						<span id="lesson-number"></span>
+						<span id="lesson-right-button"></span>
+						<span id="lesson-step-spacer"></span>
+						<span id="step-left-button"></span>
+						<span id="lesson-step"></span>
+						<span id="step-right-button"></span>
+					</div>
+				<div class="alert-message block-message info" id="lesson-text" >
+						Type <code>lesson 1</code> to start the tutorial. <br />
+						<em>(click on the code to insert)</em>
+				</div>
+					<div id="lesson-message"></div>
+					<div id="menu-lessons"></div>
+				</div>
+			<div class="span9 ocaml">
+					<iframe id="frame_edit" src="__PREFIX__blank.html" height="300px" width="417px"></iframe>
+					
+				<div id="state">
+					<iframe id="frame_state" src="__PREFIX__blank.html" height="150px" width="417px"></iframe>
+				</div>
+			</div>
+        				
+			</div>
+			<div class="row">			
+ 					<div width="100%" id="error"> 
+							<iframe id="frame_error" src="__PREFIX__blank.html" height="270px" width="100%"></iframe>
+  					</div>
+								
+			</div>	
+		  <div id="toplevel-container">
+            <pre id="output"></pre>
+            <div id="sharp">#</div>
+            <div id="toplevel"></div>
+          </div>
+          <div id="buttons"></div>
+          
+          <table class="zebra-striped">
+            <thead><tr><th id="text-commands">Commands</th><th id="text-effects">Effects</th></tr></thead>
+            <tr><td id="text-enter">Ctrl +  Up / Down Arrow</td> <td id="text-submit">Submit/Undo code</td></tr>
+            <tr><td id="text-enter">Ctrl +  Left Arrow</td> <td id="text-submit">Submit at line</td></tr>
+            <tr><td id="text-newline">Shift + Enter</td><td id="text-multiline">Multiline edition</td></tr>
+          </table>
+          <div id="languages"></div>
+		</div>
+	</div>
+</div>				
+
+ 					<div height="5%" id="input" style="display: none">
+    					<iframe id="frame_input" src="__PREFIX__blank.html" height="100%" width="100%"></iframe>
+  					</div>
+  					
+  					<div height="5%" id="output" style="display: none">
+    					<iframe id="frame_output" src="__PREFIX__blank.html" height="100%" width="100%"></iframe>
+  					</div>	
+
+  	
+
+			
+			
+
+    
+
+
+<form name="gateway" action="logged.html" method="post" style="display:none;">
+	<input type="hidden" name="login" value="__USER__">
+	<input type="hidden" name="pass" value="__PASS__">
+</form>
+
+
+<script language="javascript">
+    function toggle_debug () {
+        var id = document.getElementById("input");
+        var od = document.getElementById("output");
+        if (id.style.display=="none") {
+            id.style.display = "";
+            od.style.display = "";
+        } else {
+            id.style.display = "none";
+            od.style.display = "none";
+        }
+    }
+</script>
+<script type="text/javascript">
+  function post_load () {
+    provedit = document.getElementById("hidetext").innerHTML;
+    document.getElementById("hidetext").innerHTML = "";
+    doc_coq = get_frame ("frame_edit");
+    doc_error.body.innerHTML = "<pre>__ERR__</pre>";
+    doc_state.body.innerHTML = "<pre>__OUT__</pre>";
+    setTimeout ('time_tider (); set_cursor();', 500);
+    need_getedit = true; set_all(provedit);
+    document.title = file_name + " - ProofWeb";
+    if (file_name == '') document.title = "Unnamed - ProofWeb";
+  }
+  all_load ();
+</script>
+
+    <div class="footer">
+      <div class="container">
+        <div class="ressources">
+          © 2011 <a href="http://ocamlpro.com/">OCamlPro</a> All rights reserved.
+
+   	 <br/>
+	 &copy; 2012 Logicamente, Some rights reserved.<br/>
+
+          <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
+            <img src="__PREFIX__images/somerightscc.gif" alt="Creative Commons License" style="border:none;" height="27" width="79"></a><br/>
+
+        </div>
+
+      </div>
+    </div>
+  <script type="text/javascript" src="__PREFIX__try-logic.js"></script>
+  </body>
+</html>
