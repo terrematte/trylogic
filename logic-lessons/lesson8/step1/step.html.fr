@@ -1,2 +1,66 @@
-<h3>Logique du Premier Ordre avec le Coq</h3>
+<h3>SEMp - Sistema de Refutação Semântica</h3>
+
+<p>Vamos apresentar um sistema semântico proposicional (SEM<sub>p</sub>) para verificar de árvores semânticas de refutações.</p><br/>
+
+ <p>Em SEM<sub>p</sub>, uma refutação é uma verificação de que existe pelo menos uma função de atribuição, ou uma avaliação de átomos satisfaz a conjunção das premissas (<p style="color:green;display:inline">||--</p> P1 /\ P2 /\ P3), mas não satisfaz a conclusão (<p style="color:red;display:inline">||-/-</p> C).</p><br/>
+
+<p>Basicamente, com SEM<sub>p</sub> podemos verificar se há um contra-exemplo de que α <b>não é consequência lógica </b> de um conjunto Γ de fórmulas. </p><br/>
+
+<p>Por exemplo, vamos verificar o seguinte contra-exemplo simples: α ⊭ (β ∨ γ). Trivial, pois basta indicar que 'v(α) = 1', e que por outro lado, 'v(β) = 0'  e 'v(γ) = 0'. Representamos o problema da seguinte forma: </p>
+
+<pre><code> Reset Initial. 
+Require Import Semantics. 
+Parameter A B C : Prop.
+
+Hypothesis f1 : (v ||-- A).
+Hypothesis f2 : (v ||-/- B). 
+Hypothesis f3 : (v ||-/- C). 
+
+Theorem Exer1 : (v ||-/- (A  -> (B \/ C)) ).
+Proof.
+</code></pre>
+
+<p>Carregamos o sistema SEM<sub>p</sub> pela teoria <b>Semantics</b>, e definimos que <b>f1 : (v <p style="color:green;display:inline">||--</p> A)</b>, <b>f2 : (v <p style="color:red;display:inline">||-/-</p> B)</b> e <b>f3 : (v <p style="color:red;display:inline">||-/-</p> C)</b>, significa v(A) = 1, v(B) = 0 e v(C) = 0, respectivamente.</p>
+
+<p>Agora iniciamos a verificação do contra-exemplo aplicando as regras do sistema. Como temos uma implicação que não é satisfeita aplicamos a regra:</p>
+
+<code>
+impF. 
+</code>
+
+<p>Observe que quase todas regras terão esse padrão <i>case-sensitive</i>, tendo em minusculo, o nome do conectivo e em maiúsculo um <b>F</b> para <b>insatisfatível</b> (v <p style="color:red;display:inline">||-/-</p> φ) e <b>T</b> para <b>satisfatível</b> (v <p style="color:green;display:inline">||--</p> φ).</p> <br/>
+
+<p>Agora, veja que temos a nossa valoração definida por f1 e aplicamos:</p>
+
+<code>
+exact f1.
+</code>
+
+<p> Seguimos agora com uma disjunção insatisfatível, portanto, aplicamos a regra:</p>
+
+<code>
+disjF.
+</code>
+
+<p>Agora, só nos resta identificar o resto da parte da função de atribuição escolhida: </p>
+
+<pre><code>ass f2.
+exact f3.
+</code></pre>
+
+<p>Assim, concluímos conforme queríamos refutar:</p>
+
+<code>
+Qed.
+</code>
+
+<p>Observe que para cada conectivo há regras para fórmulas insatisfatíveis e satisfatíveis. Note também que nenhuma das regras necessitam de parâmetros. </p>
+
+<p>Para a finalização das refutações semânticas, temos os seguintes requisitos:</p>
+
+<p>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</p>
+<p>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v||-- X) e (v ||-/- X).</p>
+<p>3º. Em cada hipótese formulada/des-comentada é preciso decidir entre "||--" ou "||-/-" no lugar de "??" no requisito 1º.</p> <br/><br/>
+
+
 

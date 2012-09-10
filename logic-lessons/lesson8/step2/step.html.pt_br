@@ -1,0 +1,90 @@
+<h3>SEMp - Sistema de Refutação Semântica</h3>
+
+
+<pre><code> Reset Initial. 
+Require Import Semantics. 
+Parameter A B C D : Prop.
+</code></pre>
+
+<p>Lembrando do Requisito 1º da Condição de Parada: </p>
+
+<p><b>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</b></p>
+
+Hypothesis f1 : (v ?? A).<br/>
+Hypothesis f2 : (v ?? B).<br/>
+...<br/>
+Hypothesis fm : (v ?? K).<br/>
+...<br/>
+Hypothesis fn : (v ?? N). <br/>
+
+<p><b>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses (atribuição) da forma (v||-- X) e (v ||-/- X).</b></p>
+<p><b>3º. Em cada hipótese formulada/des-comentada é preciso decidir entre "||--" ou "||-/-" no lugar de "??" no requisito 1º.</b></p>
+
+<p>- Nosso objetivo é encontrar tais atribuições :</p><br/>
+
+Hypothesis f4 : (v ?? C).<br/>
+Hypothesis f5 : (v ?? D).<br/>
+
+<p>Vamos iniciar sem definir a função de atribuição para C e D:</p>
+<pre><code> Theorem Exer2 : (v ||-/- ((C \/ D) -> (C /\ D))). 
+Proof.
+impF.
+</code></pre>
+
+<p>Agora como a disjunção é satisfatível, precisamos escolher que lado da disjunção a torna verdadeira. Vamos optar pelo lado direito:</p>
+<code>
+disjT2.
+</code>
+
+<p>Aqui o Comando "Focus n" permite alterar o ramo da arvore (Subgoal)  em que se está trabalhando para o ramo 'n'</p>
+
+<code>
+Focus 2.
+</code>
+
+<p>É possível voltar para o ramo anterior com o comando Unfocus:</p>
+
+<code>
+Unfocus.
+</code>
+
+<p>Agora, voltamos para o segundo ramo :</p>
+
+<code>
+Focus 2.
+</code>
+
+<p> Como a conjunção é insatisfatível, precisamos justificar por qual lado ela é falseada. Vamos  optar pelo lado esquerdo: </p>
+<code>
+conjF1.
+</code>
+
+<p> Opa! Chegamos na situação em que nossos dois primeiro requisitos da condição de Parada estão validados:</p>
+<p>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</p>
+<p>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v||-- X) e (v ||-/- X).</p>
+
+Logo, podemos, abortar a demonstração :
+
+<code>
+Abort. 
+</code>	
+
+<p> E copiar todos os passos da verificação, incluindo mesmo os passos com os comandos Focus/Unfocus : </p>
+<pre><code> Hypothesis f4 : (v ||-/- C).
+Hypothesis f5 : (v ||-- D).
+Theorem Exer2 : (v ||-/- ((C \/ D) -> (C /\ D))).
+Proof.
+impF.
+disjT2.
+Focus 2.
+Unfocus.
+Focus 2.
+conjF1.
+exact f4.
+exact f5.
+Qed.
+</code></pre>
+
+<br/>
+<br/>
+

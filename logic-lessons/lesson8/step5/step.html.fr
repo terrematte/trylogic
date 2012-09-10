@@ -1,0 +1,35 @@
+<h3>SEMp - Sistema de Refutação Semântica</h3>
+
+
+<pre><code> Reset Initial. 
+Require Import Semantics.
+Parameter G H I J: Prop.
+
+Hypothesis f8 : (v ||-- G).
+Hypothesis f9 : (v ||-- H). 
+Hypothesis f10 : (v ||-- I). 
+Hypothesis f11 : (v ||-/- J). 
+
+Theorem Exer4 : (v ||-/- (((G -> H) /\ (H -> I) /\ (J -> I)) -> (G -> J))).
+Proof.
+impF.
+conjT.
+impT2.
+exact f9.
+conjT.
+impT2.
+ass f10.
+impT2.
+ass f10.
+impF.
+ass f8.
+ass f11.
+Qed.
+</code></pre>
+
+
+<p>Para a finalização das refutações semânticas, temos os seguintes requisitos:</p>
+
+<p>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</p>
+<p>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v||-- X) e (v ||-/- X).</p>
+<p>3º. Em cada hipótese formulada/des-comentada é preciso decidir entre "||--" ou "||-/-" no lugar de "??" no requisito 1º.</p><br/><br/>

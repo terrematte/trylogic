@@ -1,2 +1,17 @@
-<h3>Système de Deduction N<sub>p</sub> avec le Coq</h3>
+<h3>TryLogic</h3>
+
+<p>Bem vindo, ao <b><i>TryLogic</i></b>!</p> <br/>
+
+<p>Aqui temos um tutorial interativo para aprender Lógica através do assistente de demonstração chamado <a href="http://coq.inria.fr/" title="O Coq permite a verificação de programas que satisfazem uma dada especificação formal, também possibilita realizar demonstrações em diversos sistemas lógicos (intuicionistas, temporais, modais, etc). Tem uma linguagem funcional de especificação (Gallina), baseada num λ-calculus tipificado polimórfico e noção primitiva de tipos indutivos.">Coq</a>.</p><br/>
+
+<p>No bloco superior à direita, vamos editar <img  src="/pub/images/edit.png" alt="Edit" width="17" /> e inserir comandos clicando em códigos que estão aqui no tutorial, por exemplo, veja o que acontece ao clicar neste comando: <code>Print Libraries.</code> São listadas as bibliotecas e teorias do Coq.</p><br/>
+
+<p>No bloco inferior à direita, vamos visualizar os <i>outputs</i> do Coq! </p><br/>
+
+<p>Por fim, no bloco abaixo, vamos visualizar nossas árvores <img  src="/pub/images/tree.png" alt="Edit" width="20" />  de Demonstrações!</p><br/>
+	
+<p>Nas próximas lições, vamos apresentar um sistema dedutivo para a lógica proposicional para realizar Demonstrações: o sistema de Dedução Natural <i>N<sub>p</sub></i>.</p><br/>
+
+
+
 

@@ -417,7 +417,7 @@ let run () =
       let txt = text_of_html (Js.to_string html) in
       code##title <- Js.string (Tutorial.translate "Click here to execute this code");
       code##onclick <- Html.handler (fun _ -> 
-			Js.Unsafe.fun_call  (Js.Unsafe.variable "code_proof")[|Js.Unsafe.inject txt|]; 
+			ignore (Js.Unsafe.fun_call  (Js.Unsafe.variable "code_proof")[|Js.Unsafe.inject txt|]); 
       Js._true)          
   ) codes in
 
@@ -590,8 +590,52 @@ let run () =
       update_lesson ();
       Js._true);
   Dom.appendChild form sel;
-  let langs = get_element_by_id "languages" in
+  let langs = get_element_by_id "menu_languages" in
   Dom.appendChild langs form;
+ 
+  (* @terrematte :  Choose your Lesson *)
+let form_lessons = Html.createDiv doc in
+  let sel_lessons = Dom_html.createSelect doc in
+  sel_lessons##id <- Js.string "lessons";
+  let titles = Tutorial.lessons_title () in
+  for i = 0 to (Array.length titles) - 1 do
+    let opt = Html.createOption doc in
+    Dom.appendChild opt (doc##createTextNode (Js.string titles.(i)));
+    sel_lessons##add (opt, Js.null);
+  done;
+  sel_lessons##onchange <-
+    Html.handler
+    (fun _ ->
+      Tutorial.lesson (sel_lessons##selectedIndex +1);
+      update_lesson ();
+      Js._true);  
+  Dom.appendChild form_lessons sel_lessons;
+  let menu_lessons = get_element_by_id "menu_lessons" in
+  Dom.appendChild menu_lessons form_lessons;
+
+
+ (* 
+
+  let form_lessons = Html.createDiv doc in
+  let sel_lessons = Dom_html.createSelect doc in
+  sel_lessons##id <- Js.string "lessons";
+  let titles = Tutorial.lessons_title () in
+  for i = 0 to (Array.length titles) - 1 do
+    let opt = Html.createOption doc in
+    Dom.appendChild opt (doc##createTextNode (Js.string titles.(i)));
+    sel_lessons##add (opt, Js.null);
+  done;
+  sel_lessons##onchange <-
+    Html.handler
+    (fun _ ->
+      Tutorial.lesson (sel_lessons##selectedIndex + 1);
+      update_lesson ();
+      Js._true);  
+  Dom.appendChild form_lessons sel_lessons;
+  let menu_lessons = get_element_by_id "menu_lessons" in
+  Dom.appendChild menu_lessons form_lessons;
+
+*)
 
   set_cols 80;
   append_children "buttons" [
@@ -646,7 +690,7 @@ let run () =
 
   (* Function to handle cookie operations *)
   let get_lang_from_cookie () =
-    let default_lang = "en" in
+    let default_lang = "pt_br" in
     let cookie = Cookie.get_cookie () in
     try 
       snd (List.find (fun (key, value) -> key = "lang" ) cookie)

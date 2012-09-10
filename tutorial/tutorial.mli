@@ -32,6 +32,8 @@ val lang : unit -> string
 
 val langs : (string * (string * (string,string) Hashtbl.t) ) list
 
+val lessons_title : unit -> string array
+
 val translate : string -> string
 
 external int_of_int : int -> int = "%identity"

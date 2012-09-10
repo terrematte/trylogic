@@ -1,0 +1,79 @@
+<h3>SEMp - Sistema de Refutação Semântica</h3>
+
+
+<pre><code> Reset Initial. 
+Require Import Semantics.
+Parameter  P Q R S: Prop.
+Theorem Sequitur : (v ||-/- ((((R /\ S) -> P) /\ (Q -> R)) -> (S -> (Q -> P)))).
+Proof.
+impF.
+conjT.
+impT1.
+conjF2.
+
+(*Aqui o Comando Focus permite alterar a Subgoal que se está trabalhando *)
+Focus 2.
+impT2.
+(* Aqui é preciso aplicar um Unfocus, pois só se troca de subgoal uma vez. *)
+Unfocus.
+Focus 3.
+
+(* Aqui nesse próximo passo, verifico que não pode ser v(S) = F. Voltamos para quando foi definido. *)
+impF.
+Undo.
+Undo.
+Undo.
+Undo.
+Undo.
+Undo.
+conjF1.
+
+Focus 2.
+impT2.
+
+(* Ops, escolha ruim para R! *)
+Undo.
+impT1.
+Unfocus.
+Focus 3.
+impF.
+Focus 2.
+impF.
+
+(* Novamente, outro problema v(Q)= T , não pode! *)
+
+(* Ao que indica temos um argumento demonstrável! *)
+
+Abort.
+</code></pre>
+
+<p>Vamos tentar demonstrar usando dedução Natural: </p>
+
+<pre><code>
+ Require Import ProofWeb.
+
+(* Parameter A B C D P Q R S: Prop. *)
+
+Hypothesis P12 : ((R /\ S) -> P).
+Hypothesis P13 : (Q -> R).
+
+Theorem Sequitur : (S -> (Q -> P)).
+Proof.
+imp_i H1.
+imp_i H2.
+imp_e (R /\ S).
+ass P12.
+con_i.
+imp_e Q.
+ass P13.
+ass H2.
+ass H1.
+Qed.
+</code></pre>
+
+
+<p>Para a finalização das refutações semânticas, temos os seguintes requisitos:</p>
+
+<p>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</p>
+<p>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v||-- X) e (v ||-/- X).</p>
+<p>3º. Em cada hipótese formulada/des-comentada é preciso decidir entre "||--" ou "||-/-" no lugar de "??" no requisito 1º.</p><br/><br/>

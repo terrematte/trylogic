@@ -46,6 +46,7 @@ let this_step_check = ref (fun _ _ -> false)
 let this_step_title = ref ""
 let this_step_html = ref ""
 
+
 let lessons_table =
   let all_lessons =
     let max_lesson = ref 1 in
@@ -185,6 +186,19 @@ let lessons () =
   done;
   if not !left then Printf.printf "\n%!"
 
+
+
+let lessons_title () =
+  let titles = ref [||] in
+  for i = 0 to Array.length lessons_table - 1 do
+    match lessons_table.(i) with
+        None -> ()
+      | Some (lesson_title, lesson_html, lesson_langs, steps) ->
+        let (title, html) = get_lesson lesson_title lesson_html lesson_langs in
+          titles := Array.append !titles [|title|];
+  done; 
+  !titles
+
 let steps () =
   Printf.printf "%s %d:\n%!" (translate "All steps in lesson")!this_lesson;
   for i = 0 to Array.length !this_lesson_steps - 1 do
@@ -207,7 +221,6 @@ let set_lang lang =
   !update_lang_fun ()
 
 let lang () = !current_lang
-
 
 external int_of_int : int -> int = "%identity"
 external nativeint_of_nativeint : nativeint -> nativeint = "%identity"

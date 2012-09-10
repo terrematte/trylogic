@@ -6,12 +6,38 @@ body {
 tr {
   vertical-align: top;
 }
-iframe {
+#frame_edit {
   margin: 0px;
   padding: 0px;
   border: 1px solid;
   background-color: #ffffff;
+  background-image: url(pub/images/edit.png);
+  background-repeat: no-repeat;
+  background-origin: padding-box;
+  background-position: 5px 5px;
+  background-size: 25px 23px;
 }
+
+#frame_state {
+  margin: 0px;
+  padding: 0px;
+  border: 1px solid;
+  background-color: #EBFFEB;
+  color:#507D2A;
+}
+#frame_error {
+  margin: 0px;
+  padding: 0px;
+  border: 1px solid;
+  background-color: #EBFFEB;
+  color:#507D2A;
+  background-image: url(pub/images/tree.png);
+  background-repeat: no-repeat;
+  background-origin: padding-box;
+  background-position: 5px 5px;
+  background-size: 30px 35px;  
+}
+
 div {
   padding: 0px;
   margin: 0px;

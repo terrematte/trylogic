@@ -20,7 +20,7 @@ js_of_ocaml (see http://ocsigen.org/js_of_ocaml/).
 
     $ make
 
-Then, you will need to install the ProofWeb, ass descrived here http://prover.cs.ru.nl/install.php and copy the 'pub/' directory to the CHROOT diretory of the ProofWeb.
+Then, you will need to install the ProofWeb, as descrived here http://prover.cs.ru.nl/install.php and copy the 'pub/' directory to the CHROOT diretory of the ProofWeb.
 
 Finally use the Firefox to lauch the TryLogic.
 

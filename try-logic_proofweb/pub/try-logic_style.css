@@ -102,6 +102,21 @@ table {
     height: 500px;
 }
 
+#menu_languages > div {
+	display:inline;
+    margin: 1px;
+    padding: 1px;
+    width: 160px;
+}
+
+
+#menu_lessons > div {
+    display:inline;
+    margin: 1px;
+    padding: 1px;
+    width: 160px;
+}
+
 dl dt {
    font-weight: normal;
 }

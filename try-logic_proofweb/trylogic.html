@@ -56,13 +56,15 @@
 			<div class="row">
 				<div class="span7">
 					<div id="lesson-position">
+    					<span id="menu_lessons"></span>&nbsp;
 						<span id="lesson-left-button"></span>
 						<span id="lesson-number"></span>
 						<span id="lesson-right-button"></span>
 						<span id="lesson-step-spacer"></span>
 						<span id="step-left-button"></span>
 						<span id="lesson-step"></span>
-						<span id="step-right-button"></span>
+						<span id="step-right-button"></span>&nbsp;
+						<span id="menu_languages"></span>
 					</div>
 				<div class="alert-message block-message info" id="lesson-text" >
 						Type <code>lesson 1</code> to start the tutorial. <br />
@@ -82,16 +84,17 @@
 			</div>
 			<div class="row">			
  					<div width="100%" id="error"> 
-							<iframe id="frame_error" src="__PREFIX__blank.html" height="270px" width="100%"></iframe>
+							<iframe id="frame_error" src="__PREFIX__blank.html" height="300px" width="100%" ></iframe>
   					</div>
 								
 			</div>	
-		  <div id="toplevel-container">
+		  <div id="toplevel-container"  >
             <pre id="output"></pre>
             <div id="sharp">#</div>
             <div id="toplevel"></div>
           </div>
-          <div id="buttons"></div>
+          <div id="buttons" style="visibility:hidden;" ></div>
+          <!-- <div id="buttons" style="visibility:hidden;" ></div>  -->
           
           <table class="zebra-striped">
             <thead><tr><th id="text-commands">Commands</th><th id="text-effects">Effects</th></tr></thead>
@@ -99,7 +102,6 @@
             <tr><td id="text-enter">Ctrl +  Left Arrow</td> <td id="text-submit">Submit at line</td></tr>
             <tr><td id="text-newline">Shift + Enter</td><td id="text-multiline">Multiline edition</td></tr>
           </table>
-          <div id="languages"></div>
 		</div>
 	</div>
 </div>				
