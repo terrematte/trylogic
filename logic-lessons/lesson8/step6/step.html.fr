@@ -12,7 +12,7 @@
 (3) v <p class="sat">||--</p>  (D -> C) e  <br/>
 (4) v <p class="uns">||-/-</p> (A -> D)
 
-<p class="uns"><b><i>IMPORTANTE.</i></b></p><p> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
 
 Por (4), sabemos que (5) (4) v <p class="sat">||--</p> A  e (6) v <p class="uns">||-/-</p> D.<br/>
 

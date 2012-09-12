@@ -16,7 +16,7 @@
 
 <p>Para exemplificar, vamos tentar analisar a seguinte fórmula |~ (~A -> B) /\ (~A /\ ~B). Aplicando uma heurística, como trata-se de uma fórmula, se supormos que a fórmula é <i>insatisfazível</i>, vamos precisar demonstrar que para <i>todas</i> as interpretações possíveis são contraditórias. Para isso precisamos explorar 2<sup>n</sup>, tal que n é número de átomos proposicionais. Esta não é uma boa estratégia!</p>
 
-<p class="uns"><b><i>IMPORTANTE.</i></b></p><p> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
 
  <p>Suponha por absurdo que a fórmula seja <i>satisfazível</i>, isto é, suponha que exista uma estrutura de interpretação v tal que:</p>
 (1) v <p class="sat">||--</p> (~A -> B)  <br/>
