@@ -1,6 +1,8 @@
 <h3>SEMp - Sistema de Refutação Semântica - Prática</h3>
 
-<p>Vamos agora usar nossa teoria semântica para mostrar que nossa uma refutação da fórmula. Começamos com nosso preâmbulo :  </p>
+<p><b><i>Continuando o passo anterior.</i></b> Vamos agora sim usar nossa teoria semântica para <b>refutar</b> a fórmula (~A -> B) /\ (~A /\ ~B).</p>
+
+<p> Começamos com nosso preâmbulo :  </p>
 
 <pre><code>Reset Initial. 
 Require Import Semantics. 

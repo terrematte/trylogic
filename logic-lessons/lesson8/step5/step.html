@@ -1,6 +1,8 @@
-<h3>SEMp - Sistema de Refutação Semântica - Prática</h3>
+<h3>SEMp - Sistema de Refutação Semântica - Autoavaliação</h3>
 
-<p>Vamos usar heurística para se descobrir se o argumento (A -> B),  B |~ A, é demonstrável  - (A -> B), B ⊢ A -, ou refutável, - (A -> B), B ⊭ A.</p>
+<p>Vamos usar heurística para se descobrir qual das duas opções é o argumento (A -> B),  B |~ A :</p>
+(i) <i>Demonstrável</i>  - (A -> B), B ⊢ A -, ou <br/>
+(ii) </i>Refutável</i> - (A -> B), B ⊭ A. <br/>
 
 <p> Usando a noção de consequência semântica, se supormos que o argumento é válido, então vamos ter que analísar <b>todas as estruturas</b> de interpretação que satisfazem (E -> F) e F, para verificar se também satisfazem E. Neste argumento simples, podemos explorar todos os casos, mas esta não é a melhor estratégia para argumentos complexos.</p>
 
@@ -8,7 +10,9 @@
 
 (1) v <p class="sat">||--</p> (A -> B) e  (2) v <p class="sat">||--</p> B, mas (3) v <p class="uns">||-/-</p> A. <br/>
 
-Como por (2), sabemos que  v <p class="sat">||--</p> (A -> B) pela afirmação do consequente. Assim como por (1), inferimos também que <p class="sat">||--</p> (A -> B), pela negação do antecedente. Temos que com v <p class="uns">||-/-</p> A e v <p class="sat">||--</p> B, podemos refutar a fórmula que representa a conjunção das premissas implicando na conclusão, ou seja, (v <p class="uns">||-/-</p> (((A -> B) /\ B) -> A)). <br/>
+<p class="uns"><b><i>IMPORTANTE.</i></b></p><p> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
+
+Bom, por (2), sabemos que  v <p class="sat">||--</p> (A -> B) pela afirmação do consequente. Assim como por (1), inferimos também que <p class="sat">||--</p> (A -> B), pela negação do antecedente. Temos que com v <p class="uns">||-/-</p> A e v <p class="sat">||--</p> B, podemos refutar a fórmula que representa a conjunção das premissas implicando na conclusão, ou seja, (v <p class="uns">||-/-</p> (((A -> B) /\ B) -> A)). <br/>
 
 <p>Agora a sua vez de refutar na Teoria Semantica que <i>existe pelo menos uma</i> estrutura de interpretação v, tal que :  (A -> B), B ⊭ A</p>
 
@@ -24,11 +28,10 @@ Proof.
 
 
 
-<p>Lembrando que para a finalização das refutações semânticas, temos os seguintes requisitos:</p>
-
-<p>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</p>
-<p>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v||-- X) e (v ||-/- X).</p>
-<p>3º. Em cada hipótese formulada/des-comentada é preciso decidir entre "||--" ou "||-/-" no lugar de "??" no requisito 1º.</p><br/>
+<p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i></p>
+<p><b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros. </p>
+<p><b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <p class="sat">||--</p> X) e (v <p class="uns">||-/-</p> X).</p>
+<p><b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <p class="sat">||--</p>" ou "v <p class="uns">||-/-</p>" no lugar de "??" no requisito 1º.</p><br/>
 
 <center>* * *</center>
 <br/>

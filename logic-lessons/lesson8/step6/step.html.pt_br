@@ -1,15 +1,38 @@
+<h3>SEMp - Sistema de Refutação Semântica</h3>
 
+<p>Vamos usar heurística para se descobrir qual das duas opções é o argumento (A -> B), (B -> C), (D -> C) |~ A -> D </p>
+
+(i) <i>Demonstrável</i>  - (A -> B), (B -> C), (D -> C) ⊢ (A -> D), ou <br/>
+(ii) <i>Refutável</i> - (A -> B), (B -> C), (D -> C) ⊭ (A -> D). <br/>
+
+<p>Vamos supor que exista uma estrutura de interpretação em que  </p>
+
+(1) v <p class="sat">||--</p> (A -> B),  <br/>
+(2) v <p class="sat">||--</p> (B -> C),  <br/>
+(3) v <p class="sat">||--</p>  (D -> C) e  <br/>
+(4) v <p class="uns">||-/-</p> (A -> D)
+
+<p class="uns"><b><i>IMPORTANTE.</i></b></p><p> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
+
+Por (4), sabemos que (5) (4) v <p class="sat">||--</p> A  e (6) v <p class="uns">||-/-</p> D.<br/>
+
+Com efeito, por (5) e (1) confirmamos que B tem ser satisfatível : (7) <p class="sat">||--</p> B. <br/>
+
+Da mesma forma, por (7) e (2), C tem que ser satisfatível : (8)  <p class="sat">||--</p> C. <br/>
+
+Assim, conferimmos que todos os atooms confirmamos as valorações das fórmulas complexas.
+
+<br/>
 
 <pre><code> Reset Initial. 
 Require Import Semantics.
-Parameter G H I J: Prop.
+Parameter A B C D : Prop.
 
-Hypothesis f8 : (v ||-- G).
-Hypothesis f9 : (v ||-- H). 
-Hypothesis f10 : (v ||-- I). 
-Hypothesis f11 : (v ||-/- J). 
-
-Theorem sem_ex5 : (v ||-/- (((G -> H) /\ (H -> I) /\ (J -> I)) -> (G -> J))).
+Hypothesis f8 : (v ||-- A).
+Hypothesis f9 : (v ||-- B). 
+Hypothesis f10 : (v ||-- C). 
+Hypothesis f11 : (v ||-/- D). 
+Theorem sem_ex5 : (v ||-/- (((A -> B) /\ (B -> C) /\ (D -> C)) -> (A -> D))).
 Proof.
 impF.
 conjT.
