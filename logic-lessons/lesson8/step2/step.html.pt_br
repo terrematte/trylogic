@@ -1,90 +1,38 @@
-<h3>SEMp - Sistema de Refutação Semântica</h3>
+<h3>SEMp - Sistema de Refutação Semântica - Teoria</h3>
 
+<p>Vamos agora pensar na heurística para se descobrir se uma fórmula, ou um argumento é <i>Válida</i>, <i>Contraditório</i> ou <i>Contingente</i>.</p>
 
-<pre><code> Reset Initial. 
-Require Import Semantics. 
-Parameter A B C D : Prop.
-</code></pre>
+<p>Nossa estratégia é apresentar, uma refutação - <i>ou uma demonstração</i> - de uma asserção, ou seja, Γ |~ α . A ideia é descobrir se vamos refutar ou demonstrar, ou seja, se o simbolo |~ deve ser ⊢ ou ⊭ .  </p>
 
-<p>Lembrando do Requisito 1º da Condição de Parada: </p>
+<p><i>Não confunda os operadores ⊢, ⊨ e ⊩ . São operadores distintos e de 'universos' distintos.</i></p>
 
-<p><b>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</b></p>
+<p>Lembramos que o operador ⊢ se refere a demonstração de que uma fórmula é consequência de um conjunto de hipóteses, usando manipulação simbólica das fórmulas. Com ele dizemos: Γ ⊢ α  ≈ "A partir do conjunto Γ de fórmulas, existe pelo menos uma árvore de derivação tendo α como consequência".</p>
 
-Hypothesis f1 : (v ?? A).<br/>
-Hypothesis f2 : (v ?? B).<br/>
-...<br/>
-Hypothesis fm : (v ?? K).<br/>
-...<br/>
-Hypothesis fn : (v ?? N). <br/>
+<p>O operador ⊨ trata de consequencia semântica, serve para indicar se uma fórmula é consequência semântica de um conjunto de fórmulas, analisando o que acontece em todas estruturas de interpretações.  Assim, expressamos que Γ  ⊨ α  ≈ "α é <i>consequência semântica</i> de Γ, se para todas estruturas de interpretação v que satifazem Γ, também satisfazem α". </p>
 
-<p><b>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses (atribuição) da forma (v||-- X) e (v ||-/- X).</b></p>
-<p><b>3º. Em cada hipótese formulada/des-comentada é preciso decidir entre "||--" ou "||-/-" no lugar de "??" no requisito 1º.</b></p>
+<p>Já o operador ⊩ representa o que ocorre com <i>uma fórmula</i> em <i>uma determinada estrutura</i> de interpretação. Representamos da seguinte forma: v ⊩ φ  ≈ "Um estrutura de interpretação <b>v</b> <i>satisfaz</i> a fórmula <b>φ</b>. </p> <br/>
 
-<p>- Nosso objetivo é encontrar tais atribuições :</p><br/>
+<p>Por tanto, para refutar um argumento e dizer que não é possível construir uma árvore em Dedução Natural, precisamos mostrar que Γ ⊭ α, ou seja, que <b>existe pelo menos uma</b> determinada estrutura de interpretação <b>v</b> que v <p class="sat">||--</p> Γ (v satisfaz gama), mas que v <p class="uns">||-/-</p> α. </p>
 
-Hypothesis f4 : (v ?? C).<br/>
-Hypothesis f5 : (v ?? D).<br/>
+<p>Para exemplificar, vamos tentar analisar a seguinte fórmula |~ (~A -> B) /\ (~A /\ ~B). Aplicando uma heurística, como trata-se de uma fórmula, se supormos que a fórmula é <i>insatisfazível</i>, vamos precisar demonstrar que para <i>todas</i> as interpretações possíveis são contraditórias. Para isso precisamos explorar 2<sup>n</sup>, tal que n é número de átomos proposicionais. Esta não é uma boa estratégia!</p>
 
-<p>Vamos iniciar sem definir a função de atribuição para C e D:</p>
-<pre><code> Theorem Exer2 : (v ||-/- ((C \/ D) -> (C /\ D))). 
-Proof.
-impF.
-</code></pre>
+ <p>Suponha por absurdo que a fórmula seja <i>satisfazível</i>, isto é, suponha que exista uma estrutura de interpretação v tal que:</p>
+(1) v <p class="sat">||--</p> (~A -> B)  <br/>
+(2) v <p class="sat">||--</p> (~A /\ ~B) 
 
-<p>Agora como a disjunção é satisfatível, precisamos escolher que lado da disjunção a torna verdadeira. Vamos optar pelo lado direito:</p>
-<code>
-disjT2.
-</code>
+<p> De (2) segue que :</p>
+(3) v <p class="sat">||--</p> ~A , e  <br/>
+(4) v <p class="sat">||--</p> ~B 
 
-<p>Aqui o Comando "Focus n" permite alterar o ramo da arvore (Subgoal)  em que se está trabalhando para o ramo 'n'</p>
+<p> De (4) segue que :</p>
+(5) v <p class="uns">||-/-</p> B
 
-<code>
-Focus 2.
-</code>
+<p>Concluimos então, de (3) e (5), que </p>
+(6) v <p class="uns">||-/-</p> ~A -> B
 
-<p>É possível voltar para o ramo anterior com o comando Unfocus:</p>
+<p>Absurdo de (i) e (vi). Logo, a fórmula é uma contradição.</p> <br/>
 
-<code>
-Unfocus.
-</code>
+<p>Portanto, <i>qualquer</i> valoração para A e B são contra-exemplos de refutação da fórmula. </p><br/>
 
-<p>Agora, voltamos para o segundo ramo :</p>
-
-<code>
-Focus 2.
-</code>
-
-<p> Como a conjunção é insatisfatível, precisamos justificar por qual lado ela é falseada. Vamos  optar pelo lado esquerdo: </p>
-<code>
-conjF1.
-</code>
-
-<p> Opa! Chegamos na situação em que nossos dois primeiro requisitos da condição de Parada estão validados:</p>
-<p>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</p>
-<p>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v||-- X) e (v ||-/- X).</p>
-
-Logo, podemos, abortar a demonstração :
-
-<code>
-Abort. 
-</code>	
-
-<p> E copiar todos os passos da verificação, incluindo mesmo os passos com os comandos Focus/Unfocus : </p>
-<pre><code> Hypothesis f4 : (v ||-/- C).
-Hypothesis f5 : (v ||-- D).
-Theorem Exer2 : (v ||-/- ((C \/ D) -> (C /\ D))).
-Proof.
-impF.
-disjT2.
-Focus 2.
-Unfocus.
-Focus 2.
-conjF1.
-exact f4.
-exact f5.
-Qed.
-</code></pre>
-
-<br/>
-<br/>
-
+<p><i>Na próxima lição, vamos verificar o contra-exemplo aplicando nossa Teoria Semântica. </i></p>
+						

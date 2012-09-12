@@ -14,7 +14,7 @@ Proof.</code></pre>
 <pre><code>dis_e (A \/ B) h0 h1.
 ass P1.</code></pre>
 
-<p>Observe que os parâmetros da regra são a fórmula com a disjunção a ser eliminada (α ∨ β), e duas marcas novas h0 e h1, para as respectivas fórmulas da disjunção (α) e  (β). Escolhemos justamente a disjunção da premissa P1.</p>
+<p>Observe que os parâmetros da regra são a fórmula com a disjunção a ser eliminada (α ∨ β), e duas marcas novas h0 e h1, para as respectivas fórmulas da disjunção (α) e  (β). Escolhemos justamente a disjunção da premissa P1.</p><br/>
 
 <p>Agora, continuamos a demonstração realizando a derivação de (C \/ D),  a partir da hipótese h0 com (A).</p>
 
@@ -23,7 +23,7 @@ imp_e A.
 exact P2.
 exact h0.</code></pre>
 
-<p>Você poderia continuar a demonstração realizando a derivação de (C \/ D),  a partir da hipótese h1 ?</p>
+<p><i>Você poderia continuar a demonstração realizando a derivação de (C \/ D),  a partir da hipótese <b>h1</b> ?</i></p>
 
 <code>
 ???

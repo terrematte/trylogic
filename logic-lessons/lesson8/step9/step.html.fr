@@ -10,6 +10,8 @@ Depois, não use tabela de verdade! é uma péssima estratégia para exercícios
 
 Nossa estratégia é apresentar, uma refutação (ou uma demonstração) de uma asserção do tipo P1, P2, P3 |~ C. A ideia é saber se o simbolo |~ deve ser ⊢ ou ⊭  . Não confunda  |- com |=, ou ||- , são operadores distintos e de universos distintos.
 
+
+
 No caso de uma refutação o que temos de apresentar é uma verificação de que um conjunto de valorações, ou uma avaliação de atomos satisfaz a conjunção das premissas ( ||-- P1 /\ P2 /\ P3), mas não satisfaz a conclusão (||-/- C).
 
 Então, para verificar que um conjunto de valorações de atomos falsificam um exercício, você deve aplicar as regras semânticas certas para justificar as suas valorações que são relevantes. Para isso nem precisa definir todos os atomos, apenas os que são determinantes para sua asserção. Por exemplo, qualquer valoração atribuida para o átom 'p' é irrelevante para a asserção 'p |= (q \/ ~q)'.

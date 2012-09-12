@@ -6,7 +6,8 @@ body {
 #toplevel {
     margin-left: 5px;
     width: 300px;
-    height: 50px;
+    /*height: 50px;*/
+    height: 0px;*/
     float: left;
 }
 
@@ -34,7 +35,8 @@ body {
 
 #toplevel-container {
    padding: 10px;
-   height: 100px;
+   /*height: 100px;*/
+   height: 0px;
    width: 100%;
    overflow: auto;
    overflow-x: hidden;
@@ -84,7 +86,7 @@ table {
 }
 
 .copyright {
-    padding-top: 30px;
+    padding-top: 10px;
     font-size: 10px;
 }
 
@@ -106,7 +108,7 @@ table {
 	display:inline;
     margin: 1px;
     padding: 1px;
-    width: 160px;
+    width: 150px;
 }
 
 

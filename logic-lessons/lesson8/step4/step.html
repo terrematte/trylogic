@@ -1,35 +1,101 @@
-<h3>SEMp - Sistema de Refutação Semântica</h3>
+<h3>SEMp - Sistema de Refutação Semântica - Prática</h3>
 
+<p>Vamos agora, usar agora usar o nosso sistema de Refutação como alternativa para explorar uma heurística de demonstração.</p>
+
+<p>Vamos supor que existe uma estrutura de interpretação v, tal que :</p>
+
+(v <p class="uns">||-/-<p> ((C \/ D) -> (C /\ D)))
+
+<p>Como usualmente, definimos o preambulo da teoria de Refutação:</p>
 
 <pre><code> Reset Initial. 
-Require Import Semantics.
-Parameter G H I J: Prop.
-
-Hypothesis f8 : (v ||-- G).
-Hypothesis f9 : (v ||-- H). 
-Hypothesis f10 : (v ||-- I). 
-Hypothesis f11 : (v ||-/- J). 
-
-Theorem Exer4 : (v ||-/- (((G -> H) /\ (H -> I) /\ (J -> I)) -> (G -> J))).
-Proof.
-impF.
-conjT.
-impT2.
-exact f9.
-conjT.
-impT2.
-ass f10.
-impT2.
-ass f10.
-impF.
-ass f8.
-ass f11.
-Qed.
+Require Import Semantics. 
+Parameter A B C D : Prop.
 </code></pre>
 
+<p>Vamos nos lembrar dos requisitos das Condições de Parada: </p>  
 
-<p>Para a finalização das refutações semânticas, temos os seguintes requisitos:</p>
+<p><b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros. </p>
 
-<p>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</p>
-<p>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v||-- X) e (v ||-/- X).</p>
-<p>3º. Em cada hipótese formulada/des-comentada é preciso decidir entre "||--" ou "||-/-" no lugar de "??" no requisito 1º.</p><br/><br/>
+Hypothesis f1 : (v ?? A).<br/>
+Hypothesis f2 : (v ?? B).<br/>
+...<br/>
+Hypothesis fm : (v ?? M).<br/>
+Hypothesis fn : (v ?? N). <br/>
+
+<p><b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <p class="sat">||--</p> X) e (v <p class="uns">||-/-</p> X).</p>
+<p><b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <p class="sat">||--</p>" ou "v <p class="uns">||-/-</p>" no lugar de "??" no requisito 1º.</p><br/>
+
+<p>- Nosso objetivo é encontrar tais atribuições :</p><br/>
+
+Hypothesis f1 : (v ?? C).<br/>
+Hypothesis f2 : (v ?? D).<br/>
+
+<p>Vamos iniciar sem definir a função de atribuição para C e D:</p>
+<pre><code>Theorem sem_ex3 :  (v ||-/- ((C \/ D) -> (C /\ D))).  
+Proof. 
+</code></pre>
+
+<p>Aplicamos a regra da implicação falsa:</p>
+<code>
+impF. 
+</code>
+
+<p>Agora como a disjunção é satisfatível, precisamos escolher que lado da disjunção a torna verdadeira. Vamos optar pelo lado direito:</p>
+<code>
+disjT2. 
+</code>
+
+<p>O Coq sempre sempre prioriza resolver os ramos à esquerda, mas com o comando "Focus n" permite alterar o ramo da arvore (Subgoal) em que se está trabalhando para o ramo 'n'</p>
+<code>
+Focus 2.
+</code>
+
+<p>Detalhe, veja que é possível voltar para o ramo anterior com o comando Unfocus:</p>
+<code>
+Unfocus. 
+</code>
+
+<p>Mas vamos continuar no segundo ramo da árvore:</p>
+<code>
+Focus 2. 
+</code>
+
+<p>Como a conjunção é insatisfatível, precisamos justificar por qual lado ela é falseada. Vamos  optar pelo lado esquerdo: </p>
+<code>
+conjF1. 
+</code>
+
+<p> Opa! Chegamos na situação em que nossos dois primeiro requisitos da condição de Parada estão validados:</p>
+<p><b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros. <br/>
+<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <p class="sat">||--</p> X) e (v <p class="uns">||-/-</p> X).</p>
+
+Logo, podemos, abortar a demonstração :
+
+<code>
+Abort.  
+</code>	
+
+<p> E copiar todos os passos da verificação, incluindo mesmo os passos com os comandos Focus/Unfocus : </p>
+<pre><code> Hypothesis f4 : (v ||-/- C).
+Hypothesis f5 : (v ||-- D).
+Theorem Exer2 : (v ||-/- ((C \/ D) -> (C /\ D))).
+Proof. 
+impF. 
+disjT2. 
+Focus 2. 
+Unfocus. 
+Focus 2. 
+conjF1. 
+</code></pre>
+
+<p>Assim, completamos a refutação aplicando a função da estrutura de interpretação que definimos para os átomos proposicionais: </p>
+<pre><code> exact f4.
+exact f5.
+Qed. 
+</code></pre>
+
+<br/>
+<br/>
+<center>* * *</center>
+<br/><br/>

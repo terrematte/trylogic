@@ -14,7 +14,7 @@ tr {
   background-image: url(pub/images/edit.png);
   background-repeat: no-repeat;
   background-origin: padding-box;
-  background-position: 5px 5px;
+  background-position: 50% 5px;
   background-size: 25px 23px;
 }
 

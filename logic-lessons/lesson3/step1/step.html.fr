@@ -4,13 +4,13 @@
 <b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula α -- representando o antecedente da implicação introduzida, ou <br/>
 <b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação.</p><br/>
 
-<p><i>- Eliminação da implicação</i> (→ E): Permite concluir β, a partir de derivações de "α → β" e "β", também conhecido como <i>modus ponens</i>. No Coq, o comando utilizado é <b>imp_e α</b>, passando como parâmetro o antecedente α da implicação a ser eliminada.</p></p>
+<p><i>- Eliminação da implicação</i> (→ E): Permite concluir β, a partir de derivações de "α → β" e "β", também conhecido como <i>modus ponens</i>. No Coq, o comando utilizado é <b>imp_e α</b>, passando como parâmetro o antecedente α da implicação a ser eliminada.</p>
 
 
 <p>Vamos demonstrar que "α → β, β → γ ⊢ α → γ".</p> 
 <br/>
 
-<pre><code><pre><code>Reset Initial. 
+<pre><code>Reset Initial. 
 Require Import ProofWeb. 
 Variables A B C : Prop.
 Hypothesis P1 : A -> B.

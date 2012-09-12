@@ -1,6 +1,6 @@
 <h3>Exemplo de Demonstração no Coq</h3>
 
-<p>Continuando a demonstração de "α, α → β, β → (γ ∧ δ) ⊢ γ" </p><br/>
+<p>Continuando a demonstração do passo anterior "α, α → β, β → (γ ∧ δ) ⊢ γ" </p><br/>
 
 <p>Observamos que a conclusão δ está também na premissa "β → (γ ∧ δ)".  Portanto, aplicamos a regra de eliminação da conjunção, passando como parâmetro o lado direito da conjunção: </p> 
 <code>

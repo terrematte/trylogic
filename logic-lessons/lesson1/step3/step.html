@@ -1,32 +1,35 @@
 <h3>Template para a Demonstração no Coq</h3>
 
-<p>Vamos aplicar o Coq para produzir uma árvore de derivação demonstrando que: "α, α → β, β → (γ ∧ δ) ⊢ γ".</p><br/>
+<p>Vamos aplicar o Coq para produzir uma árvore de derivação demonstrando que: "A, A → B, B → (C ∧ D) ⊢ D".</p><br/>
 
-<p>Primeiro, limpamos as declarações de variáveis com <code>Reset Initial.</code>, e carregamos a teoria com o Sistema Dedutivo e as regras de inferência:</p>
+<p>Siga a sequência de comandos clicando - ou digitando ao lado - em cada bloco de comandos na ordem que aparecem a seguir. <b>Não pule comandos! nem esqueça de colocar o ponto final em cada comando!</b></p>
 
+<p>Primeiro, carregamos a teoria com o Sistema Dedutivo e as regras de inferência:</p>
 <pre><code>Reset Initial.
-Require Import ProofWeb.</code></pre>
+Require Import ProofWeb. </code></pre>
 
 <p>Em seguida, declaramos as <b>variáveis</b> que utilizaremos na demonstração: </p>
+<code>Variables A B C D: Prop. </code>
 
-<p><code>Variables A B C D: Prop.</code></p>
-
-<p>Observe que <b>A B C</b> são do tipo <b>Prop</b>, ou seja, são <i>variáveis proposicionais</i>. Na sequência, declaramos as marcas <b>P1</b>, <b>P2</b> e <b>P3</b> para as Premissas:</p>
+<p>Observe que <b>A B C D</b> são do tipo <b>Prop</b>, ou seja, são <i>variáveis proposicionais</i>. Na sequência, declaramos as marcas <b>P1</b>, <b>P2</b> e <b>P3</b> para as Premissas:</p>
 <pre><code>Hypothesis P1 : A.
-Hypothesis P2: (A -> B).
-Hypothesis P3: (B -> (C /\ D)).</code></pre>
+Hypothesis P2: (A -> B). 
+Hypothesis P3: (B -> (C /\ D)). 
+</code></pre>
 
 <p>E declaramos o que desejamos demonstrar :</p>
 
-<code>Theorem example_00 : C.</code><br/>
+<code>Theorem example_00 : C. </code><br/>
 
 <p>Para iniciar a demonstração é preciso o comando:</p>
 
-<code>Proof.</code><br/>
+<code>
+Proof. 
+</code><br/>
 
 <p>Agora, sim podemos inserir as regras de inferência adequadas até demonstrarmos o desejado.</p><br/>
 
-<i>Vemos nos próximos passos.</i>
+<i>Vemos no próximo passo. <span class="step-right-button"></span></i>
 
 Confira também: <br/>
 

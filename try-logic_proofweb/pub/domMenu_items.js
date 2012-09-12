@@ -516,7 +516,7 @@ domMenu_data.set('domMenu_BJ', new Hash(
     ),
     15, new Hash(
         'contents', 'Logout',
-        'uri', 'javascript:window.location="http://localhost/proofweb/";',
+        'uri', 'javascript:window.location="http://lolita.dimap.ufrn.br/proofweb/";',
         'statusText', 'Logout'
     )
 ));

@@ -417,7 +417,9 @@ let run () =
       let txt = text_of_html (Js.to_string html) in
       code##title <- Js.string (Tutorial.translate "Click here to execute this code");
       code##onclick <- Html.handler (fun _ -> 
-			ignore (Js.Unsafe.fun_call  (Js.Unsafe.variable "code_proof")[|Js.Unsafe.inject txt|]); 
+			ignore (Js.Unsafe.fun_call  (Js.Unsafe.variable "code_proof")[|Js.Unsafe.inject txt|]);
+			 code##style##backgroundColor <- Js.string "#CFFFCF";
+			 
       Js._true)          
   ) codes in
 
@@ -592,6 +594,7 @@ let run () =
   Dom.appendChild form sel;
   let langs = get_element_by_id "menu_languages" in
   Dom.appendChild langs form;
+ 
  
   (* @terrematte :  Choose your Lesson *)
 let form_lessons = Html.createDiv doc in
