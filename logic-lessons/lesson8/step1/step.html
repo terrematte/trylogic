@@ -1,14 +1,13 @@
-<h3>SEMp - Sistema de Refutação Semântica</h3>
+<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
 
-<p>Vamos apresentar um sistema semântico proposicional (SEM<sub>p</sub>) para verificar árvores semânticas de refutações.</p>
+<p>Vamos apresentar um sistema semântico proposicional (SEM<sub>p</sub>) para construir árvores semânticas de refutação.</p>
 
-<p>Em SEM<sub>p</sub>, uma refutação é uma verificação de que existe pelo menos uma valoração v satisfaz a conjunção das premissas "v <em class="sat">||--</em> P1 /\ P2 /\ P3", mas não satisfaz a conclusão "v <em class="uns"> ||-/- </em> C".</p>
+<p>Com SEM<sub>p</sub> podemos mostrar que uma dada sentença <b>não é</b> consequência semântica de um certo conjunto de sentenças dadas.  Mais especificamente, neste sistema uma refutação de P1,P2,P3 ⊨ C é produzida pela exibição, acompanhada da respectiva justificativa, de uma valoração v que falsifica a sentença (P1∧P2∧P3)→C.</p>
 
-<p>Com SEM<sub>p</sub> podemos verificar que "Γ ⊭ α" <b>não é consequência lógica </b> de um conjunto Γ de fórmulas. </p>
+<p>Por exemplo, vamos verificar que A ⊭ B∨C.  Isto é fácil, pois basta definir uma valoração v tal que v ⊩ A ao mesmo tempo em que v ⊮ B e v ⊮ C.  Representamos esta situação da seguinte forma: </p>
 
-<p>Por exemplo, vamos verificar o seguinte "A ⊭ (B ∨ C)". Trivial, pois basta indicar que "v(A) = 1", e que por outro lado, "v(B) = 0"  e "v(C) = 0". Representamos o problema da seguinte forma: </p>
-
-<pre> <code> Reset Initial.  
+<pre>
+<code>Reset Initial.  
 Require Import Semantics.  
 Parameter A B C : Prop. 
 Hypothesis f1 : (v ||-- A). 
@@ -18,50 +17,53 @@ Theorem sem_ex1 :  (v ||-/- (A  -> (B \/ C)) ).
 Proof.  
 </code></pre>
 
-<p>Carregamos o sistema SEM<sub>p</sub> pela teoria <i>Semantics</i>, e definimos que <b>f1 : (v <em class="sat">||--</em>A)</b>, <b>f2 : (v <em class="uns">||-/-</em> B)</b> e <b>f3 : (v <em class="uns">||-/-</em> C)</b>, significa v(A) = 1, v(B) = 0 e v(C) = 0.</p>
+<p>Carregamos o sistema SEM<sub>p</sub> importando a teoria <i>Semantics</i>, e acrescentamos sobre a valoração <b>v</b> as hipóteses <b>f1</b>, <b>f2</b> e <b>f3</b> que propomos serem capazes de permitir demonstrar o teorema <b>sem_ex1</b>.</p>
 
-<p>Agora iniciamos a verificação do contra-exemplo aplicando as regras do sistema. Como temos uma implicação que não é satisfeita aplicamos a regra:</p>
+<p>Agora iniciamos a demonstração do resultado enunciado a partir das hipóteses assumidas, usando as regras de SEM<sub>p</sub> para justificar cada um dos passos deste demonstração.  Como pretendemos concluir que uma sentença da forma α→β não é satisfeita, aplicamos a regra <b>impF</b>, para a falsidade de uma implicação:</p>
 
+<pre>
 <code>
 impF.  
 </code>
+</pre>
 
-<p>Observe que quase todas regras terão esse padrão <i>case-sensitive</i>, tendo em minusculo, o nome do conectivo e em maiúsculo um <b>F</b> para <b>insatisfatível</b> (v <em class="uns">||-/-</em> φ) e <b>T</b> para <b>satisfatível</b> (v <em class="sat">||--</em> φ).</p>
+<p>Observe que quase todas regras seguirão esse padrão <i>case-sensitive</i> de nomenclatura, tendo em minúsculo o nome do conectivo envolvido e em maiúsculo a letra <b>F</b> para dizer que a sentença que possui aquele conectivo como construtor principal <b>não é satisfeita</b> e <b>T</b> para dizer que tal sentença <b>é satisfeita</b>.</p>
 
-<p>Agora, veja que temos a nossa valoração definida por f1 e aplicamos:</p>
+<p>Dando continuidade à demonstração anterior, nosso primeiro sub-objetivo agora é mostrar que v ⊩ A.  Mas isto corresponde à nossa hipótese <b>f1</b>.  Podemos portanto identificá-la da seguinte forma:</p>
 
+<pre>
 <code>
 exact f1. 
 </code>
+</pre>
 
-<p> Seguimos agora com uma disjunção insatisfatível, portanto, aplicamos a regra:</p>
+<p>Nosso próximo sub-objetivo consiste em mostrar que a valoração v não satisfaz B∨C.  Para isso, aplicamos a regra correspondente:</p>
 
+<pre>
 <code>
 disjF. 
 </code>
+</pre>
 
-<p>Agora, só nos resta identificar o resto da parte da função de atribuição escolhida: </p>
-<pre> <code> exact f2. 
+<p>Por turnos, só nos resta agora identificar as hipóteses sobre v que servirão para justificar os sub-objetivos que acabaram de ser criados: </p>
+
+<pre>
+<code>exact f2. 
 exact f3. 
-</code></pre>
+</code>
+</pre>
 
-<p>Assim, concluímos conforme queríamos refutar:</p>
+<p><i>Quod erat demonstrandum</i>, concluímos assim de fato a construção da demonstração pretendida:</p>
 
+<pre>
 <code>
 Qed. 
 </code>
+</pre>
 
-<p>Observe que para cada conectivo há regras para fórmulas insatisfatíveis e satisfatíveis. Note também que nenhuma das regras necessitam de parâmetros.</p>
+<p>Observe que para cada conectivo, em geral, há regras para satisfação e para a não satisfação de uma sentença que contenha este conectivo como construtor principal.  Note também que em SEM<sub>p</sub> nenhuma das regras (que são funções para a construção de árvores a partir de árvores) necessitam de parâmetros adicionais.</p>
 
-<p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
-<b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
-<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).<br/>
-<b>3º.</b> Em cada hipótese formula comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
-
-<br/>
-<br/>
-<center>* * *</center>
-<br/>
-<br/>
-
-
+<p><i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
+<b>1º.</b> Deve haver apenas átomos nas folhas da árvore, e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
+<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v ⊩ X) e (v ⊮ X).<br/>
+<b>3º.</b> Em cada hipótese comentada é preciso decidir entre "⊩" ou "⊮" no lugar de "??" no requisito 1º.</p>
