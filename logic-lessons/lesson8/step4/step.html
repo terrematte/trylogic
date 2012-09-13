@@ -4,7 +4,7 @@
 
 <p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
 
-<p>Vamos supor que existe uma estrutura de interpretação v, tal que :</p>
+<p>Vamos supor que existe uma valoração v, tal que :</p>
 
 (v <p class="uns">||-/-<p> ((C \/ D) -> (C /\ D)))
 
@@ -23,16 +23,16 @@ Hypothesis f1 : (v ?? A).<br/>
 Hypothesis f2 : (v ?? B).<br/>
 ...<br/>
 Hypothesis fm : (v ?? M).<br/>
-Hypothesis fn : (v ?? N). <br/>
+Hypothesis fn : (v ?? N). 
 
-<p><b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <p class="sat">||--</p> X) e (v <p class="uns">||-/-</p> X).</p>
+<p><b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
 
-<p><b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <p class="sat">||--</p>" ou "v <p class="uns">||-/-</p>" no lugar de "??" no requisito 1º.</p><br/>
+<p><b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p><br/>
 
-<p>- Nosso objetivo é encontrar tais atribuições :</p><br/>
+<p>- Nosso objetivo é encontrar tais atribuições :</p>
 
 Hypothesis f1 : (v ?? C).<br/>
-Hypothesis f2 : (v ?? D).<br/>
+Hypothesis f2 : (v ?? D).
 
 <p>Vamos iniciar sem definir a função de atribuição para C e D:</p>
 <pre><code>Theorem sem_ex3 :  (v ||-/- ((C \/ D) -> (C /\ D))).  
@@ -51,7 +51,7 @@ impF.
 disjT2. 
 </code>
 
-<p>O Coq sempre sempre prioriza resolver os ramos à esquerda, mas com o comando "Focus n" permite alterar o ramo da arvore (Subgoal) em que se está trabalhando para o ramo 'n'</p>
+<p>O Coq sempre sempre prioriza resolver os ramos à esquerda, mas com o comando "Focus n" permite alterar o ramo da árvore (Subgoal) em que se está trabalhando para o ramo 'n'</p>
 
 <code>
 Focus 2.
@@ -78,17 +78,22 @@ conjF1.
 <p> Opa! Chegamos na situação em que nossos dois primeiro requisitos da condição de Parada estão validados:</p>
 
 <p><b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros. <br/>
-<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <p class="sat">||--</p> X) e (v <p class="uns">||-/-</p> X).</p>
+<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
 
-Logo, podemos, abortar a demonstração :
+<p>Logo, podemos, abortar os passos da heurística:</p>
 
 <code>
 Abort.  
 </code>	
 
-<p> E copiar todos os passos da verificação, incluindo mesmo os passos com os comandos Focus/Unfocus : </p>
+<p><b class="uns"><i>REFUTAÇÃO.</i></b> Agora, de fato, iniciamos a refutação inserindo a Valoração v para os átomos proposicionais: </p>
+<pre><code>Hypothesis f4 : (v ||-/- C).
+Hypothesis f5 : (v ||-- D).	
+</code></pre>	
 
-<pre><code> Hypothesis f4 : (v ||-/- C).
+<p> Em seguinda, copiamos todos os passos da verificação, incluindo mesmo os passos com os comandos Focus/Unfocus: </p>
+
+<pre><code>Hypothesis f4 : (v ||-/- C).
 Hypothesis f5 : (v ||-- D).
 Theorem Exer2 : (v ||-/- ((C \/ D) -> (C /\ D))).
 Proof. 
@@ -100,13 +105,23 @@ Focus 2.
 conjF1. 
 </code></pre>
 
-<p>Assim, completamos a refutação aplicando a função da estrutura de interpretação que definimos para os átomos proposicionais: </p>
+<p>Assim, completamos a refutação : </p>
 <pre><code>exact f4.
 exact f5.
 Qed. 
 </code></pre>
 
 <br/>
+<center>* * *</center>
+<br/>
+
+<p><b class="uns"><i>LEMBRETE.</i></b> <i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
+<b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
+<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).<br/>
+<b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
+
+<br/>
 <br/>
 <center>* * *</center>
-<br/><br/>
+<br/>
+<br/>

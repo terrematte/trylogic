@@ -2,19 +2,19 @@
 
 <p>Vamos usar heurística para se descobrir qual das duas opções é o argumento (A -> B),  B |~ A :</p>
 (i) <i>Demonstrável</i>  - (A -> B), B ⊢ A -, ou <br/>
-(ii) </i>Refutável</i> - (A -> B), B ⊭ A. <br/>
+(ii) </i>Refutável</i> - (A -> B), B ⊭ A. 
 
-<p> Usando a noção de consequência semântica, se supormos que o argumento é válido, então vamos ter que analísar <b>todas as estruturas</b> de interpretação que satisfazem (E -> F) e F, para verificar se também satisfazem E. Neste argumento simples, podemos explorar todos os casos, mas esta não é a melhor estratégia para argumentos complexos.</p>
+<p> Usando a noção de consequência semântica, se supormos que o argumento é tautológico, então vamos analisar se <b>toda valoração</b> satisfaz (A -> B) e B, também satisfaz A. Neste argumento simples, podemos explorar todos os casos, mas esta não é a melhor estratégia para argumentos mais complexos.</p>
 
-<p>Portanto, vamos supor que o argumento seja refutável, (A -> B), B ⊭ A. Ou seja, <i>existe pelo menos uma estrutura</i> de interpretação v, tal que:</p>
+<p>Assim, vamos supor que o argumento seja refutável, (A -> B), B ⊭ A. Ou seja, <i>existe pelo menos uma valoração</i> v, tal que:</p>
 
-(1) v <p class="sat">||--</p> (A -> B) e  (2) v <p class="sat">||--</p> B, mas (3) v <p class="uns">||-/-</p> A. <br/>
+(1) v <em class="sat">||--</em> (A -> B) e  (2) v <em class="sat">||--</em> B, mas (3) v <em class="uns">||-/-</em> A. <br/>
 
-<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>!</p>
 
-Bom, por (2), sabemos que  v <p class="sat">||--</p> (A -> B) pela afirmação do consequente. Assim como por (1), inferimos também que <p class="sat">||--</p> (A -> B), pela negação do antecedente. Temos que com v <p class="uns">||-/-</p> A e v <p class="sat">||--</p> B, podemos refutar a fórmula que representa a conjunção das premissas implicando na conclusão, ou seja, (v <p class="uns">||-/-</p> (((A -> B) /\ B) -> A)). <br/>
+<p>Bom, por (2), sabemos que  v <em class="sat">||--</em> (A -> B) pela afirmação do consequente. Assim como por (1), inferimos também que <em class="sat">||--</em> (A -> B), pela negação do antecedente. Temos que com v <em class="uns">||-/-</em> A e v <em class="sat">||--</em> B, podemos refutar a fórmula que representa a conjunção das premissas implicando na conclusão, ou seja, (v <em class="uns">||-/-</em> (((A -> B) /\ B) -> A)).</p>
 
-<p>Agora a sua vez de refutar na Teoria Semantica que <i>existe pelo menos uma</i> estrutura de interpretação v, tal que :  (A -> B), B ⊭ A</p>
+<p>Agora a sua vez de refutar na Teoria Semantica que <i>existe pelo menos uma valoração</i> v, tal que :  (A -> B), B ⊭ A</p>
 
 <pre><code> Reset Initial.  
 Require Import Semantics. 
@@ -28,10 +28,13 @@ Proof.
 
 
 
-<p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i></p>
-<p><b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros. </p>
-<p><b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <p class="sat">||--</p> X) e (v <p class="uns">||-/-</p> X).</p>
-<p><b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <p class="sat">||--</p>" ou "v <p class="uns">||-/-</p>" no lugar de "??" no requisito 1º.</p><br/>
+<p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
+<b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
+<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).<br/>
+<b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
 
+<br/>
+<br/>
 <center>* * *</center>
+<br/>
 <br/>
