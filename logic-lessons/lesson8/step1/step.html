@@ -8,7 +8,7 @@
 
 <p>Por exemplo, vamos verificar o seguinte "A ⊭ (B ∨ C)". Trivial, pois basta indicar que "v(A) = 1", e que por outro lado, "v(B) = 0"  e "v(C) = 0". Representamos o problema da seguinte forma: </p>
 
-<pre><code>Reset Initial.  
+<pre> <code> Reset Initial.  
 Require Import Semantics.  
 Parameter A B C : Prop. 
 Hypothesis f1 : (v ||-- A). 
@@ -41,7 +41,7 @@ disjF.
 </code>
 
 <p>Agora, só nos resta identificar o resto da parte da função de atribuição escolhida: </p>
-<pre><code>exact f2. 
+<pre> <code> exact f2. 
 exact f3. 
 </code></pre>
 
@@ -56,7 +56,7 @@ Qed.
 <p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
 <b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
 <b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).<br/>
-<b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
+<b>3º.</b> Em cada hipótese formula comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
 
 <br/>
 <br/>

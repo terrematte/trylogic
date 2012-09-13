@@ -4,13 +4,13 @@
 
 <p>Nossa estratégia é apresentar, uma refutação - <i>ou uma demonstração</i> - de uma asserção, ou seja, Γ |~ α . A ideia é descobrir se vamos refutar ou demonstrar, ou seja, se o simbolo |~ deve ser ⊢ ou ⊭ .  </p>
 
-<p><i>Não confunda os operadores ⊢ e ⊨ e são operadores distintos.</i></p>
+<p><i>Não confunda os operadores seguintes "⊢" e "⊨" !</i></p>
 
 <p>Lembramos que o operador ⊢ se refere a demonstração de que uma fórmula é consequência de um conjunto de hipóteses, usando manipulação simbólica das fórmulas. Com ele dizemos: Γ ⊢ α, "A partir do conjunto Γ de fórmulas, existe pelo menos uma árvore de derivação tendo α como consequência".</p>
 
-<p>O operador ⊨ trata de consequencia semântica, serve para indicar se uma fórmula é consequência semântica de um conjunto de fórmulas, analisando o que acontece em todas valorações, ou estruturas de interpretações.  Assim, expressamos que Γ  ⊨ α , "α é <i>consequência semântica</i> de Γ, se para toda valoração v que satifaz Γ, também satisfaz α". </p>
+<p>O operador ⊨ trata de consequência semântica, serve para indicar se uma fórmula é consequência semântica de um conjunto de fórmulas, analisando o que acontece em todas valorações, ou estruturas de interpretações.  Assim, expressamos que Γ  ⊨ α , "α é <i>consequência semântica</i> de Γ, se para toda valoração v que satisfaz Γ, também satisfaz α". </p>
 
-<p>Já o símbolo "v ⊩ α"  representa o que ocorre com <i>uma fórmula</i> para <i>uma determinada valoração</i>. Representamos da seguinte forma: v ⊩ φ  ≈ "Uma valoração <b>v</b> <i>satisfaz</i> a fórmula <b>φ</b>. </p> <br/>
+<p>Já o símbolo "v ⊩ α"  representa o que ocorre com <i>uma fórmula</i> para <i>uma determinada valoração</i>. Representamos da seguinte forma: v ⊩ φ  ≈ "Uma valoração v <i>satisfaz</i> a fórmula φ. </p> <br/>
 
 <p>Por tanto, para refutar um argumento e dizer que não é possível construir uma árvore em Dedução Natural, precisamos mostrar que Γ ⊭ α, ou seja, que <b>existe pelo menos uma</b> determinada valoração <b>v</b> que v <em class="sat">||--</em> Γ (v satisfaz gama), mas que v <em class="uns">||-/-</em> α. </p>
 
@@ -18,22 +18,22 @@
 
 <p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
 
- <p>Suponha por absurdo que a fórmula seja <i>satisfeitazível</i>, isto é, suponha que exista uma valoração v tal que:</p>
+ <p>Suponha por absurdo que a fórmula seja <i>satisfatível</i>, isto é, suponha que exista uma valoração v tal que:</p>
 (1) v <em class="sat">||--</em> (~A -> B)  <br/>
-(2) v <em class="sat">||--</em> (~A /\ ~B) 
+(2) v <em class="sat">||--</em> (~A /\ ~B) <br/>
 
 <p> De (2) segue que :</p>
 
 (3) v <em class="sat">||--</em> ~A , e  <br/>
-(4) v <em class="sat">||--</em> ~B 
+(4) v <em class="sat">||--</em> ~B <br/>
 
 <p> De (4) segue que :</p>
 
-(5) v <em class="uns">||-/-</em> B
+(5) v <em class="uns">||-/-</em> B<br/>
 
-<p>Concluimos então, de (3) e (5), que </p>
+<p>Concluímos então, de (3) e (5), que </p>
 
-(6) v <em class="uns">||-/-</em> ~A -> B
+(6) v <em class="uns">||-/-</em> ~A -> B<br/>
 
 <p>Absurdo de (i) e (vi). Logo, a fórmula é uma contradição.</p> <br/>
 
@@ -44,7 +44,7 @@
 <p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
 <b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
 <b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).<br/>
-<b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
+<b>3º.</b> Em cada hipótese formula comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
 
 <br/>
 <br/>
