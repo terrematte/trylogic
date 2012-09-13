@@ -16,7 +16,7 @@
 
 <p>Agora a sua vez de refutar na Teoria Semantica que <i>existe pelo menos uma valoração</i> v, tal que :  (A -> B), B ⊭ A</p>
 
-<pre><code> Reset Initial.  
+<pre> <code> Reset Initial.  
 Require Import Semantics. 
 Parameter A B: Prop. 
 Hypothesis f1 : (v ||-/- A). 
@@ -31,8 +31,7 @@ Proof.
 <p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
 <b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
 <b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).<br/>
-<b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
-
+<b>3º.</b> Em cada hipótese formula comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
 <br/>
 <br/>
 <center>* * *</center>

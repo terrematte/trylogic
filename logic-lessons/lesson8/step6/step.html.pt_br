@@ -22,8 +22,9 @@ Da mesma forma, por (7) e (2), C tem que ser satisfatível : (8)  <em class="sat
 
 <p>Assim, conferimos que para todos os átomos (5), (6), (7) e (8), a valoração v satisfaz as fórmulas complexas (1), (2) e (3).</p>
 
-<p> <b class="uns"><i>REFUTAÇÃO.</i></b> Agora, vamos usar a valoração v para refutar em nossa teoria semântica:<p>
-<pre><code> Reset Initial. 
+<p> <b class="uns"><i>REFUTAÇÃO.</i></b> Agora, vamos usar a valoração v para refutar em nossa teoria semântica:</p>
+
+<pre> <code> Reset Initial. 
 Require Import Semantics.
 Parameter A B C D : Prop.
 
@@ -49,11 +50,19 @@ ass f11.
 Qed.
 </code></pre>
 
+<br/>
+<br/>
+<center>* * *</center>
+<br/>
+<br/>
 
 <p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i></p>
 <p><b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros. </p>
 <p><b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
-<p><b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p><br/>
+<b>3º.</b> Em cada hipótese formula comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
 
+<br/>
+<br/>
 <center>* * *</center>
+<br/>
 <br/>

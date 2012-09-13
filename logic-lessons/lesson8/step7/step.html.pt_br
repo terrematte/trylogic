@@ -1,7 +1,7 @@
 <h3>SEMp - Sistema de Refutação Semântica</h3>
 
 
-<pre><code> Reset Initial. 
+<pre> <code> Reset Initial. 
 Require Import Semantics.
 Parameter  P Q R S: Prop.
 Theorem Sequitur : (v ||-/- ((((R /\ S) -> P) /\ (Q -> R)) -> (S -> (Q -> P)))).
