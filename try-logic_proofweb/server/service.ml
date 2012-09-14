@@ -115,30 +115,30 @@ let serve_auth (cgi:Netcgi_types.cgi_activation) session =
       let lst = Xstr_split.split_string " " true true [Options.token] argument in
       let rec queue = function
         | adds :: add :: adde :: t ->
-            Utils.time_log "%15s %9n %3n %s A %s@." ip session.id packet session.user (replace "\n" " " add);
+            Utils.time_log ",proofweb,%15s,%9n,%3n,%s,Add - %s@." ip session.id packet session.user (replace "\n" " " add);
             queue (adde :: t)
         | _ -> ()
       in
       queue lst;
       serve_say cgi session argument
   | "undo" ->
-      Utils.time_log "%15s %9n %3n %s U %s@." ip session.id packet session.user argument;
+      Utils.time_log ",proofweb,%15s,%9n,%3n,%s,Undo - %s@." ip session.id packet session.user argument;
       serve_undo cgi session argument
   | "listen" ->
-      Utils.time_log "%15s %9n %3n %s U@." ip session.id packet session.user;
+      Utils.time_log ",proofweb,%15s,%9n,%3n,%s,U@." ip session.id packet session.user;
       serve_listen cgi session
   | "r" ->
-      Utils.time_log "%15s %9n %3n %s R@." ip session.id packet session.user;
+      Utils.time_log ",proofweb,%15s,%9n,%3n,%s,R@." ip session.id packet session.user;
       serve_restart cgi session
   | "quit" ->
-      Utils.time_log "%15s %9n %3n %s Q@." ip session.id packet session.user;
+      Utils.time_log ",proofweb,%15s,%9n,%3n,%s,Quit @." ip session.id packet session.user;
       session_delete session
   | "save" ->
       let index = String.index argument '*' in
       let name = String.sub argument 0 index in
       let content = String.sub argument (index + 1) (String.length argument - index - 1) in
-      Utils.time_log "%15s %9n %3n %s S %s@." ip session.id packet session.user name;
-      Utils.save_log "%15s %9n %3n %s S %s %s@." ip session.id packet session.user name argument;
+      Utils.time_log ",proofweb,%15s,%9n,%3n,%s,Save - %s@." ip session.id packet session.user name;
+      Utils.save_log ",proofweb,%15s,%9n,%3n,%s,Save - %s %s@." ip session.id packet session.user name argument;
       serve_save cgi session name content
   | x ->
       let argument =
@@ -152,7 +152,7 @@ let serve_auth (cgi:Netcgi_types.cgi_activation) session =
       in
       cgi # set_header ~content_type:"text/html" ~cache:`No_cache ();
       session_restart session;
-      Utils.time_log "%15s %9n %3n %s O %s %s@." ip session.id packet session.user argument session.provert;
+      Utils.time_log ",proofweb,%15s,%9n,%3n,%s,Open - %s %s@." ip session.id packet session.user argument session.provert;
       let out, err = replace "\n" "\\n" session.out, replace "\n" "\\n" session.err in
       let out, err = replace "\r" "" out, replace "\r" "" err in
 (*      Utils.log "[[[[[[[%s]]]]]@." out;*)
@@ -187,30 +187,30 @@ let trylogic_auth (cgi:Netcgi_types.cgi_activation) session =
       let lst = Xstr_split.split_string " " true true [Options.token] argument in
       let rec queue = function
         | adds :: add :: adde :: t ->
-            Utils.time_log "%15s %9n %3n %s A %s@." ip session.id packet session.user (replace "\n" " " add);
+            Utils.time_log ",trylogic,%15s,%9n,%3n,%s,Add - %s@." ip session.id packet session.user (replace "\n" " " add);
             queue (adde :: t)
         | _ -> ()
       in
       queue lst;
       serve_say cgi session argument
   | "undo" ->
-      Utils.time_log "%15s %9n %3n %s U %s@." ip session.id packet session.user argument;
+      Utils.time_log ",trylogic,%15s,%9n,%3n,%s,Undo - %s@." ip session.id packet session.user argument;
       serve_undo cgi session argument
   | "listen" ->
-      Utils.time_log "%15s %9n %3n %s U@." ip session.id packet session.user;
+      Utils.time_log ",trylogic,%15s,%9n,%3n,%s,U@." ip session.id packet session.user;
       serve_listen cgi session
   | "r" ->
-      Utils.time_log "%15s %9n %3n %s R@." ip session.id packet session.user;
+      Utils.time_log ",trylogic,%15s,%9n,%3n,%s,R@." ip session.id packet session.user;
       serve_restart cgi session
   | "quit" ->
-      Utils.time_log "%15s %9n %3n %s Q@." ip session.id packet session.user;
+      Utils.time_log ",trylogic,%15s,%9n,%3n,%s,Quit @." ip session.id packet session.user;
       session_delete session
   | "save" ->
       let index = String.index argument '*' in
       let name = String.sub argument 0 index in
       let content = String.sub argument (index + 1) (String.length argument - index - 1) in
-      Utils.time_log "%15s %9n %3n %s S %s@." ip session.id packet session.user name;
-      Utils.save_log "%15s %9n %3n %s S %s %s@." ip session.id packet session.user name argument;
+      Utils.time_log ",trylogic,%15s,%9n,%3n,%s,Save - %s@." ip session.id packet session.user name;
+      Utils.save_log ",trylogic,%15s,%9n,%3n,%s,Save - %s %s@.," ip session.id packet session.user name argument;
       serve_save cgi session name content
   | x ->
       let argument =
@@ -224,7 +224,7 @@ let trylogic_auth (cgi:Netcgi_types.cgi_activation) session =
       in
       cgi # set_header ~content_type:"text/html" ~cache:`No_cache ();
       session_restart session;
-      Utils.time_log "%15s %9n %3n %s O %s %s@." ip session.id packet session.user argument session.provert;
+      Utils.time_log ",trylogic,%15s,%9n,%3n,%s,Open - %s %s@." ip session.id packet session.user argument session.provert;
       let out, err = replace "\n" "\\n" session.out, replace "\n" "\\n" session.err in
       let out, err = replace "\r" "" out, replace "\r" "" err in
 (*      Utils.log "[[[[[[[%s]]]]]@." out;*)
