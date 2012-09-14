@@ -246,4 +246,17 @@ function toggle_electric () {
   electric = !electric;
 }
 
-
+function reset () {
+  if (document.all) {
+    if (doc_edit.selection.createRange().parentElement() == doc_edit.getElementById("edit"))
+      try {doc_edit.selection.createRange().pasteHTML("Reset Initial.");}
+      catch (e) {}
+    else alert ("Please first select location");
+  } else {
+    doc_edit.execCommand('insertHTML', false, arg);
+  }
+  need_getedit=true;                                                                                                                      
+  need_tidy=true; 
+//  provedit=get_edit ();
+//  if (active == 1) set_part ("edit", provedit);
+}
