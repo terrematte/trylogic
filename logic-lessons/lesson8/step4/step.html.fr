@@ -45,7 +45,7 @@ Proof.
 impF. 
 </code>
 
-<p>Agora como a disjunção é satisfatível, precisamos escolher que lado da disjunção a torna verdadeira. Vamos optar pelo lado direito:</p>
+<p>Agora como a disjunção é satisfeita, precisamos escolher que lado da disjunção a torna verdadeira. Vamos optar pelo lado direito:</p>
 
 <code>
 disjT2. 
@@ -69,7 +69,7 @@ Unfocus.
 Focus 2. 
 </code>
 
-<p>Como a conjunção é insatisfatível, precisamos justificar por qual lado ela é falseada. Vamos  optar pelo lado esquerdo: </p>
+<p>Como a conjunção é falsificável, precisamos justificar por qual lado. Vamos  optar pelo lado esquerdo: </p>
 
 <code>
 conjF1. 
@@ -115,10 +115,9 @@ Qed.
 <center>* * *</center>
 <br/>
 
-<p><b class="uns"><i>LEMBRETE.</i></b> <i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
+<p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
 <b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
-<b>2º.</b> Para nenhum átomo proposicional X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).<br/>
-<b>3º.</b> Em cada hipótese formula comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
+<b>2º.</b> Para nenhum átomo proposicional X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
 <br/>
 <br/>
 <center>* * *</center>
