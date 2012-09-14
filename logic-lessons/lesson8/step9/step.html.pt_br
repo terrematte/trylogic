@@ -1,51 +1,91 @@
 <h3>SEMp - Sistema de Refutação Semântica</h3>
 
-ALUNO X: Fazendo a heurística e comprovando com tabela verdade achei em um dos meus exercícios uma valoração para os átomos que falsifica o mesmo, como faço para provar que um teorema está "errado" via árvore semântica no proofweb?
-
-Opa, Aluno X,
-
-Primeiramente, só um esclarecimento. Pela definição de teorema, não se pode falsificá-lo, um teorema é justamente uma fórmula válida, ou seja, satisfeita por qualquer valoração.
-
-Depois, não use tabela de verdade! é uma péssima estratégia para exercícios grandes e realmente interessantes, como estes! Estabeleça uma estratégia de resolução por heurística e execute-a.
-
-Nossa estratégia é apresentar, uma refutação (ou uma demonstração) de uma asserção do tipo P1, P2, P3 |~ C. A ideia é saber se o simbolo |&sim; deve ser ⊢ ou ⊭  . Não confunda  |- com |=, ou ||- , são operadores distintos e de universos distintos.
-
-
-
-No caso de uma refutação o que temos de apresentar é uma verificação de que um conjunto de valorações, ou uma avaliação de atomos satisfaz a conjunção das premissas ( ||-- P1 /\ P2 /\ P3), mas não satisfaz a conclusão (||-/- C).
-
-Então, para verificar que um conjunto de valorações de atomos falsificam um exercício, você deve aplicar as regras semânticas certas para justificar as suas valorações que são relevantes. Para isso nem precisa definir todos os atomos, apenas os que são determinantes para sua asserção. Por exemplo, qualquer valoração atribuida para o átom 'p' é irrelevante para a asserção 'p |= (q \/ ~q)'.
-
-É a ideia de demonstrar de baixo para cima: você vai partir do seu objetivo, para chegar a suas folhas que devem ser os atomos com as valorações que você encontrou através da heurística e falsificam seu teorema.
-   
-Por exemplo, você tem uma implicação: a implicação não é satisfeita (||-/- A -> B), quando o antecedente é satisfeito pela valoração (||-- A) E o consequente não é satisfeito (||-/- B). Apartir daé você deve analisar as condições em que A é satisfeito e B não é satisfeito (||-/- B), de forma recursiva até chegar aos seus átomos. Observe que em alguns casos, você vai ter que tomar decisões, como no caso em que a conjunção não é satisfeita (||-/- A /\ B), que pode ser justificado por (||-/- A), ou por (||-/- B).
-
-Nesses casos é que você vai ter que decidir e talvez vai ter que voltar atrás das suas justificativas semânticas.
-
-ALUNO Y: O que aconteceria se eu acidentalmente acreditasse que um teorema é verdade quando talvez ele fosse falso e usando valorações arbitrárias provasse que o mesmo é verdade? ( ||-- <teorema>, no lugar de ||-/- <teorema>)
-
-Não aconteceria nada na verdade,  de fato, com um conjunto de valorações arbitrárias se você verificar que (||-- A) , o que você verificou é que existe uma valoração que satisfaz a proposição. Daé ela pode ser uma contingência, ou uma tautologia. E isto não significa, que ela seja demonstrável em Dedução Natural. Pense nesse exemplo supondo que "A" seja "p\/ q", dessa forma existe uma valoração v(p)=1 que satisfaz "p \/ q", tal que torna v(p\/q) =1, mas isso não significa que seja um teorema "|- p\/q " e de fato não é um teorema. Pois consigo apresentar um contra-modelo em que (||-/- p\/q),  quando (||-/- p) e (||-/- q), ou dito em outra notação: 'v(p) =0'  e 'v(q) = 0'.
-
-* * *
-
+<p><b><i>Continuando o passo anterior.</i></b> Vamos agora sim usar nossa teoria semântica para <i>refutar</i> o nosso argumento :</p>
  
-> Existe algo estratégia melhor para chegar a conclusão que uma
-> refutação é impossível? Eu começo procurando por átomos que
-> só têm uma valoração possível e a faço o desenvolvimento
-> respeitando essas valorações. Dessa forma melhora, mas até
-> chegar a conclusão que é impossível eu tenho que testar muitas
-> combinações diferentes.
+ P1 : ( B /\ ( ( B /\ F ) -> C ) ) <br/>
+ P2 : ( ( ( A /\ D ) <-> ( B /\ D ) ) /\ D ) <br/>
+ P3 : ( ( D <-> D ) -> ( F \/ F ) )<br/>
+ P4 : ( D /\ ( ( D \/ B ) -> ( B <-> D ) ) )  <br/>
+ P1, P2, P3, P4 |&sim; ( C <-> ( D /\ D ) ) /\ ( ~ B )  <br/>
 
-Carlos, se você encontrar uma estratégia para resolver este problema em "tempo polinomial" você terá resolvido o mais importante problema em aberto da computação contemporânea:
+<p> Pois pelo passo anterior, completamos a valoração v sobre todos os átomos proposicionais, sem contradições com as premissas:</p> 
 
-http://en.wikipedia.org/wiki/P_versus_NP_problem
+v <em class="sat">||--</em> A <br/>
+v <em class="sat">||--</em> B<br/>
+v <em class="sat">||--</em>  C <br/>
+v <em class="sat">||--</em> D<br/>
+v <em class="sat">||--</em> F <br/>
 
-ou, em particular, a sua versão 3SAT:
+<p>Seguimos com nosso preâmbulo da teoria <i>Semantics</i>: </p>
+	
+<pre> <code> Reset Initial. 
+Require Import Semantics.
+Parameter A B C D E F: Prop.
+ Hypothesis f0 : (v ||-- A).
+ Hypothesis f1 : (v ||-- B).
+ Hypothesis f2 : (v ||-- C).
+ Hypothesis f3 : (v ||-- D).
+(* Hypothesis f4 : (v ?? E). *)
+ Hypothesis f5 : (v ||-- F).
+Theorem T0 : (v ||-/-  ( ( ( B /\ ( ( B /\ F ) -> C ) ) /\ ( ( ( A /\ D ) <-> ( B /\ D ) ) /\ D ) /\ ( ( D <-> D ) -> ( F \/ F ) ) /\ ( D /\ ( ( D \/ B ) -> ( B <-> D ) ) ) ) -> ( ( ~ B ) /\ ( C <-> ( D /\ D ) ) ) ) ).
+Proof.
+</code></pre>
 
-http://en.wikipedia.org/wiki/3SAT#3-satisfiability
+<p>E eis aqui a verificação de que a refutação funciona :</p>
 
-<p>Para a finalização das refutações semânticas, temos os seguintes requisitos:</p>
+<pre> <code> impF.
+conjT.
+conjT.
+ass f1.
+impT2.
+ass f2.
+conjT.
+conjT.
+iffTT.
+conjT.
+ass f0.
+ass f3.
+conjT.
+ass f1.
+ass f3.
+ass f3.
+conjT.
+impT2.
+disjT2.
+ass f5.
+conjT.
+ass f3.
+impT2.
+iffTT.
+ass f1.
+ass f3.
+conjF1.
+negF.
+ass f1.
+</code></pre>
 
-<p>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</p>
-<p>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v||-- X) e (v ||-/- X).</p>
-<p>3º. Em cada hipótese formulada/des-comentada é preciso decidir entre "||--" ou "||-/-" no lugar de "??" no requisito 1º.</p><br/><br/>
+
+<p>Excelente! Finalizamos a verificação da Refutação, note que nossas três condições foram satisfeitas e concluímos <i>conforme queríamos refutar</i>:</p>
+
+<code>
+Qed. 
+</code>
+
+<br/>
+<br/>
+<center>* * *</center>
+<br/>
+<br/>
+
+<p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i></p>
+<p><b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros. </p>
+<p><b>2º.</b> Para nenhum átomo proposicional X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
+<b>3º.</b> Em cada hipótese formula comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
+
+<br/>
+<br/>
+<center>* * *</center>
+<br/>
+<br/>
+
+

@@ -68,84 +68,33 @@
 
 <p> Por (2), vemos que :</p>
 
-(x) v <em class="sat">||--</em> ( A /\ D ) <-> ( B /\ D )
+(x) v <em class="sat">||--</em> ( A /\ D ) <-> ( B /\ D ) <br/>
 
 <p> Agora com (i) e (iii), pelo significado da conjunção, sabemos que </p>
 
-(xi) v <em class="sat">||--</em> ( B /\ D )
+(xi) v <em class="sat">||--</em> ( B /\ D ) <br/>
 
 <p> De (x) e (xi), se segue que </p>
 
-(xi) v <em class="sat">||--</em> ( A /\ D )
+(xi) v <em class="sat">||--</em> ( A /\ D ) <br/>
 
 <p> Portanto, com (xi) tempos que </p>
 
-(xi) v <em class="sat">||--</em> A
+(xi) v <em class="sat">||--</em> A <br/>
+
 
 <p>Agora completamos a valoração v sobre todos os átomos proposicionais, sem contradições com as premissas:</p> 
 
 (xi) v <em class="sat">||--</em> A <br/>
-(i) v <em class="sat">||--</em> B<br/>
+(i) v <em class="sat">||--</em> B <br/>
 (ix) v <em class="sat">||--</em>  C <br/>
-(iii) v <em class="sat">||--</em> D<br/>
+(iii) v <em class="sat">||--</em> D <br/>
 (vii)  v <em class="sat">||--</em> F <br/>
 
-<pre> <code> Reset Initial. 
-Require Import Semantics.
-(* REFUTAR EM TEORIA SEMANTICA: *)
-Parameter A B C D E F: Prop.
- Hypothesis f0 : (v ||-- A).
- Hypothesis f1 : (v ||-- B).
- Hypothesis f2 : (v ||-- C).
- Hypothesis f3 : (v ||-- D).
-(* Hypothesis f4 : (v ?? E). *)
- Hypothesis f5 : (v ||-- F).
-Theorem T0 : (v ||-/-  ( ( ( B /\ ( ( B /\ F ) -> C ) ) /\ ( ( ( A /\ D ) <-> ( B /\ D ) ) /\ D ) /\ ( ( D <-> D ) -> ( F \/ F ) ) /\ ( D /\ ( ( D \/ B ) -> ( B <-> D ) ) ) ) -> ( ( ~ B ) /\ ( C <-> ( D /\ D ) ) ) ) ).
-Proof.
-</code></pre>
 
 
-impF.
-conjT.
-conjT.
-ass f1.
-impT2.
-ass f2.
-conjT.
-conjT.
-iffTT.
-conjT.
-ass f0.
-ass f3.
-conjT.
-ass f1.
-ass f3.
-ass f3.
-
-conjT.
-impT2.
-
-disjT2.
-ass f5.
-conjT.
-ass f3.
-impT2.
-iffTT.
-ass f1.
-ass f3.
-conjF1.
-negF.
-ass f1.
-
-
-
-
-
-
-Qed.
-
-<p>Para a finalização das refutações semânticas, temos os seguintes requisitos:</p>
-
-<p>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</p><br/>
-<p>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v||-- X) e (v ||-/- X).</p><br/>
-<p>3º. Em cada hipótese formulada/des-comentada é preciso decidir entre "||--" ou "||-/-" no lugar de "??" no requisito 1º.</p><br/><br/>
+<br/>
+<br/>
+<p text-align="right"> <i>Continua no próximo passo ...</i></p>
+<br/>
+<br/>
