@@ -16,6 +16,7 @@ tryocaml/tutorial/doc/
 tryocaml/tutorial/tutorial
 tutorial/lessons.ml
 tutorial/make_lessons
+try-logic/try-logic.js
 *.byte
 #*#
 js_of_ocaml/compiler/js_of_ocaml

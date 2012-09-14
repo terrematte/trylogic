@@ -8,7 +8,7 @@ Primeiramente, só um esclarecimento. Pela definição de teorema, não se pode 
 
 Depois, não use tabela de verdade! é uma péssima estratégia para exercícios grandes e realmente interessantes, como estes! Estabeleça uma estratégia de resolução por heurística e execute-a.
 
-Nossa estratégia é apresentar, uma refutação (ou uma demonstração) de uma asserção do tipo P1, P2, P3 |~ C. A ideia é saber se o simbolo |~ deve ser ⊢ ou ⊭  . Não confunda  |- com |=, ou ||- , são operadores distintos e de universos distintos.
+Nossa estratégia é apresentar, uma refutação (ou uma demonstração) de uma asserção do tipo P1, P2, P3 |~ C. A ideia é saber se o simbolo |&sim; deve ser ⊢ ou ⊭  . Não confunda  |- com |=, ou ||- , são operadores distintos e de universos distintos.
 
 
 

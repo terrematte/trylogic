@@ -2,7 +2,7 @@
 
 <p>Vamos agora pensar na heurística para se descobrir se uma fórmula, ou um argumento é <i>Tautologia</i>, <i>Antilogia</i> ou <i>Contingência</i>.</p>
 
-<p>Nossa estratégia é apresentar, uma refutação - <i>ou uma demonstração</i> - de uma asserção, ou seja, Γ |~ α . A ideia é descobrir se vamos refutar ou demonstrar, ou seja, se o simbolo |~ deve ser ⊢ ou ⊭ .  </p>
+<p>Nossa estratégia é apresentar, uma refutação - <i>ou uma demonstração</i> - de uma asserção, ou seja, Γ |&sim; α . A ideia é descobrir se vamos refutar ou demonstrar, ou seja, se o símbolo |&sim; deve ser ⊢ ou ⊭ .  </p>
 
 <p><i>Não confunda os operadores seguintes "⊢" e "⊨" !</i></p>
 
@@ -14,7 +14,7 @@
 
 <p>Por tanto, para refutar um argumento e dizer que não é possível construir uma árvore em Dedução Natural, precisamos mostrar que Γ ⊭ α, ou seja, que <b>existe pelo menos uma</b> determinada valoração <b>v</b> que v <em class="sat">||--</em> Γ (v satisfaz gama), mas que v <em class="uns">||-/-</em> α. </p>
 
-<p>Para exemplificar, vamos tentar analisar a seguinte fórmula |~ (~A -> B) /\ (~A /\ ~B). Aplicando uma heurística, como trata-se de uma fórmula, se supormos que a fórmula é <i>insatisfazível</i>, vamos precisar demonstrar que para <i>todas</i> as interpretações possíveis são contraditórias. Para isso precisamos explorar 2<sup>n</sup>, tal que n é número de átomos proposicionais. Esta não é uma boa estratégia!</p>
+<p>Para exemplificar, vamos tentar analisar a seguinte fórmula |&sim; (~A -> B) /\ (~A /\ ~B). Aplicando uma heurística, como trata-se de uma fórmula, se supormos que a fórmula é <i>insatisfazível</i>, vamos precisar demonstrar que para <i>todas</i> as interpretações possíveis são contraditórias. Para isso precisamos explorar 2<sup>n</sup>, tal que n é número de átomos proposicionais. Esta não é uma boa estratégia!</p>
 
 <p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
 
@@ -43,7 +43,7 @@
 						
 <p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
 <b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
-<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).<br/>
+<b>2º.</b> Para nenhum átomo proposicional X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).<br/>
 <b>3º.</b> Em cada hipótese formula comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
 
 <br/>

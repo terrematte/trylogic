@@ -1,6 +1,6 @@
 <h3>SEMp - Sistema de Refutação Semântica</h3>
 
-<p>Vamos usar heurística para se descobrir qual das duas opções é o argumento (A -> B), (B -> C), (D -> C) |~ A -> D </p>
+<p>Vamos usar heurística para se descobrir qual das duas opções é o argumento (A -> B), (B -> C), (D -> C) |&sim; A -> D </p>
 
 (i) <i>Demonstrável</i>  - (A -> B), (B -> C), (D -> C) ⊢ (A -> D), ou <br/>
 (ii) <i>Refutável</i> - (A -> B), (B -> C), (D -> C) ⊭ (A -> D). <br/>
@@ -58,7 +58,7 @@ Qed.
 
 <p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i></p>
 <p><b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros. </p>
-<p><b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
+<p><b>2º.</b> Para nenhum átomo proposicional X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
 <b>3º.</b> Em cada hipótese formula comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p>
 
 <br/>

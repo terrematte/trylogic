@@ -1,9 +1,100 @@
-<h3>SEMp - Sistema de Refutação Semântica</h3>
+<h3>SEMp - Exercícios Complexos/h3>
+
+<p> Bom, para resolver exercícios simples, podemos explorar as possibilidades usando a teoria <i>Semantics</i>, no entanto, quando os exercícios tornam-se mais complexos, a tarefa de explorar torna-se inviável. Por exemplo, para  analisar um argumento como :</p><br/>
+
+ P1 : ( B /\ ( ( B /\ F ) -> C ) ) <br/>
+ P2 : ( ( ( A /\ D ) <-> ( B /\ D ) ) /\ D ) <br/>
+ P3 : ( ( D <-> D ) -> ( F \/ F ) )<br/>
+ P4 : ( D /\ ( ( D \/ B ) -> ( B <-> D ) ) )  <br/>
+ P1, P2, P3, P4 |&sim; ( C <-> ( D /\ D ) ) /\ ( ~ B )  <br/>
+
+<p> Vamos usar heurística para demonstrar este exemplo. A nossa estratégia geral é </p> <br/>
+
+(i) Supor a existência de uma valoração que satisfaz as premissas, mas falsifica a conclusão.<br/>
+(ii) Em seguida, analisar a conclusão, para descobrir se a valoração v satisfaz ou falsifica cada um dos átomos proposicionais.<br/>
+(iii) Verificar se os átomos para a valoração v, satisfazem todas premissas por composicionalidade.<br/>
+
+<p>Vamos supor que existe uma valoração v, tal que :</p><br/>
+
+(1) v <em class="sat">||--</em> ( B /\ ( ( B /\ F ) -> C ) )<br/>
+(2) v <em class="sat">||--</em> ( ( ( A /\ D ) <-> ( B /\ D ) ) /\ D ) <br/>
+(3) v <em class="sat">||--</em> ( ( D <-> D ) -> ( F \/ F ) ) <br/>
+(4) v <em class="sat">||--</em> ( D /\ ( ( D \/ B ) -> ( B <-> D ) ) ) <br/>
+(5) v <em class="uns">||-/-</em>  (( ~ B ) /\ C <-> ( D /\ D ) )<br/>
+
+<p> Por (5) temos duas opções:</p><br/>
+
+<i>(Caso a)</i>  v <em class="uns">||-/-</em>  ~ B <br/>
+<i>(Caso b)</i>  v <em class="uns">||-/-</em> ( C <-> ( D /\ D ) ) <br/>
+
+<p> Analisando o <i>(Caso b)</i>, vemos que também se divide em mais duas opções: </p>
+
+<i>(Caso b1)</i>  v <em class="uns">||-/-</em> C  e   v <em class="sat">||--</em> ( D /\ D ) <br/>
+<i>(Caso b2)</i>  v <em class="sat">||--</em> C   e   v <em class="uns">||-/-</em> ( D /\ D )  <br/>
+
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que só precisamos analisar um dos casos. Se em um dos casos analisar cada um dos átomos proposicionais e verificarmos que a valoração v satisfaz as premissas, refutamos o argumento. Mas se encontrarmos uma contradição, vamos ter que analisar outros Casos. </p>
+
+<p>Por ser mais simples, vamos optar por analisar o <i>(Caso a)</i>, assim temos que</p>
+
+(i) v <em class="sat">||--</em> B<br/>
+
+<p> Note que por (1), também confirmamos "v <em class="sat">||--</em> B", assim como obtemos: </p>
+
+(ii) v <em class="sat">||--</em> ( B /\ F ) -> C 
+
+<p> Agora, veja que por (4), temos que </p>
+
+(iii) v <em class="sat">||--</em> D e (iv) v <em class="sat">||--</em>  ( D \/ B ) -> ( B <-> D ) <br/>
+
+<p>Por (i) e (iii), sabemos que </p>
+
+(v) v <em class="sat">||--</em> (B <-> D)<br/>
+
+<p> Note que assim, pela afirmação do consequente, (v) preserva que (iv), assim a premissa 4 continua satisfeita.  Agora por (iii), veja que :</p>
+
+(vi)  v <em class="sat">||--</em> (D <-> D)<br/>
+
+<p> Por, (vi) e (3), temos que "v <em class="sat">||--</em> (F \/ F)", pelo significado da disjunção, deduzimos que :</p>
+
+(vii)  v <em class="sat">||--</em> F <br/>
+
+<p> Dessa forma, por (i) e (vii), obtemos </p>
+
+(viii)  v <em class="sat">||--</em>  ( B /\ F )  <br/>
+
+<p>Com efeito, de (viii) e (ii) </p>
+
+(ix) v <em class="sat">||--</em>  C <br/>
+
+<p> Por (2), vemos que :</p>
+
+(x) v <em class="sat">||--</em> ( A /\ D ) <-> ( B /\ D ) <br/>
+
+<p> Agora com (i) e (iii), pelo significado da conjunção, sabemos que </p>
+
+(xi) v <em class="sat">||--</em> ( B /\ D ) <br/>
+
+<p> De (x) e (xi), se segue que </p>
+
+(xi) v <em class="sat">||--</em> ( A /\ D ) <br/>
+
+<p> Portanto, com (xi) tempos que </p>
+
+(xi) v <em class="sat">||--</em> A <br/>
+
+
+<p>Agora completamos a valoração v sobre todos os átomos proposicionais, sem contradições com as premissas:</p> 
+
+(xi) v <em class="sat">||--</em> A <br/>
+(i) v <em class="sat">||--</em> B <br/>
+(ix) v <em class="sat">||--</em>  C <br/>
+(iii) v <em class="sat">||--</em> D <br/>
+(vii)  v <em class="sat">||--</em> F <br/>
 
 
 
-<p>Para a finalização das refutações semânticas, temos os seguintes requisitos:</p>
-
-<p>1º. Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.</p><br/>
-<p>2º. Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v||-- X) e (v ||-/- X).</p><br/>
-<p>3º. Em cada hipótese formulada/des-comentada é preciso decidir entre "||--" ou "||-/-" no lugar de "??" no requisito 1º.</p><br/><br/>
+<br/>
+<br/>
+<p text-align="right"> <i>Continua no próximo passo ...</i></p>
+<br/>
+<br/>
