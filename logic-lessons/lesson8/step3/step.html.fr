@@ -1,70 +1,37 @@
-<h3>SEMp - Sistema de Refutação Semântica - Prática</h3>
+<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
 
-<p><b><i>Continuando o passo anterior.</i></b> Vamos agora sim usar nossa teoria semântica para <i>refutar</i> a fórmula (~A -> B) /\ (~A /\ ~B).</p>
+<p>Vamos usar heurística para se descobrir qual das duas opções é o argumento (A -> B),  B |&sim; A :</p>
+(i) <i>Demonstrável</i>  - (A -> B), B ⊢ A -, ou <br/>
+(ii) </i>Refutável</i> - (A -> B), B ⊭ A. 
 
-<p>Começamos com nosso preâmbulo :  </p>
+<p> Usando a noção de consequência semântica, se supormos que o argumento é tautológico, então vamos analisar se <b>toda valoração</b> satisfaz (A -> B) e B, também satisfaz A. Neste argumento simples, podemos explorar todos os casos, mas esta não é a melhor estratégia para argumentos mais complexos.</p>
 
-<pre> <code> Reset Initial. 
+<p>Assim, vamos supor que o argumento seja refutável, (A -> B), B ⊭ A. Ou seja, <i>existe pelo menos uma valoração</i> v, tal que:</p>
+
+(1) v <em class="sat">||--</em> (A -> B) e  (2) v <em class="sat">||--</em> B, mas (3) v <em class="uns">||-/-</em> A. <br/>
+
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>!</p>
+
+<p>Bom, por (2), sabemos que  v <em class="sat">||--</em> (A -> B) pela afirmação do consequente. Assim como por (1), inferimos também que <em class="sat">||--</em> (A -> B), pela negação do antecedente. Temos que com v <em class="uns">||-/-</em> A e v <em class="sat">||--</em> B, podemos refutar a fórmula que representa a conjunção das premissas implicando na conclusão, ou seja, (v <em class="uns">||-/-</em> (((A -> B) /\ B) -> A)).</p>
+
+<p>Agora a sua vez de refutar na Teoria Semantica que <i>existe pelo menos uma valoração</i> v, tal que :  (A -> B), B ⊭ A</p>
+
+<pre> <code> Reset Initial.  
 Require Import Semantics. 
-Parameter A B : Prop. 
-</code></pre>
-
-<p>Descobrimos no passo anterior que a fórmula abaixo é uma contradição, assim escolhemos uma valoração v qualquer para refutar, tal que v <em class="uns">||-/-</em> B e v <em class="uns">||-/-</em> A:</p>
-<pre> <code> Hypothesis f1 : (v ||-/- A).
-Hypothesis f2 : (v ||-/- B).
-Theorem sem_ex2 :  (v ||-/-  ((~A -> B) /\ (~A /\ ~B))).
-Proof.  	
-</code></pre>
-
-<p>Agora <i>atenção</i>, aplicamos uma das regras da conjunção falsa, vamos optar pelo primeiro lado, o segundo lado não seria uma boa opção, veremos mais na frente a razão :</p>
-<code>
-conjF1. 
-</code>
-
-<p>Agora aplicamos a regra da implicação falsa, seguida da regra da negação verdadeira e identificamos com a nossa estrutura escolhida:</p>
-<pre> <code> impF. 
-negT.
-exact f1.
-exact f2.
-</code></pre>
-
-<p>Excelente! Finalizamos a verificação da Refutação, note que nossas três condições foram satisfeitas:</p>
-<code>
-Qed. 
-</code>
-
-<br/>
-<br/>
-<center>* * *</center>
-<br/>
-<br/>
-
-<p>Vamos agora analisar o mesmo exemplo, mas o que ocorreria se tivéssemos aplicado outras regras : </p>
-
-<pre> <code> Reset Initial. 
-Require Import Semantics. 
-Parameter A B : Prop.
-Hypothesis f1 : (v ||-/- A).
-Hypothesis f2 : (v ||-/- B).
-Theorem sem_ex2 :  (v ||-/-  ((~A -> B) /\ (~A /\ ~B))).
+Parameter A B: Prop. 
+Hypothesis f1 : (v ||-/- A). 
+Hypothesis f2 : (v ||-- B). 
+Theorem sem_ex4 :  (v ||-/- (((A -> B) /\ B) -> A)). 
 Proof. 
-conjF2. 
+? ? ?
 </code></pre>
 
-<p><b><i>Você pode continuar? Continue digite os comandos seguintes e veja se poderíamos finalizar a verificação assim. Pense um pouco sobre a razão disso! </i></b></p>
 
-<code>
-? ? ?
-</code>
 
-<br/>
-<br/>
-<center>* * *</center>
-<br/>
-<br/>
-<p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
-<b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
-<b>2º.</b> Para nenhum átomo proposicional X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
+<p><b>ATENÇÃO:</b> <i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
+<br>
+<b>1º.</b> Deve haver apenas átomos nas folhas da árvore, e cada <code>Hypothesis fn: (v ?? X)</code> deve envolver um átomo X da lista de parâmetros.<br/>
+<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma v ⊩ X e v ⊮ X).</p>
 <br/>
 <br/>
 <center>* * *</center>

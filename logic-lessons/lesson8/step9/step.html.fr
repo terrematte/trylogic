@@ -1,4 +1,4 @@
-<h3>SEMp - Sistema de Refutação Semântica</h3>
+<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
 
 <p><b><i>Continuando o passo anterior.</i></b> Vamos agora sim usar nossa teoria semântica para <i>refutar</i> o nosso argumento :</p>
  

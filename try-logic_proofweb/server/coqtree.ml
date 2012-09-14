@@ -268,7 +268,7 @@ let rec remove_evar = function
   | x -> x
 ;;
 
-let parse_tree x = remove_evar (parse_tree x);;
+let parse_tree x = remove_evar (parse_tree x)
 
 
 let str_to_box s =

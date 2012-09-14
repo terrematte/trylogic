@@ -18,7 +18,7 @@ Theorem sem_ex1 :  (v ||-/- (A  -> (B \/ C)) ).
 Proof.  
 </code></pre>
 
-<p>Carregamos o sistema SEM<sub>p</sub> importando a teoria <i>Semantics</i>, e acrescentamos sobre a valoração v as hipóteses <code>f1</code>, <code>f2</code> e <code>f3</code> que propomos serem capazes de permitir demonstrar o teorema <code>sem_ex1</code>.</p>
+<p>Carregamos o sistema SEM<sub>p</sub> importando a teoria <i>Semantics</i>, e acrescentamos sobre a valoração v as hipóteses <b>f1</b>, <b>f2</b> e <b>f3</b> que propomos serem capazes de permitir demonstrar o teorema <b>sem_ex1</b>.</p>
 
 <p>Agora iniciamos a demonstração do resultado enunciado a partir das hipóteses assumidas, usando as regras de SEM<sub>p</sub> para justificar cada um dos passos deste demonstração.  Como pretendemos concluir que uma sentença da forma α→β não é satisfeita, aplicamos a regra <b>impF</b>, para a falsidade de uma implicação:</p>
 
@@ -28,9 +28,9 @@ impF.
 </code>
 </pre>
 
-<p>Observe que quase todas regras seguirão esse padrão <i>case-sensitive</i> de nomenclatura, tendo em minúsculo o nome abreviado do conectivo envolvido e em maiúsculo a letra <code>F</code> para dizer que a sentença que possui aquele conectivo como construtor principal <b>não é satisfeita</b> e <code>T</code> para dizer que tal sentença <b>é satisfeita</b>.</p>
+<p>Observe que quase todas regras seguirão esse padrão <i>case-sensitive</i> de nomenclatura, tendo em minúsculo o nome abreviado do conectivo envolvido e em maiúsculo a letra <b>F</b> para dizer que a sentença que possui aquele conectivo como construtor principal <b>não é satisfeita</b> e <b>T</b> para dizer que tal sentença <b>é satisfeita</b>.</p>
 
-<p>Dando continuidade à demonstração anterior, nosso primeiro sub-objetivo agora é mostrar que v ⊩ A.  Mas isto corresponde justamente à nossa hipótese <code>f1</code>.  Podemos portanto identificá-la da seguinte forma:</p>
+<p>Dando continuidade à demonstração anterior, nosso primeiro sub-objetivo agora é mostrar que v ⊩ A.  Mas isto corresponde justamente à nossa hipótese <b>f1</b>.  Podemos portanto identificá-la da seguinte forma:</p>
 
 <pre>
 <code>
@@ -69,5 +69,5 @@ Qed.
 
 <p><b>ATENÇÃO:</b> <i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
 <br>
-<b>1º.</b> Deve haver apenas átomos nas folhas da árvore, e cada <code>Hypothesis fn: (v ?? X)</code> deve envolver um átomo X da lista de parâmetros.<br/>
-<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma v ⊩ X e v ⊮ X).</p>
+<b>1º.</b> Deve haver apenas átomos nas folhas da árvore, e cada <b>Hypothesis fn: (v ?? X)</b> deve envolver um átomo X da lista de parâmetros.<br/>
+<b>2º.</b> Para nenhum átomo X podem haver simultaneamente hipóteses da forma v ⊩ X e v ⊮ X).</p>

@@ -1,0 +1,45 @@
+<h3>Dúvidas - Demonstrar (Np) vs Refutar (SEMp)</h3>
+
+<p>Nesta lição veremos algumas dúvidas gerais.</p><br/>
+
+<p><i><b>Fazendo a heurística e comprovando com tabela verdade achei em um dos meus exercícios uma valoração para os átomos que falsifica o mesmo, como faço para provar que um teorema está "errado" via árvore semântica no proofweb?</b></i></p>
+
+<p>Primeiramente, só um esclarecimento. Pela definição de teorema, não se pode falsificá-lo, um teorema é justamente uma fórmula válida, ou seja, satisfeita por qualquer valoração.</p>
+
+<p>Não use tabela de verdade! é uma péssima estratégia para exercícios grandes e realmente interessantes, como estes! Estabeleça uma estratégia de resolução por heurística e execute-a.</p>
+
+<p> No caso de uma refutação o que temos de apresentar é uma verificação de que uma valoração satisfaz a conjunção das premissas ( ||-- P1 /\ P2 /\ P3), mas não satisfaz a conclusão (||-/- C). </p>
+
+<p> Então, para verificar que um conjunto de valorações de atomos falsificam um exercício, você deve aplicar as regras semânticas certas para justificar as suas valorações que são relevantes. Para isso nem precisa definir todos os atomos, apenas os que são determinantes para sua asserção. Por exemplo, qualquer valoração atribuida para o átom 'p' é irrelevante para a asserção 'p |= (q \/ ~q)'. </p>
+
+<p> É a ideia de demonstrar de baixo para cima: você vai partir do seu objetivo, para chegar a suas folhas que devem ser os atomos com as valorações que você encontrou através da heurística e falsificam seu teorema.</p>
+   
+<p>  Por exemplo, você tem uma implicação: a implicação não é satisfeita (||-/- A -> B), quando o antecedente é satisfeito pela valoração (||-- A) E o consequente não é satisfeito (||-/- B). Apartir daé você deve analisar as condições em que A é satisfeito e B não é satisfeito (||-/- B), de forma recursiva até chegar aos seus átomos. Observe que em alguns casos, você vai ter que tomar decisões, como no caso em que a conjunção não é satisfeita (||-/- A /\ B), que pode ser justificado por (||-/- A), ou por (||-/- B). Nesses casos é que você vai ter que decidir e talvez vai ter que voltar atrás das suas justificativas semânticas.</p>
+<br/>
+<br/>
+<br/>
+
+<p><i><b>O que aconteceria se eu acidentalmente acreditasse que um teorema é verdade quando talvez ele fosse falso e usando valorações arbitrárias provasse que o mesmo é verdade? ( ||-- , no lugar de ||-/- )</b></i></p>
+
+<p>De fato, com um conjunto de valorações arbitrárias se você verificar que (||-- A) , o que você verificou é que existe uma valoração que satisfaz a proposição. Daé ela pode ser uma contingência, ou uma tautologia. E isto não significa, que ela seja demonstrável em Dedução Natural. Pense nesse exemplo supondo que "A" seja "p\/ q", dessa forma existe uma valoração v(p)=1 que satisfaz "p \/ q", tal que torna v(p\/q) =1, mas isso não significa que seja um teorema "|- p\/q " e de fato não é um teorema. Pois consigo apresentar um contra-modelo em que (||-/- p\/q),  quando (||-/- p) e (||-/- q), ou dito em outra notação: 'v(p) =0'  e 'v(q) = 0'.</p>
+<br/>
+<br/>
+<br/>
+
+<p><i><b> Existe algo estratégia melhor para chegar a conclusão que uma refutação é impossível? Eu começo procurando por átomos que só têm uma valoração possível e a faço o desenvolvimento respeitando essas valorações. Dessa forma melhora, mas até chegar a conclusão que é impossível eu tenho que testar muitas combinações diferentes. </b></i></p>
+
+<p>Se você encontrar uma estratégia para resolver este problema em "tempo polinomial" você terá resolvido o mais importante problema em aberto da computação contemporânea:</p>
+
+http://en.wikipedia.org/wiki/P_versus_NP_problem
+
+ou, em particular, a sua versão 3SAT:
+
+http://en.wikipedia.org/wiki/3SAT#3-satisfiability
+
+<br/>
+<br/>
+<center>* * *</center>
+<br/>
+<br/>
+
+

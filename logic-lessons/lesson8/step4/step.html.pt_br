@@ -1,123 +1,65 @@
-<h3>SEMp - Sistema de Refutação Semântica - Prática</h3>
+<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
 
-<p>Vamos agora usar o nosso sistema de Refutação como alternativa para explorar uma análise <i>heurística</i>.</p>
+<p>Vamos usar heurística para se descobrir qual das duas opções é o argumento (A -> B), (B -> C), (D -> C) |&sim; A -> D </p>
 
-<p> <b class="uns"><i>IMPORTANTE.</i></b> Note novamente a distinção entre <i>demonstração</i> - ou <i>refutação</i> - e uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
+(i) <i>Demonstrável</i>  - (A -> B), (B -> C), (D -> C) ⊢ (A -> D), ou <br/>
+(ii) <i>Refutável</i> - (A -> B), (B -> C), (D -> C) ⊭ (A -> D). <br/>
 
-<p>Vamos supor que existe uma valoração v, tal que :</p>
+<p>Vamos supor que exista uma valoração tal que  </p>
 
-"v <p class="uns">||-/-</p> ((C \/ D) -> (C /\ D))"
+(1) v <em class="sat">||--</em> (A -> B),  <br/>
+(2) v <em class="sat">||--</em> (B -> C),  <br/>
+(3) v <em class="sat">||--</em>  (D -> C) e  <br/>
+(4) v <em class="uns">||-/-</em> (A -> D)
 
-<p>Como usualmente, definimos o preambulo da teoria de Refutação:</p>
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! </p>
+
+Por (4), sabemos que (5) v <em class="sat">||--</em> A  e (6) v <em class="uns">||-/-</em> D.<br/>
+
+Com efeito, por (5) e (1), confirmamos que B é satisfeita por v : (7) v <em class="sat">||--</em> B. <br/>
+
+Da mesma forma, por (7) e (2), obtemos : (8) v <em class="sat">||--</em> C. <br/>
+
+<p>Assim, conferimos que para todos os átomos (5), (6), (7) e (8), a valoração v satisfaz as fórmulas complexas (1), (2) e (3).</p>
+
+<p> <b class="uns"><i>REFUTAÇÃO.</i></b> Agora, vamos usar a valoração v para refutar em nossa teoria semântica:</p>
 
 <pre> <code> Reset Initial. 
-Require Import Semantics. 
+Require Import Semantics.
 Parameter A B C D : Prop.
+
+Hypothesis f8 : (v ||-- A).
+Hypothesis f9 : (v ||-- B). 
+Hypothesis f10 : (v ||-- C). 
+Hypothesis f11 : (v ||-/- D). 
+
+Theorem sem_ex5 : (v ||-/- (((A -> B) /\ (B -> C) /\ (D -> C)) -> (A -> D))).
+Proof.
+impF.
+conjT.
+impT2.
+exact f9.
+conjT.
+impT2.
+ass f10.
+impT2.
+ass f10.
+impF.
+ass f8.
+ass f11.
+Qed.
 </code></pre>
 
-<p>Vamos nos lembrar dos requisitos das Condições de Parada: </p>  
-
-<p><b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros. </p>
-
-Hypothesis f1 : (v ?? A).<br/>
-Hypothesis f2 : (v ?? B).<br/>
-...<br/>
-Hypothesis fm : (v ?? M).<br/>
-Hypothesis fn : (v ?? N). 
-
-<p><b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
-
-<p><b>3º.</b> Em cada hipótese formulada/des-comentada é preciso decidir entre "v <em class="sat">||--</em>" ou "v <em class="uns">||-/-</em>" no lugar de "??" no requisito 1º.</p><br/>
-
-<p>- Nosso objetivo é encontrar tais atribuições :</p>
-
-Hypothesis f1 : (v ?? C).<br/>
-Hypothesis f2 : (v ?? D).
-
-<p>Vamos iniciar sem definir a função de atribuição para C e D:</p>
-<pre><code> Theorem sem_ex3 :  (v ||-/- ((C \/ D) -> (C /\ D))).  
-Proof. 
-</code></pre>
-
-<p>Aplicamos a regra da implicação falsa:</p>
-
-<code>
-impF. 
-</code>
-
-<p>Agora como a disjunção é satisfeita, precisamos escolher que lado da disjunção a torna verdadeira. Vamos optar pelo lado direito:</p>
-
-<code>
-disjT2. 
-</code>
-
-<p>O Coq sempre sempre prioriza resolver os ramos à esquerda, mas com o comando "Focus n" permite alterar o ramo da árvore (Subgoal) em que se está trabalhando para o ramo 'n'</p>
-
-<code>
-Focus 2. 
-</code>
-
-<p>Detalhe, veja que é possível voltar para o ramo anterior com o comando Unfocus:</p>
-
-<code>
-Unfocus. 
-</code>
-
-<p>Mas vamos continuar no segundo ramo da árvore:</p>
-
-<code>
-Focus 2. 
-</code>
-
-<p>Como a conjunção é falsificável, precisamos justificar por qual lado. Vamos  optar pelo lado esquerdo: </p>
-
-<code>
-conjF1. 
-</code>
-
-<p> Opa! Chegamos na situação em que nossos dois primeiro requisitos da condição de Parada estão validados:</p>
-
-<p><b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros. <br/>
-<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
-
-<p>Logo, podemos, abortar os passos da heurística:</p>
-
-<code>
-Abort.  
-</code>	
-
-<p><b class="uns"><i>REFUTAÇÃO.</i></b> Agora, de fato, iniciamos a refutação inserindo a Valoração v para os átomos proposicionais: </p>
-<pre><code> Hypothesis f4 : (v ||-/- C).
-Hypothesis f5 : (v ||-- D).	
-</code></pre>	
-
-<p> Em seguinda, copiamos todos os passos da verificação, incluindo mesmo os passos com os comandos Focus/Unfocus: </p>
-
-<pre><code> Hypothesis f4 : (v ||-/- C).
-Hypothesis f5 : (v ||-- D).
-Theorem Exer2 : (v ||-/- ((C \/ D) -> (C /\ D))).
-Proof. 
-impF. 
-disjT2. 
-Focus 2. 
-Unfocus. 
-Focus 2. 
-conjF1. 
-</code></pre>
-
-<p>Assim, completamos a refutação : </p>
-<pre><code>exact f4.
-exact f5.
-Qed. 
-</code></pre>
-
+<br/>
 <br/>
 <center>* * *</center>
 <br/>
+<br/>
 
-<p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
-<b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
-<b>2º.</b> Para nenhum átomo proposicional X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
+<p><b>ATENÇÃO:</b> <i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
+<br>
+<b>1º.</b> Deve haver apenas átomos nas folhas da árvore, e cada <code>Hypothesis fn: (v ?? X)</code> deve envolver um átomo X da lista de parâmetros.<br/>
+<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma v ⊩ X e v ⊮ X).</p>
 <br/>
 <br/>
 <center>* * *</center>

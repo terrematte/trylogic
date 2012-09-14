@@ -1,53 +1,109 @@
-<h3>SEMp - Sistema de Refutação Semântica - Teoria</h3>
+<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
 
-<p>Vamos agora pensar na heurística para se descobrir se uma fórmula, ou um argumento é <i>Tautologia</i>, <i>Antilogia</i> ou <i>Contingência</i>.</p>
+<p>Vamos agora usar o nosso sistema de Refutação como alternativa para explorar uma análise <i>heurística</i>.</p>
 
-<p>Nossa estratégia é apresentar, uma refutação - <i>ou uma demonstração</i> - de uma asserção, ou seja, Γ |&sim; α . A ideia é descobrir se vamos refutar ou demonstrar, ou seja, se o símbolo |&sim; deve ser ⊢ ou ⊭ .  </p>
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Note novamente a distinção entre <i>demonstração</i> - ou <i>refutação</i> - e uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
 
-<p><i>Não confunda os operadores seguintes "⊢" e "⊨" !</i></p>
+<p>Vamos supor que existe uma valoração v, tal que :</p>
 
-<p>Lembramos que o operador ⊢ se refere a demonstração de que uma fórmula é consequência de um conjunto de hipóteses, usando manipulação simbólica das fórmulas. Com ele dizemos: Γ ⊢ α, "A partir do conjunto Γ de fórmulas, existe pelo menos uma árvore de derivação tendo α como consequência".</p>
+"v <p class="uns">||-/-</p> ((C \/ D) -> (C /\ D))"
 
-<p>O operador ⊨ trata de consequência semântica, serve para indicar se uma fórmula é consequência semântica de um conjunto de fórmulas, analisando o que acontece em todas valorações, ou estruturas de interpretações.  Assim, expressamos que Γ  ⊨ α , "α é <i>consequência semântica</i> de Γ, se para toda valoração v que satisfaz Γ, também satisfaz α". </p>
+<p>Como usualmente, definimos o preambulo da teoria de Refutação:</p>
 
-<p>Já o símbolo "v ⊩ α"  representa o que ocorre com <i>uma fórmula</i> para <i>uma determinada valoração</i>. Representamos da seguinte forma: v ⊩ φ  ≈ "Uma valoração v <i>satisfaz</i> a fórmula φ. </p> <br/>
+<pre> <code> Reset Initial. 
+Require Import Semantics. 
+Parameter A B C D : Prop.
+</code></pre>
 
-<p>Por tanto, para refutar um argumento e dizer que não é possível construir uma árvore em Dedução Natural, precisamos mostrar que Γ ⊭ α, ou seja, que <b>existe pelo menos uma</b> determinada valoração <b>v</b> que v <em class="sat">||--</em> Γ (v satisfaz gama), mas que v <em class="uns">||-/-</em> α. </p>
 
-<p>Para exemplificar, vamos tentar analisar a seguinte fórmula |&sim; (~A -> B) /\ (~A /\ ~B). Aplicando uma heurística, como trata-se de uma fórmula, se supormos que a fórmula é <i>insatisfazível</i>, vamos precisar demonstrar que para <i>todas</i> as interpretações possíveis são contraditórias. Para isso precisamos explorar 2<sup>n</sup>, tal que n é número de átomos proposicionais. Esta não é uma boa estratégia!</p>
+<p>Vamos iniciar sem definir a função de atribuição para C e D:</p>
+<pre><code> Theorem sem_ex3 :  (v ||-/- ((C \/ D) -> (C /\ D))).  
+Proof. 
+</code></pre>
 
-<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
+<p>Aplicamos a regra da implicação falsa:</p>
 
- <p>Suponha por absurdo que a fórmula seja <i>satisfeita</i>, isto é, suponha que exista uma valoração v tal que:</p>
-(1) v <em class="sat">||--</em> (~A -> B)  <br/>
-(2) v <em class="sat">||--</em> (~A /\ ~B) <br/>
+<code>
+impF. 
+</code>
 
-<p> De (2) segue que :</p>
+<p>Agora como a disjunção é satisfeita, precisamos escolher que lado da disjunção a torna verdadeira. Vamos optar pelo lado direito:</p>
 
-(3) v <em class="sat">||--</em> ~A , e  <br/>
-(4) v <em class="sat">||--</em> ~B <br/>
+<code>
+disjT2. 
+</code>
 
-<p> De (4) segue que :</p>
+<p>O Coq sempre sempre prioriza resolver os ramos à esquerda, mas com o comando "Focus n" permite alterar o ramo da árvore (Subgoal) em que se está trabalhando para o ramo 'n'</p>
 
-(5) v <em class="uns">||-/-</em> B<br/>
+<code>
+Focus 2. 
+</code>
 
-<p>Concluímos então, de (3) e (5), que </p>
+<p>Detalhe, veja que é possível voltar para o ramo anterior com o comando Unfocus:</p>
 
-(6) v <em class="uns">||-/-</em> ~A -> B<br/>
+<code>
+Unfocus. 
+</code>
 
-<p>Absurdo de (i) e (vi). Logo, a fórmula é uma contradição.</p> <br/>
+<p>Mas vamos continuar no segundo ramo da árvore:</p>
 
-<p>Portanto, <i>qualquer</i> valoração para A e B são contra-exemplos de refutação da fórmula. </p><br/>
+<code>
+Focus 2. 
+</code>
 
-<p><i>Na próxima lição, vamos verificar o contra-exemplo aplicando nossa Teoria Semântica. </i></p>
-						
-<p><b>ATENÇÃO:</b> <i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
+<p>Como a conjunção é falsificável, precisamos justificar por qual lado. Vamos  optar pelo lado esquerdo: </p>
+
+<code>
+conjF1. 
+</code>
+
+<p> Opa! Chegamos na situação em que nossos requisitos da condição de Parada estão respeitados:<br>
 <br>
 <b>1º.</b> Deve haver apenas átomos nas folhas da árvore, e cada <code>Hypothesis fn: (v ?? X)</code> deve envolver um átomo X da lista de parâmetros.<br/>
 <b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma v ⊩ X e v ⊮ X).</p>
 
+
+<p>Logo, podemos, abortar os passos da heurística:</p>
+
+<code>
+Abort.  
+</code>	
+
+<p><b class="uns"><i>REFUTAÇÃO.</i></b> Agora, de fato, iniciamos a refutação inserindo a Valoração v para os átomos proposicionais: </p>
+<pre><code> Hypothesis f4 : (v ||-/- C).
+Hypothesis f5 : (v ||-- D).	
+</code></pre>	
+
+<p> Em seguinda, copiamos todos os passos da verificação, incluindo mesmo os passos com os comandos Focus/Unfocus: </p>
+
+<pre><code> Theorem Exer2 : (v ||-/- ((C \/ D) -> (C /\ D))).
+Proof. 
+impF. 
+disjT2. 
+Focus 2. 
+Unfocus. 
+Focus 2. 
+conjF1. 
+</code></pre>
+
+<p>Assim, completamos a refutação : </p>
+<pre><code>exact f4.
+exact f5.
+Qed. 
+</code></pre>
+
+<br/>
+<center>* * *</center>
+<br/>
+
 <br/>
 <br/>
-<p text-align="right"> <i>Continua no próximo passo ...</i></p>
+<p><b>ATENÇÃO:</b> <i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
+<br>
+<b>1º.</b> Deve haver apenas átomos nas folhas da árvore, e cada <code>Hypothesis fn: (v ?? X)</code> deve envolver um átomo X da lista de parâmetros.<br/>
+<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma v ⊩ X e v ⊮ X).</p>
+<br/>
+<br/>
+<center>* * *</center>
 <br/>
 <br/>

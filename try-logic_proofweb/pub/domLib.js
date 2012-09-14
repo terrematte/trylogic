@@ -1,4 +1,4 @@
-/** $Id: domLib.js 2282 2006-06-01 08:58:15Z dallen $ */
+/** $Id: domLib.js 2398 2006-10-22 20:08:09Z dallen $ */
 // {{{ license
 
 /*
@@ -22,13 +22,13 @@
 
 /**
  * Title: DOM Library Core
- * Version: 0.70
+ * Version: 0.72
  *
  * Summary:
  * A set of commonly used functions that make it easier to create javascript
  * applications that rely on the DOM.
  *
- * Updated: 2005/05/17
+ * Updated: $Date: 2006-10-22 16:08:09 -0400 (Sun, 22 Oct 2006) $
  *
  * Maintainer: Dan Allen <dan.allen@mojavelinux.com>
  * Maintainer: Jason Rust <jrust@rustyparts.com>
@@ -37,38 +37,167 @@
  */
 
 // }}}
+// {{{ browser detection
+
+// Formal browser detect library, courtesy of QuirksMode (http://www.quirksmode.org/js/detect.html)
+var BrowserDetect = {
+	init: function () {
+		this.engine = "unknown engine";
+		this.browser = this.searchString(this.dataBrowser) || "unknown browser";
+		this.version = this.searchVersion(navigator.userAgent)
+			|| this.searchVersion(navigator.appVersion)
+			|| "unknown version";
+		this.OS = this.searchString(this.dataOS) || "unknown OS";
+		this.mode = (document.compatMode && document.compatMode == 'CSS1Compat' ? 'Strict' : 'Quirks');
+	},
+	searchString: function (data) {
+		for (var i = 0; i < data.length; i++)	{
+			var dataString = data[i].string;
+			var dataProp = data[i].prop;
+			this.versionSearchString = data[i].versionSearch || data[i].identity;
+			if (dataString) {
+				if (dataString.indexOf(data[i].subString) != -1) {
+					if (data[i].engine) {
+						this.engine = data[i].engine;
+					}
+					return data[i].identity;
+				}	
+			}
+			else if (dataProp) {
+				if (data[i].engine) {
+					this.engine = data[i].engine;
+				}
+				return data[i].identity;
+			}		
+		}
+	},
+	searchVersion: function (dataString) {
+		var index = dataString.indexOf(this.versionSearchString);
+		if (index == -1) {
+			return;
+		}
+
+		return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
+	},
+	dataBrowser: [
+		{
+			string: navigator.userAgent,
+			subString: "OmniWeb",
+			versionSearch: "OmniWeb/",
+			identity: "OmniWeb",
+			engine: "WebCore"
+		},
+		{
+			// khtml browsers may use string "khtml, like gecko"
+			string: navigator.vendor,
+			subString: "Apple",
+			identity: "Safari",
+			engine: "KHTML"
+		},
+		{
+			prop: window.opera,
+			identity: "Opera",
+			engine: "Presto"
+		},
+		{
+			string: navigator.vendor,
+			subString: "iCab",
+			identity: "iCab",
+			engine: "iCab"
+		},
+		{
+			// khtml browsers may use string "khtml, like gecko"
+			string: navigator.vendor,
+			subString: "KDE",
+			identity: "Konqueror",
+			engine: "KHTML"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Firefox",
+			identity: "Firefox",
+			engine: "Gecko"
+		},
+		{
+			string: navigator.vendor,
+			subString: "Camino",
+			identity: "Camino",
+			engine: "Gecko"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Netscape",
+			identity: "Netscape",
+			engine: "Gecko"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "MSIE",
+			identity: "Explorer",
+			versionSearch: "MSIE",
+			engine: "Trident"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Gecko",
+			identity: "Mozilla",
+			versionSearch: "rv",
+			engine: "Gecko"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Mozilla",
+			identity: "Netscape",
+			versionSearch: "Mozilla"
+		}
+	],
+	dataOS : [
+		{
+			string: navigator.platform,
+			subString: "Win",
+			identity: "Windows"
+		},
+		{
+			string: navigator.platform,
+			subString: "Mac",
+			identity: "Mac"
+		},
+		{
+			string: navigator.platform,
+			subString: "Linux",
+			identity: "Linux"
+		}
+	]
+};
+
+BrowserDetect.init();
+
+// }}}
 // {{{ global constants (DO NOT EDIT)
 
-// -- Browser Detection --
-var domLib_userAgent = navigator.userAgent.toLowerCase();
-var domLib_isMac = navigator.appVersion.indexOf('Mac') != -1;
-var domLib_isWin = domLib_userAgent.indexOf('windows') != -1;
-// NOTE: could use window.opera for detecting Opera
-var domLib_isOpera = domLib_userAgent.indexOf('opera') != -1;
-var domLib_isOpera7up = domLib_userAgent.match(/opera.(7|8)/i);
-var domLib_isSafari = domLib_userAgent.indexOf('safari') != -1;
-var domLib_isKonq = domLib_userAgent.indexOf('konqueror') != -1;
-// Both konqueror and safari use the khtml rendering engine
-var domLib_isKHTML = (domLib_isKonq || domLib_isSafari || domLib_userAgent.indexOf('khtml') != -1);
-var domLib_isIE = (!domLib_isKHTML && !domLib_isOpera && (domLib_userAgent.indexOf('msie 5') != -1 || domLib_userAgent.indexOf('msie 6') != -1 || domLib_userAgent.indexOf('msie 7') != -1));
-var domLib_isIE5up = domLib_isIE;
-var domLib_isIE50 = (domLib_isIE && domLib_userAgent.indexOf('msie 5.0') != -1);
-var domLib_isIE55 = (domLib_isIE && domLib_userAgent.indexOf('msie 5.5') != -1);
-var domLib_isIE5 = (domLib_isIE50 || domLib_isIE55);
-// safari and konq may use string "khtml, like gecko", so check for destinctive /
-var domLib_isGecko = domLib_userAgent.indexOf('gecko/') != -1;
+// -- Browser Identity Flags --
+var domLib_isMac = BrowserDetect.OS == 'Mac';
+var domLib_isWin = BrowserDetect.OS == 'Windows';
+var domLib_isGecko = BrowserDetect.engine == 'Gecko';
+var domLib_isOpera = BrowserDetect.browser == 'Opera';
+var domLib_isSafari = BrowserDetect.browser == 'Safari';
+var domLib_isKonq = BrowserDetect.browser == 'Konqueror';
+var domLib_isKHTML = BrowserDetect.engine == 'KHTML';
+var domLib_isIE = BrowserDetect.browser == 'Explorer';
+var domLib_isIE50 = (domLib_isIE && BrowserDetect.version == 5);
+var domLib_isIE5 = (domLib_isIE && BrowserDetect.version >= 5 && BrowserDetect.version < 6);
 var domLib_isMacIE = (domLib_isIE && domLib_isMac);
-var domLib_isIE55up = domLib_isIE5up && !domLib_isIE50 && !domLib_isMacIE;
-var domLib_isIE6up = domLib_isIE55up && !domLib_isIE55;
 
 // -- Browser Abilities --
-var domLib_standardsMode = (document.compatMode && document.compatMode == 'CSS1Compat');
-var domLib_useLibrary = (domLib_isOpera7up || domLib_isKHTML || domLib_isIE5up || domLib_isGecko || domLib_isMacIE || document.defaultView);
+var domLib_standardsMode = BrowserDetect.mode == 'Strict';
+var domLib_useLibrary = ((domLib_isOpera && BrowserDetect.version >= 7) || domLib_isKHTML ||
+	(domLib_isIE && BrowserDetect.version >= 5) || domLib_isGecko || domLib_isMacIE || document.defaultView);
 // fixed in Konq3.2
-var domLib_hasBrokenTimeout = (domLib_isMacIE || (domLib_isKonq && domLib_userAgent.match(/konqueror\/3.([2-9])/) == null));
+var domLib_hasBrokenTimeout = (domLib_isMacIE || (domLib_isKonq && BrowserDetect.version >= 3.2));
 var domLib_canFade = (domLib_isGecko || domLib_isIE || domLib_isSafari || domLib_isOpera);
-var domLib_canDrawOverSelect = (domLib_isMac || domLib_isOpera || domLib_isGecko);
+var domLib_canDrawOverSelect = ((domLib_isIE && BrowserDetect.version >= 7) || domLib_isMac || domLib_isOpera || domLib_isGecko);
 var domLib_canDrawOverFlash = (domLib_isMac || domLib_isWin);
+var domLib_detectObstructionsEnabled = true;
 
 // -- Event Variables --
 var domLib_eventTarget = domLib_isIE ? 'srcElement' : 'currentTarget';
@@ -152,7 +281,11 @@ function Hash()
 // using prototype as opposed to inner functions saves on memory 
 Hash.prototype.get = function(in_key)
 {
-	return this.elementData[in_key];
+	if (typeof(this.elementData[in_key]) != 'undefined') {
+		return this.elementData[in_key];
+	}
+
+	return null;
 }
 
 Hash.prototype.set = function(in_key, in_value)
@@ -253,11 +386,22 @@ Hash.prototype.compare = function(in_hash)
 // }}}
 // {{{ domLib_isDescendantOf()
 
-function domLib_isDescendantOf(in_object, in_ancestor)
+function domLib_isDescendantOf(in_object, in_ancestor, in_bannedTags)
 {
+	if (in_object == null)
+	{
+		return false;
+	}
+
 	if (in_object == in_ancestor)
 	{
 		return true;
+	}
+
+	if (typeof(in_bannedTags) != 'undefined' &&
+		(',' + in_bannedTags.join(',') + ',').indexOf(',' + in_object.tagName + ',') != -1)
+	{
+		return false;
 	}
 
 	while (in_object != document.documentElement)
@@ -277,10 +421,10 @@ function domLib_isDescendantOf(in_object, in_ancestor)
 				in_object = tmp_object;
 			}
 		}
-		// in case we get some wierd error, just assume we haven't gone out yet
+		// in case we get some wierd error, assume we left the building
 		catch(e)
 		{
-			return true;
+			return false;
 		}
 	}
 
@@ -288,13 +432,13 @@ function domLib_isDescendantOf(in_object, in_ancestor)
 }
 
 // }}}
-// {{{ domLib_detectCollisions()
+// {{{ domLib_detectObstructions()
 
 /**
  * For any given target element, determine if elements on the page
  * are colliding with it that do not obey the rules of z-index.
  */
-function domLib_detectCollisions(in_object, in_recover, in_useCache)
+function domLib_detectObstructions(in_object, in_recover, in_useCache)
 {
 	// the reason for the cache is that if the root menu is built before
 	// the page is done loading, then it might not find all the elements.
@@ -448,13 +592,13 @@ function domLib_getOffsets(in_object, in_preserveScroll)
 	}
 
 	return new Hash(
-		'left',		offsetLeft,
-		'top',		offsetTop,
-		'right',	offsetLeft + originalWidth,
-		'bottom',	offsetTop + originalHeight,
-		'leftCenter',	offsetLeft + originalWidth/2,
-		'topCenter',	offsetTop + originalHeight/2,
-		'radius',	Math.max(originalWidth, originalHeight) 
+		'left',	offsetLeft,
+		'top', offsetTop,
+		'right', offsetLeft + originalWidth,
+		'bottom', offsetTop + originalHeight,
+		'leftCenter', offsetLeft + originalWidth/2,
+		'topCenter', offsetTop + originalHeight/2,
+		'radius', Math.max(originalWidth, originalHeight) 
 	);
 }
 
@@ -638,6 +782,7 @@ function domLib_getElementsByTagNames(in_list, in_excludeHidden)
 				if (skip) continue;
 			}
 
+			// NOTE: could use a special "ignore" style class
 			if (in_excludeHidden && domLib_getComputedStyle(matches[j], 'visibility') == 'hidden')
 			{
 				continue;
@@ -663,12 +808,12 @@ function domLib_getComputedStyle(in_obj, in_property)
 	// getComputedStyle() is broken in konqueror, so let's go for the style object
 	else if (domLib_isKonq)
 	{
-		var humpBackProp = in_property.replace(/-(.)/, function (a, b) { return b.toUpperCase(); });
+		//var humpBackProp = in_property.replace(/-(.)/, function (a, b) { return b.toUpperCase(); });
 		return eval('in_obj.style.' + in_property);
 	}
 	else
 	{
-		return document.defaultView.getComputedStyle(in_obj, null).getPropertyValue(in_property);
+		return document.defaultView.getComputedStyle(in_obj, '').getPropertyValue(in_property);
 	}
 }
 

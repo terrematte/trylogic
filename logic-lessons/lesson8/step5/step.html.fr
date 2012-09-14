@@ -1,38 +1,46 @@
-<h3>SEMp - Sistema de Refutação Semântica - Autoavaliação</h3>
+<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
 
-<p>Vamos usar heurística para se descobrir qual das duas opções é o argumento (A -> B),  B |&sim; A :</p>
-(i) <i>Demonstrável</i>  - (A -> B), B ⊢ A -, ou <br/>
-(ii) </i>Refutável</i> - (A -> B), B ⊭ A. 
+<!-- APRESENTAR A HEURÍSTICA DA FÓRMULA - (~A -> B) /\ (~A /\ ~B) 
+	 INDICANDO NO PRÓXIMO PASSO COMO VERIFICAR A VALORAÇÃO ENCONTRADA;
+ -->
 
-<p> Usando a noção de consequência semântica, se supormos que o argumento é tautológico, então vamos analisar se <b>toda valoração</b> satisfaz (A -> B) e B, também satisfaz A. Neste argumento simples, podemos explorar todos os casos, mas esta não é a melhor estratégia para argumentos mais complexos.</p>
+<p>Vamos agora pensar como descobrir se um argumento é <i>Demonstrável</i>, ou <i>Refutável</i>, para isso precisamos aplicar uma heurística.</p>
 
-<p>Assim, vamos supor que o argumento seja refutável, (A -> B), B ⊭ A. Ou seja, <i>existe pelo menos uma valoração</i> v, tal que:</p>
+<p>Nossa estratégia é apresentar, uma demonstração - <i>ou uma refutação</i> - de uma asserção, ou seja, Γ |~ α . A ideia é descobrir se vamos refutar ou demonstrar, ou seja, se o símbolo |~ deve ser ⊢ ou ⊭ .  </p>
 
-(1) v <em class="sat">||--</em> (A -> B) e  (2) v <em class="sat">||--</em> B, mas (3) v <em class="uns">||-/-</em> A. <br/>
+<p>Por tanto, para refutar um argumento e dizer que não é possível construir uma árvore em Dedução Natural, precisamos mostrar que Γ ⊭ α, ou seja, que <b>existe pelo menos uma</b> determinada valoração v tal que v ⊩ Γ, mas que v ⊮ α. </p>
 
-<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>!</p>
+<p>Para exemplificar, vamos analisar a seguinte fórmula |~  (~A -> B) /\ (~A /\ ~B). </p>
 
-<p>Bom, por (2), sabemos que  v <em class="sat">||--</em> (A -> B) pela afirmação do consequente. Assim como por (1), inferimos também que <em class="sat">||--</em> (A -> B), pela negação do antecedente. Temos que com v <em class="uns">||-/-</em> A e v <em class="sat">||--</em> B, podemos refutar a fórmula que representa a conjunção das premissas implicando na conclusão, ou seja, (v <em class="uns">||-/-</em> (((A -> B) /\ B) -> A)).</p>
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
 
-<p>Agora a sua vez de refutar na Teoria Semantica que <i>existe pelo menos uma valoração</i> v, tal que :  (A -> B), B ⊭ A</p>
+ <p>Suponha por absurdo que a fórmula seja <i>satisfeita</i>, isto é, suponha que exista uma valoração v tal que:</p>
+(1) v <em class="sat">||--</em> (~A -> B)  <br/>
+(2) v <em class="sat">||--</em> (~A /\ ~B) <br/>
 
-<pre> <code> Reset Initial.  
-Require Import Semantics. 
-Parameter A B: Prop. 
-Hypothesis f1 : (v ||-/- A). 
-Hypothesis f2 : (v ||-- B). 
-Theorem sem_ex4 :  (v ||-/- (((A -> B) /\ B) -> A)). 
-Proof. 
-? ? ?
-</code></pre>
+<p> De (2) segue que :</p>
 
+(3) v <em class="sat">||--</em> ~A , e  <br/>
+(4) v <em class="sat">||--</em> ~B <br/>
 
+<p> De (4) segue que :</p>
 
-<p><i>Para a finalização das refutações semânticas, temos os seguintes requisitos:</i><br/>
-<b>1º.</b> Há apenas átomos nas folhas da árvore e cada "Hypothesis fn: (v ?? X)" deve envolver um átomo X da lista de parâmetros.<br/>
-<b>2º.</b> Para nenhum átomo proposicional X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
+(5) v <em class="uns">||-/-</em> B<br/>
+
+<p>Concluímos então, de (3) e (5), que </p>
+
+(6) v <em class="uns">||-/-</em> ~A -> B<br/>
+
+<p>Absurdo de (i) e (vi). Logo, a fórmula é uma contradição.</p> <br/>
+
+<p>Portanto, <i>qualquer</i> valoração para A e B são contra-exemplos de refutação da fórmula. </p><br/>
+
+<p><i>Na próxima lição, vamos verificar o contra-exemplo aplicando nossa Teoria Semântica. </i></p>
+
 <br/>
 <br/>
-<center>* * *</center>
+<p text-align="right"> <i>Continua no próximo passo ...</i></p>
 <br/>
 <br/>
+
+

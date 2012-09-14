@@ -108,7 +108,7 @@ table {
 	display:inline;
     margin: 1px;
     padding: 1px;
-    width: 150px;
+    width: 180px;
 }
 
 
@@ -124,7 +124,7 @@ dl dt {
 }
 
 #lesson-position {
-    text-align: center;
+    text-align: justify;
 }
 
 #lesson-text {

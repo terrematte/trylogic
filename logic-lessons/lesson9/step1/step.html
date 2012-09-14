@@ -1,45 +1,112 @@
-<h3>Dúvidas - Demonstrar (Np) vs Refutar (SEMp)</h3>
+<h3>Demonstrar (Np) vs Refutar (SEMp)</h3>
 
-<p>Nesta lição veremos algumas dúvidas gerais.</p><br/>
+<p>Vamos analisar o seguinte argumento: ((R /\ S) -> P), (Q -> R) |&sim; (S -> (Q -> P)). Seria ele demonstrável "⊢", ou refutável "⊭" ?</p>
 
-<p><i><b>Fazendo a heurística e comprovando com tabela verdade achei em um dos meus exercícios uma valoração para os átomos que falsifica o mesmo, como faço para provar que um teorema está "errado" via árvore semântica no proofweb?</b></i></p>
+<p>Inicialmente, vamos explorar a heurística através do sistema SEM<sub>p</sub>: </p>
 
-<p>Primeiramente, só um esclarecimento. Pela definição de teorema, não se pode falsificá-lo, um teorema é justamente uma fórmula válida, ou seja, satisfeita por qualquer valoração.</p>
+<pre> <code> Reset Initial. 
+Require Import Semantics.
+Parameter  P Q R S: Prop.
+Theorem Sequitur : (v ||-/- ((((R /\ S) -> P) /\ (Q -> R)) -> (S -> (Q -> P)))).
+Proof.
+impF.
+conjT.
+impT1.
+conjF2.
+</code></pre>
 
-<p>Não use tabela de verdade! é uma péssima estratégia para exercícios grandes e realmente interessantes, como estes! Estabeleça uma estratégia de resolução por heurística e execute-a.</p>
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Use os botões "CRTL + Setas UP/DOWN" para explorar os passos e ter certeza de ter compreender cada aplicação de regra.</p>
 
-<p> No caso de uma refutação o que temos de apresentar é uma verificação de que uma valoração satisfaz a conjunção das premissas ( ||-- P1 /\ P2 /\ P3), mas não satisfaz a conclusão (||-/- C). </p>
+<p>Aqui o Comando Focus permite alterar a <i>Subgoal</i> que se está trabalhando:</p>
+<pre> <code> Focus 2.
+impT2.
+</code></pre>
 
-<p> Então, para verificar que um conjunto de valorações de atomos falsificam um exercício, você deve aplicar as regras semânticas certas para justificar as suas valorações que são relevantes. Para isso nem precisa definir todos os atomos, apenas os que são determinantes para sua asserção. Por exemplo, qualquer valoração atribuida para o átom 'p' é irrelevante para a asserção 'p |= (q \/ ~q)'. </p>
+<p>Agora é preciso aplicar um Unfocus, pois é preciso retornar ao ramo original <i>Subgoal</i> para explorar outro ramo:</p>
+<pre> <code> Unfocus.
+Focus 3.
+impF.
+</code></pre>
 
-<p> É a ideia de demonstrar de baixo para cima: você vai partir do seu objetivo, para chegar a suas folhas que devem ser os atomos com as valorações que você encontrou através da heurística e falsificam seu teorema.</p>
-   
-<p>  Por exemplo, você tem uma implicação: a implicação não é satisfeita (||-/- A -> B), quando o antecedente é satisfeito pela valoração (||-- A) E o consequente não é satisfeito (||-/- B). Apartir daé você deve analisar as condições em que A é satisfeito e B não é satisfeito (||-/- B), de forma recursiva até chegar aos seus átomos. Observe que em alguns casos, você vai ter que tomar decisões, como no caso em que a conjunção não é satisfeita (||-/- A /\ B), que pode ser justificado por (||-/- A), ou por (||-/- B). Nesses casos é que você vai ter que decidir e talvez vai ter que voltar atrás das suas justificativas semânticas.</p>
-<br/>
-<br/>
-<br/>
+<p><b class="uns"><i>Atenção!</i></b> Aqui nesse próximo passo, verifico que não pode ser "v <em class="uns">||-/-</em> S", pois em um ramo anterior dizemos "v <em class="sat">||--</em> S"! Pois contraria o requisito 2º : </p>
 
-<p><i><b>O que aconteceria se eu acidentalmente acreditasse que um teorema é verdade quando talvez ele fosse falso e usando valorações arbitrárias provasse que o mesmo é verdade? ( ||-- , no lugar de ||-/- )</b></i></p>
+<p><b>2º.</b> Para nenhum átomo proposicional X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
 
-<p>De fato, com um conjunto de valorações arbitrárias se você verificar que (||-- A) , o que você verificou é que existe uma valoração que satisfaz a proposição. Daé ela pode ser uma contingência, ou uma tautologia. E isto não significa, que ela seja demonstrável em Dedução Natural. Pense nesse exemplo supondo que "A" seja "p\/ q", dessa forma existe uma valoração v(p)=1 que satisfaz "p \/ q", tal que torna v(p\/q) =1, mas isso não significa que seja um teorema "|- p\/q " e de fato não é um teorema. Pois consigo apresentar um contra-modelo em que (||-/- p\/q),  quando (||-/- p) e (||-/- q), ou dito em outra notação: 'v(p) =0'  e 'v(q) = 0'.</p>
-<br/>
-<br/>
-<br/>
+<p>Neste caso, voltamos até o passo em que fizemos uma escolha inadequada para a fórmula S, ou seja com a regra <b>conjF2</b>, desfazendo os passos com o comando <b>Undo</b> x 6 em <i>backtracking</i>:</p>
+<pre> <code> Undo.
+Undo.
+Undo.
+Undo.
+Undo.
+Undo.
+conjF1.
+</code></pre>
 
-<p><i><b> Existe algo estratégia melhor para chegar a conclusão que uma refutação é impossível? Eu começo procurando por átomos que só têm uma valoração possível e a faço o desenvolvimento respeitando essas valorações. Dessa forma melhora, mas até chegar a conclusão que é impossível eu tenho que testar muitas combinações diferentes. </b></i></p>
+<p> Seguimos com a demonstração :</p>
+<pre> <code> Focus 2.
+impT2.
+</code></pre>
 
-<p>Se você encontrar uma estratégia para resolver este problema em "tempo polinomial" você terá resolvido o mais importante problema em aberto da computação contemporânea:</p>
+<p><b class="uns"><i>Atenção!</i></b> Agora estamos com uma escolha ruim com "v <em class="sat">||--</em> R". Voltamos com <i>backtracking</i>!</p>
+<pre> <code> Undo.
+impT1.
+Unfocus.
+Focus 3.
+impF.
+Focus 2.
+impF.
+</code></pre>
 
-http://en.wikipedia.org/wiki/P_versus_NP_problem
+<p>Novamente, outro problema com "v <em class="sat">||--</em> T"!</p>
 
-ou, em particular, a sua versão 3SAT:
+<p>Ainda não temos certeza, mas ao que indica temos um argumento demonstrável! Por isso cancelamos a verificação com a teoria <i>Semantics</i>: </p>
 
-http://en.wikipedia.org/wiki/3SAT#3-satisfiability
+<code>Abort.</code>
+
+<p> Vamos confirmar usando uma analise heurística, suponha por absurdo que existe uma valoração v tal que </p>
+
+(1) v <em class="sat">||--</em> (R /\ S) -> P, <br/>
+(2) v <em class="sat">||--</em>  (Q -> R) e <br/> 
+(3) v <em class="uns">||-/-</em>  (S -> (Q -> P)) <br/>
+
+<p> Por  (3), sabemos que (4)  v <em class="sat">||--</em>  S e (5) v <em class="uns">||-/-</em> (Q -> P).</p>
+
+<p>Agora por (5), obtemos também que (6) v <em class="sat">||--</em> Q e (7) v <em class="uns">||-/-</em> P.</p>
+
+<p>Com efeito, por (2) e (6), verificamos que (8) v <em class="sat">||--</em> R.</p>
+
+<p> Já que sabemos (8)  e (4),  obtemos (9) v <em class="sat">||--</em> (R /\ S). Dessa forma, com (9) e (7) verificamos que </p>
+
+(10) v <em class="uns">||-/-</em> (R /\ S) -> P .<br/>
+
+<p>Absurdo de (1) com (10). Logo, não existe tal valoração que refute o argumento.</p>
+
+<p> Vamos tentar demonstrar em Dedução Natural, segue aqui:</p>
+
+<pre> <code> Reset Initial. 
+ Require Import ProofWeb.
+Parameter  P Q R S: Prop.
+Hypothesis P1: ((R /\ S) -> P).
+Hypothesis P2 : (Q -> R).
+Theorem Sequitur : (S -> (Q -> P)).
+Proof.
+imp_i h1.
+imp_i h2.
+imp_e (R /\ S).
+ass P1.
+con_i.
+imp_e Q.
+ass P2.
+ass h2.
+ass h1.
+Qed.
+</code></pre>
 
 <br/>
 <br/>
 <center>* * *</center>
 <br/>
 <br/>
+
 
 

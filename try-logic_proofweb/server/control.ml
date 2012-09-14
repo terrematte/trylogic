@@ -59,7 +59,7 @@ let logged _ (cgi:Netcgi_types.cgi_activation) =
   output_provers cgi;
   cgi # output # output_string "<input type=\"submit\" value=\"Access the ProofWeb\"></form></li><br/><br/>\n";
   cgi # output # output_string "<li><h4>Experiment the Tutorial TryLogic:</h4>";
-  cgi # output # output_string "<form action=\"/trylogic.html\" method=\"post\" target=\"_new\">\n";
+  cgi # output # output_string "<form action=\"/trylogic.html\" method=\"post\" target=\"_blank\">\n";
   cgi # output # output_string ("<input type=\"hidden\" name=\"login\" value=\"" ^ login ^ "\">\n");
   cgi # output # output_string ("<input type=\"hidden\" name=\"pass\" value=\"" ^ pass ^ "\">\n");
   cgi # output # output_string ("<input type=\"hidden\" name=\"adminlogin\" value=\"" ^ adminlogin ^ "\">\n");
