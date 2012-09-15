@@ -39,8 +39,8 @@
 <table cellpadding=0 cellspacing=0 height="100%" width="100%">
 	<tr>
 		<td style="padding:0px;">
-			<div class="p" id="domMenu_BJ"></div>
-			<script language="javascript">domMenu_activate('domMenu_BJ');</script>
+			<div class="p" id="domMenu_TRY"></div>
+			<script language="javascript">domMenu_activate('domMenu_TRY');</script>
 		</td>
 	</tr>
 	<tr>	
@@ -56,8 +56,8 @@
 			<div class="row">
 				<div class="span7">
 					<div id="lesson-position">
-    					<span id="menu_lessons"></span>&nbsp;
-						<span id="lesson-left-button"></span>
+						<span id="menu_lessons"></span>&nbsp;
+						<span id="lesson-left-button"></span> 
 						<span id="lesson-number"></span>
 						<span id="lesson-right-button"></span>
 						<span id="lesson-step-spacer"></span>
@@ -66,28 +66,54 @@
 						<span id="step-right-button"></span>
 						<span id="menu_languages" style="visibility:hidden;" ></span>
 					</div>
-				<div class="alert-message block-message info" id="lesson-text" >
-						Type <code>lesson 1</code> to start the tutorial. <br />
-						<em>(click on the code to insert)</em>
-				</div>
-					<div id="lesson-message"></div>
-					<div id="menu-lessons"></div>
-				</div>
-			<div class="span9 ocaml">
-					<iframe id="frame_edit" src="__PREFIX__blank.html" height="300px" width="100%"></iframe>
 					
-				<div id="state">
-					<iframe id="frame_state" src="__PREFIX__blank.html" height="150px" width="100%"></iframe>
+					<div class="alert-message block-message info" id="lesson-text" >
+							Type <code>lesson 1</code> to start the tutorial. <br />
+							<em>(click on the code to insert)</em>
+					</div>
+					
+					<div id="lesson-message"></div>
 				</div>
-			</div>
-        				
-			</div>
+					
+				 <div class="span9 ocaml">
+					 
+					<div id="proof-edit">
+						<iframe id="frame_edit" src="__PREFIX__blank.html" height="280px" width="100%"></iframe>
+					</div> 
+					
+					<div id="proof-buttons">
+						<button onclick="prover_down();" class="btn" title="Read the next rule (CTRL + Down Arrow)">
+							<img src="__PREFIX__images/arrow-down.png"> 
+						</button>
+						<button onclick="prover_up();" class="btn" title="Undo the previous rule (CTRL + Up Arrow)">
+							<img src="__PREFIX__images/arrow-up.png">  
+						</button>
+						<button onclick="prover_point();" class="btn" title="Read all rules until the cursor line (CTRL + Left Arrow)">
+							<img src="__PREFIX__images/arrow-point.png">
+						</button>					
+						<button onclick="prover_bottom();" class="btn" title="Read all rules until the bottom (CTRL + Page Down)">
+							<img src="__PREFIX__images/arrow-bottom.png">
+						</button>
+						<button onclick="prover_top();" class="btn" title="Undo all rules until the top (CTRL + Page Up)">
+							<img src="__PREFIX__images/arrow-top.png">
+						</button>
+						<button onclick="reset();" class="btn" title="Reset all rules">
+							<img src="__PREFIX__images/stop.png"> 
+						</button>
+					</div>
+										
+					<div id="proof-state">
+						<iframe id="frame_state" src="__PREFIX__blank.html" height="150px" width="100%"></iframe>
+					</div>
+				</div>
+ 		    </div>
+ 		    
 			<div class="row">			
- 					<div width="100%" id="error"> 
-							<iframe id="frame_error" src="__PREFIX__blank.html" height="450px" width="100%" ></iframe>
+					<div width="100%" id="proof-error"> 
+						<iframe id="frame_error" src="__PREFIX__blank.html" height="450px" width="100%" ></iframe>
   					</div>
-								
 			</div>	
+
 		  <div id="toplevel-container" style="visibility:hidden;"   >
             <pre id="output"></pre>
             <div id="sharp">#</div>

@@ -1,9 +1,14 @@
 <h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
 
+<!-- 
+	- Aprensentar uma nova aplicação da heurística e da refutação semântica
+ -->
+
+
 <p>Vamos usar heurística para se descobrir qual das duas opções é o argumento (A -> B), (B -> C), (D -> C) &#8881; A -> D </p>
 
-(i) <i>Demonstrável</i>  - (A -> B), (B -> C), (D -> C) ⊢ (A -> D), ou <br/>
-(ii) <i>Refutável</i> - (A -> B), (B -> C), (D -> C) ⊭ (A -> D). <br/>
+(i) <i>Demonstrável</i>  - A→B, B→C, D→C ⊢ A→D, ou <br/>
+(ii) <i>Refutável</i> - A→B, B→C, D→C ⊭ A→D. <br/>
 
 <p>Vamos supor que exista uma valoração tal que  </p>
 

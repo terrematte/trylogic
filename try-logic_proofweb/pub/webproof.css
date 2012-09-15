@@ -119,3 +119,45 @@ div.hr {
     border-top: 1px solid #906040;
     border-bottom: 1px solid #e0b090;
 }
+
+div.TRY_menuBar, div.TRY_menuElement,
+div.TRY_subMenuBar, div.TRY_subMenuElement {
+    font-family: "DejaVu Sans", sans-serif ;
+    font-size: 14px;
+    color: #000000;
+    text-align: left;
+}
+div.TRY_menuBar,
+div.TRY_subMenuBar {
+    background-color: #BFFFAF;
+    border: 2px solid;
+    border-radius: 4px 4px 4px 4px;
+    border-color: #DFFFCF #9FDF8F #9FDF8F #DFFFCF;
+}
+div.TRY_menuBar {
+    padding: 1px 4px;
+}
+div.TRY_menuElement {
+    border: 1px solid #BFFFAF;
+    padding: 2px 6px 2px 6px;
+    font-weight: bold;
+}
+div.TRY_subMenuElement {
+    padding: 2px 6px 2px 6px;
+    margin: 0 1px 1px 0;
+}
+div.TRY_subMenuElementHover {
+    background-color: #5FEF4F;
+    color: #FFFFFF;
+}
+div.TRY_subMenuElementHeading {
+    font-weight: bold;
+}
+div.TRY_menuElementHover {
+    border-color: #e0b090 #906040 #906040 #e0b090;
+}
+div.TRY_menuElementActive {
+    background-color: #5FEF4F;
+    color: #FFFFFF;
+    border-color: #906040 #e0b090 #e0b090 #906040;
+}

@@ -247,16 +247,9 @@ function toggle_electric () {
 }
 
 function reset () {
-  if (document.all) {
-    if (doc_edit.selection.createRange().parentElement() == doc_edit.getElementById("edit"))
-      try {doc_edit.selection.createRange().pasteHTML("Reset Initial.");}
-      catch (e) {}
-    else alert ("Please first select location");
-  } else {
-    doc_edit.execCommand('insertHTML', false, arg);
+  if(confirm('Do you really want to reset?')){	
+	  prover_top ();	
+	  query("Reset Initial.");
+	  all_load();
   }
-  need_getedit=true;                                                                                                                      
-  need_tidy=true; 
-//  provedit=get_edit ();
-//  if (active == 1) set_part ("edit", provedit);
 }
