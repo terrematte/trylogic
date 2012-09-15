@@ -1,42 +1,66 @@
-<h3>Regras da Disjunção III</h3>
+<h3>Regras da Negação II</h3>
 
-<p>Neste passo vamos explorar a regra <b>(∨ E)</b>, demonstrando que "α ∨ β, α → γ, β → δ ⊢ (γ ∨ δ)":</p>
-<pre><code> Reset Initial.
+<p>Neste passo, vamos aprender mais duas regras para negação que -- juntamente a (¬ I) e (¬ E) -- completam a caracterização da negação clássica: <b>⊥<sub>c</sub></b> e <b>⊥<sub>int</sub></b>.</p><br/>
+ 
+<p><i>- Absurdo intuicionista</i> <b>(⊥<sub>int</sub>)</b>: Permite obter uma derivação de um γ <i>qualquer</i>, a partir de uma derivação de ⊥. Intuitivamente, expressa que se verificamos o absurdo, então qualquer fórmula pode ser verificada, raciocínio também chamado de <a href="http://pt.wikipedia.org/wiki/Princ%C3%ADpio_de_explos%C3%A3o">princípio da explosão</a>, <i>ex falso quodlibet</i> ou <i>ex contradictione sequitur quodlibet</i>. No Coq, o comando utilizado é <b>fls_e</b>.</p><br/>
+
+<p><i>- Absurdo Clássico</i> <b>(⊥<sub>c</sub>)</b>: Permite obter uma derivação de α, a partir de uma derivação de ⊥, e um conjunto de hipóteses que <i>pode</i> conter (¬ α). No Coq, o comando utilizado é <b>PCB h</b>, passando como parâmetro uma marca <i>h</i> para a hipótese <b>(¬ α)</b> que eventualmente pode ser descartada. Esta marca <i>h</i> na regra <b>(⊥<sub>c</sub>)</b> deve pelo menos ser:</p>
+<p><b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula <b>(¬ α)</b> -- representando a hipótese adquirida, ou </p>
+<p><b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação de ⊥.</p><br/>
+
+<p>Note que a regra <b>(⊥<sub>int</sub>)</b> é um caso particular de <b>(⊥<sub>c</sub>)</b>, só que sem hipóteses descartadas.</p><br/>
+
+<p>Vamos demonstrar o seguinte : " α → β, ¬ β ⊢ ¬ α". </p>
+
+<pre><code>
+Reset Initial.
 Require Import ProofWeb.
-Variables A B C D : Prop.
-Hypothesis P1 : A \/ B.
-Hypothesis P2 : A -> C.
-Hypothesis P3 : B -> D.
-Theorem example_13 :  (C \/ D).
-Proof.</code></pre>
+Variables A B: Prop.
+Hypothesis P1 : (A -> B).
+Hypothesis P2 : (~ B).
+Theorem example_09 : ~A.
+Proof. 
+</code></pre>
 
-<p>Bom, a regra <b>(∨ E)</b>, significa que se verificamos uma disjunção como "α ∨ β", assim como verificamos que de α derivamos uma fórmula φ e também verificamos que de  β derivamos igualmente uma fórmula φ, então pela regra <b>(∨ E)</b> verifica-se φ. Assim como a regra (⊥<sub>c</sub>), ela possibilita o uso de hipótese, funciona do seguinte modo: </p>
-<pre><code>dis_e (A \/ B) h0 h1.
-ass P1.</code></pre>
+<p>Nossa dica é sempre buscar usar as regras que descartem hipótese -- tais como (→ I), (¬ I) e (⊥<sub>c</sub>) -- e em particular, a regra (⊥<sub>c</sub>) pois por descartar uma fórmula negada, a regra tem <i>maior força dedutiva</i> que a (¬ I). Por isso optamos por (⊥<sub>c</sub>) para se demonstrar :</p>
+<code>
+PBC h1. 
+</code>
 
-<p>Observe que os parâmetros da regra são a fórmula com a disjunção a ser eliminada (α ∨ β), e duas marcas novas h0 e h1, para as respectivas fórmulas da disjunção (α) e  (β). Escolhemos justamente a disjunção da premissa P1.</p><br/>
+<p>De que aplicação de (¬ E) terá vindo o ⊥ ? Algumas opções são (A -> B), (~A) e (B). Vamos optar por (B) e identificá-lo com a premissa P2: </p>
 
-<p>Agora, continuamos a demonstração realizando a derivação de (C \/ D),  a partir da hipótese h0 com (A).</p>
+<pre><code>
+neg_e (B). 
+exact P2. 
+</code></pre>
 
-<pre><code>dis_i1.
-imp_e A.
-exact P2.
-exact h0.</code></pre>
+<p>Em seguida, obtemos a fórmula B, através da (→ E) na premissa P1: </p>
 
-<p><i>Você poderia continuar a demonstração realizando a derivação de (C \/ D),  a partir da hipótese <b>h1</b> ?</i></p>
+<pre><code>
+imp_e A. 
+exact P1. 
+</code></pre>
+
+<p>Agora, não temos muitas opções além de aplicar novamente o (⊥<sub>c</sub>):</p>
 
 <code>
-???
-</code><br/><br/>
+PBC h2. 
+</code>
 
+<p>A opção imediata para (¬ E) é (~A), dado que temos as marcas h1 e h2:  </p>
 
-<p><i>- Eliminação da disjunção</i> (∨ E): Significa que temos uma derivação de ψ, se tivermos as seguintes três condições: 
-<b>(a)</b> a asserção "α ∨ β" se verifica com uma derivação D<sub>0</sub><br/>
-<b>(b)</b> se supondo α com uma marca nova h1, temos uma derivação D<sub>1</sub> de ψ.<br/>
-<b>(c)</b> se supondo β com uma marca nova h2, temos uma derivação D<sub>2</sub> de ψ.<br/>
-<b>(d)</b> não ocorra conflito de marcas nas derivações, que a marca h1 só descarte hipótese α na derivação D<sub>1</sub> e que marca h<sub>2</sub> só descarte hipótese β na derivação D<sub>2</sub>.</p><br/>
-<p>No Coq, o comando utilizado é <b>dis_e (α ∨ β) h1 h2</b>, com três parâmetros, tal que (α ∨ β) é a formula com a disjunção eliminada; h1 e h2 são marcas novas.</p><br/>
+<pre><code>
+neg_e (~ A). 
+exact h1. 
+exact h2. 
+</code></pre>
 
-<p>(<i>Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 1, <b>págs. 36-39</b>. </i>)</p>
+<p>Pronto! Finalizamos a demonstração!</p>
 
-<center><img  src="/pub/images/logic/r-disj.png" alt="Rules of Disjunction" width="560"  /></center><br/><br/>
+<code>
+Qed. 
+</code><br/>
+
+<p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 1, págs. 32-35. )</i></p>
+
+<center><img  src="/pub/images/logic/r-neg.png" alt="Rules of Negation" width="560"  /></center><br/><br/>

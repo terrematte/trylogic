@@ -1,44 +1,53 @@
-<h3>Regras da Implicação I</h3>
+<h3>Regras da Conjunção I</h3>
 
-<p><i>- Introdução da implicação</i> (→ I): Permite obter uma derivação α → β, a partir de uma derivação de β, e um conjunto de hipóteses que <i>pode</i> conter α. No Coq, o comando utilizado é <b>imp_i h</b> , passando como parâmetro uma marca <i>h</i> para a hipótese α que eventualmente pode ser descartada. Esta marca <i>h</i> na regra (→ I) deve pelo menos ser:<br/>
-<b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula α -- representando o antecedente da implicação introduzida, ou <br/>
-<b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação.</p><br/>
+<p>Agora que vimos um primeiro exemplo, vamos nos concentrar nas regras de cada conectivo.</p> <br/>
 
-<p><i>- Eliminação da implicação</i> (→ E): Permite concluir β, a partir de derivações de "α → β" e "β", também conhecido como <i>modus ponens</i>. No Coq, o comando utilizado é <b>imp_e α</b>, passando como parâmetro o antecedente α da implicação a ser eliminada.</p>
+<p><i>- Introdução da conjunção</i> (∧ I): Representa o raciocínio em que se as asserções α e β verificam-se em separado, então verifica-se a sua conjunção. No Coq, o comando utilizado é <b>con_i</b>.</p><br/>
+
+<p><i>- Eliminação da conjunção à direita</i> (∧ E<sub>1</sub>): Significa que se a asserção α ∧ β se verifica, então verifica-se α em particular. 
+No Coq, o comando utilizado é <b>con_e1 β</b>, passando como parâmetro a fórmula proposicional à <i>direita</i> da conjunção eliminada.</p><br/>
+ 
+<p><i>- Eliminação da conjunção à esquerda</i> (∧ E<sub>2</sub>): De forma análoga, significa que se a asserção α ∧ β se verifica, então verifica-se β em particular. 
+No Coq, o comando utilizado é <b>con_e2 α</b>, passando como parâmetro a fórmula proposicional à <i>esquerda</i> da conjunção eliminada.</p><br/>
 
 
-<p>Vamos demonstrar que "α → β, β → γ ⊢ α → γ".</p> 
-<br/>
+<p>Vamos demonstrar a comutatividade da conjunção: "(α ∧ β) ⊢ (β ∧ α)". </p>
 
-<pre><code>Reset Initial. 
-Require Import ProofWeb. 
-Variables A B C : Prop.
-Hypothesis P1 : A -> B.
-Hypothesis P2 : B -> C.
-Theorem example_04 : A -> C.
-Proof.</code></pre>
-
-<p>Começamos pela introdução da implicação (→ I), passando a marca <b>h1</b> para representar a hipótese <b>A</b>: </p>
-<code>
-imp_i h1.
-</code><br/>
-
-Agora, podemos obter <b>C</b>, através de <b>P2</b> eliminando a implicação, passando o antecedente <b>B</b> como parâmetro, por fim, identificamos a premissa <b>P2</b>:<br/>
-<pre><code> imp_e B.
-exact P2.
+<pre><code>
+Reset Initial.
+Require Import ProofWeb.
+Variables A B : Prop.
+Hypothesis P1 : (A /\ B).
+Theorem example_02 : (B /\ A).
+Proof.
 </code></pre>
 
-<p>Dessa vez, de forma análoga, eliminamos a implicação em <b>P1</b> com <b>A</b>.</p>
-<pre><code>imp_e A.
-exact P1.
-exact h1.
-</code></pre>
 
-<p>Assim, completamos a demonstração.</p>
+<p>Como nossa conclusão possui a conjunção  como conectivo principal, podemos aplicar a regra de introdução da conjunção:</p>
+
 <code>
-Qed.
+con_i.
 </code>
+
+
+<p>Agora, devemos indicar de onde vieram <b>B</b> e <b>A</b>, ou seja, através das regras de (∧ E<sub>2</sub>) :</p>
+
+<code>
+con_e2 A.
+</code>
+
+
+Seguida da identificação exata de P1:<br/>
+<code>
+exact P1.
+</code>
+
+<p><b><i>Para ter certeza que você entendeu, complete o restante da demonstração, antes de passar para o próximo passo!</i></b></p>
+
+<code>
+? ? ?
+</code>
+
 <br/><br/>
 
-<center><img  src="/pub/images/logic/r-imp.png" alt="Rules of Implication" width="560"  /></center><br/><br/>
-
+<center><img  src="/pub/images/logic/r-conj.png" alt="Rules of Conjuction" width="560"  /></center>

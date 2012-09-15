@@ -1,46 +1,23 @@
-<h3>Estratégias de Demonstração - Lemas I</h3>
+<h3>Regras da Biimplicação II</h3>
 
-<p>Neste passo trabalhar com o uso de Lemas.</p>
+<p>Neste passo vamos explorar mais as regras da implicação (↔ I), (↔ E <sub>1</sub>) e (↔ E <sub>2</sub>).</p>
 
-<p>Vamos demonstrar o seguinte "¬(α ∧ δ), ¬(β ∧ ¬δ) ⊢ ¬(α ∧ β)" usando o terceiro excluido como lema "⊢ (α ∨ ¬α)".</p>
+<p>"(α ↔ β), (α ↔ γ) ⊢ (β ↔ γ)".</p>
 
-
-<pre><code> Reset Initial. 
+<pre><code> 
+Reset Initial.
 Require Import ProofWeb.
-Variables A B C D : Prop.
-Hypothesis P1 : ~(A /\ D).
-Hypothesis P2 : ~(B /\ ~D).
-
-Lemma TE : forall A , (A \/ ~A).
+Variables A B C : Prop.
+Hypothesis P1 : (A <-> B).
+Hypothesis P2 : (A <-> C).
+Theorem example_16 : (B <-> C).
 Proof.
-intros.
-PBC h0.
-neg_e (A0 \/ ~ A0).
-ass h0.
-dis_i2.
-neg_i h1.
-neg_e (A0 \/ ~ A0).
-ass h0.
-dis_i1.
-ass h1.
-Qed.
-
-Theorem example_18 : ~(A /\ B).
-Proof.
-neg_i h1.
-dis_e (D \/ ~D) h2 h3.
-apply TE.
-neg_e (A /\ D).
-exact P1.
-con_i .
-con_e1 (B).
-exact h1.
-exact h2.
-neg_e (B /\ ~D).
-exact P2.
-con_i .
-con_e2 (A).
-exact h1.
-exact h3.
-Qed.
 </code></pre>
+
+iff_i h1 h2.<br/>
+
+iff_e1 (α).<br/>
+
+iff_e2 (α).<br/>
+
+<center><img  src="/pub/images/logic/r-iff.png" alt="Rules of Biimplication" width="560"  /></center><br/><br/>

@@ -1,39 +1,4 @@
-<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
+<h3>Estratégias de Demonstração - Lemas II</h3>
 
-<p>Vamos usar heurística para se descobrir qual das duas opções é o argumento (A -> B),  B |&sim; A :</p>
-(i) <i>Demonstrável</i>  - (A -> B), B ⊢ A -, ou <br/>
-(ii) </i>Refutável</i> - (A -> B), B ⊭ A. 
+<p>Neste passo vamos trabalhar com o uso de Lemas.</p>
 
-<p> Usando a noção de consequência semântica, se supormos que o argumento é tautológico, então vamos analisar se <b>toda valoração</b> satisfaz (A -> B) e B, também satisfaz A. Neste argumento simples, podemos explorar todos os casos, mas esta não é a melhor estratégia para argumentos mais complexos.</p>
-
-<p>Assim, vamos supor que o argumento seja refutável, (A -> B), B ⊭ A. Ou seja, <i>existe pelo menos uma valoração</i> v, tal que:</p>
-
-(1) v <em class="sat">||--</em> (A -> B) e  (2) v <em class="sat">||--</em> B, mas (3) v <em class="uns">||-/-</em> A. <br/>
-
-<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>!</p>
-
-<p>Bom, por (2), sabemos que  v <em class="sat">||--</em> (A -> B) pela afirmação do consequente. Assim como por (1), inferimos também que <em class="sat">||--</em> (A -> B), pela negação do antecedente. Temos que com v <em class="uns">||-/-</em> A e v <em class="sat">||--</em> B, podemos refutar a fórmula que representa a conjunção das premissas implicando na conclusão, ou seja, (v <em class="uns">||-/-</em> (((A -> B) /\ B) -> A)).</p>
-
-<p>Agora a sua vez de refutar na Teoria Semantica que <i>existe pelo menos uma valoração</i> v, tal que :  (A -> B), B ⊭ A</p>
-
-<pre> <code> Reset Initial.  
-Require Import Semantics. 
-Parameter A B: Prop. 
-Hypothesis f1 : (v ||-/- A). 
-Hypothesis f2 : (v ||-- B). 
-Theorem sem_ex4 :  (v ||-/- (((A -> B) /\ B) -> A)). 
-Proof. 
-? ? ?
-</code></pre>
-
-
-
-<p><b>ATENÇÃO:</b> <i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
-<br>
-<b>1º.</b> Deve haver apenas átomos nas folhas da árvore, e cada <code>Hypothesis fn: (v ?? X)</code> deve envolver um átomo X da lista de parâmetros.<br/>
-<b>2º.</b> Para nenhum parâmetro X podem haver simultaneamente hipóteses da forma v ⊩ X e v ⊮ X).</p>
-<br/>
-<br/>
-<center>* * *</center>
-<br/>
-<br/>

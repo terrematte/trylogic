@@ -1,0 +1,130 @@
+<h3>Demonstrar (Np) vs Refutar (SEMp)</h3>
+
+<!-- 
+	- Apresentar uma heurística através do SEMp que ofereça indícios de que o problema é Demonstrável
+ -->
+
+<p>Vamos analisar o seguinte argumento: ((R /\ S) -> P), (Q -> R) |&sim; (S -> (Q -> P)). Seria ele demonstrável "⊢", ou refutável "⊭" ?</p>
+
+<p>Inicialmente, vamos explorar a heurística através do sistema SEM<sub>p</sub>: </p>
+
+<pre><code>
+Reset Initial. 
+Require Import Semantics.
+Parameter  P Q R S: Prop.
+Theorem Sequitur : (v ||-/- ((((R /\ S) -> P) /\ (Q -> R)) -> (S -> (Q -> P)))).
+Proof.
+impF.
+conjT.
+impT1.
+conjF2.
+</code></pre>
+
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Use os botões "CRTL + Setas UP/DOWN" para explorar os passos e ter certeza de ter compreender cada aplicação de regra.</p>
+
+<p>Aqui o Comando Focus permite alterar a <i>Subgoal</i> que se está trabalhando:</p>
+
+<pre><code> 
+Focus 2.
+impT2.
+</code></pre>
+
+<p>Agora é preciso aplicar um Unfocus, pois é preciso retornar ao ramo original <i>Subgoal</i> para explorar outro ramo:</p>
+
+<pre><code> 
+Unfocus.
+Focus 3.
+impF.
+</code></pre>
+
+<p><b class="uns"><i>Atenção!</i></b> Aqui nesse próximo passo, verifico que não pode ser "v <em class="uns">||-/-</em> S", pois em um ramo anterior dizemos "v <em class="sat">||--</em> S"! Pois contraria o requisito 2º : </p>
+
+<p><b>2º.</b> Para nenhum átomo proposicional X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
+
+<p>Neste caso, voltamos até o passo em que fizemos uma escolha inadequada para a fórmula S, ou seja com a regra <b>conjF2</b>, desfazendo os passos com o comando <b>Undo</b> x 6 em <i>backtracking</i>:</p>
+
+<pre><code> 
+Undo.
+Undo.
+Undo.
+Undo.
+Undo.
+Undo.
+conjF1.
+</code></pre>
+
+<p> Seguimos com a demonstração :</p>
+
+<pre><code>
+Focus 2.
+impT2.
+</code></pre>
+
+<p><b class="uns"><i>ATENÇÃO!</i></b> Agora estamos com uma escolha ruim com "v <em class="sat">||--</em> R". Voltamos com <i>backtracking</i>!</p>
+
+<pre><code> 
+Undo.
+impT1.
+Unfocus.
+Focus 3.
+impF.
+Focus 2.
+impF.
+</code></pre>
+
+<p>Novamente, outro problema com "v <em class="sat">||--</em> T"!</p>
+
+<p>Ainda não temos certeza, mas ao que indica temos um argumento demonstrável! Por isso cancelamos a verificação com a teoria <i>Semantics</i>: </p>
+
+<code>
+Abort.
+</code>
+
+<p> Vamos confirmar usando uma analise heurística, suponha por absurdo que existe uma valoração v tal que </p>
+
+(1) v <em class="sat">||--</em> (R /\ S) -> P, <br/>
+(2) v <em class="sat">||--</em>  (Q -> R) e <br/> 
+(3) v <em class="uns">||-/-</em>  (S -> (Q -> P)) <br/>
+
+<p> Por  (3), sabemos que (4)  v <em class="sat">||--</em>  S e (5) v <em class="uns">||-/-</em> (Q -> P).</p>
+
+<p>Agora por (5), obtemos também que (6) v <em class="sat">||--</em> Q e (7) v <em class="uns">||-/-</em> P.</p>
+
+<p>Com efeito, por (2) e (6), verificamos que (8) v <em class="sat">||--</em> R.</p>
+
+<p> Já que sabemos (8)  e (4),  obtemos (9) v <em class="sat">||--</em> (R /\ S). Dessa forma, com (9) e (7) verificamos que </p>
+
+(10) v <em class="uns">||-/-</em> (R /\ S) -> P .<br/>
+
+<p>Absurdo de (1) com (10). Logo, não existe tal valoração que refute o argumento.</p>
+
+<p> Vamos tentar demonstrar em Dedução Natural, segue aqui:</p>
+
+<pre><code>
+Reset Initial. 
+Require Import ProofWeb.
+Parameter  P Q R S: Prop.
+Hypothesis P1: ((R /\ S) -> P).
+Hypothesis P2 : (Q -> R).
+Theorem Sequitur : (S -> (Q -> P)).
+Proof.
+imp_i h1.
+imp_i h2.
+imp_e (R /\ S).
+ass P1.
+con_i.
+imp_e Q.
+ass P2.
+ass h2.
+ass h1.
+Qed.
+</code></pre>
+
+<br/>
+<br/>
+<center>* * *</center>
+<br/>
+<br/>
+
+
+

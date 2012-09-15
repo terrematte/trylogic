@@ -1,112 +1,67 @@
-<h3>Demonstrar (Np) vs Refutar (SEMp)</h3>
+<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
 
-<p>Vamos analisar o seguinte argumento: ((R /\ S) -> P), (Q -> R) |&sim; (S -> (Q -> P)). Seria ele demonstrável "⊢", ou refutável "⊭" ?</p>
+<!-- 
+	 - Explicar em que consiste refutar
+     - Apresentar o sistema SEMp para refutar o problema A ⊭ B∨C
+ -->
 
-<p>Inicialmente, vamos explorar a heurística através do sistema SEM<sub>p</sub>: </p>
+<p>Vamos apresentar um sistema semântico proposicional (SEM<sub>p</sub>) para construir árvores semânticas de refutação.</p>
 
-<pre> <code> Reset Initial. 
-Require Import Semantics.
-Parameter  P Q R S: Prop.
-Theorem Sequitur : (v ||-/- ((((R /\ S) -> P) /\ (Q -> R)) -> (S -> (Q -> P)))).
-Proof.
-impF.
-conjT.
-impT1.
-conjF2.
+<p>Com SEM<sub>p</sub> podemos mostrar que uma dada sentença <b>não é</b> consequência semântica de um certo conjunto de sentenças dadas.  Mais especificamente, neste sistema uma refutação de P1,P2,P3 ⊨ C é produzida pela exibição, acompanhada da respectiva justificativa, de uma valoração v que falsifica a sentença (P1∧P2∧P3)→C.</p>
+
+<p>Por exemplo, vamos verificar que A ⊭ B∨C.  Isto é fácil, pois basta definir uma valoração v tal que v ⊩ A ao mesmo tempo em que v ⊮ B e v ⊮ C.  Representamos esta situação da seguinte forma: </p>
+
+<pre><code>
+Reset Initial.  
+Require Import Semantics.  
+Parameter A B C : Prop. 
+Hypothesis f1 : (v ||-- A). 
+Hypothesis f2 : (v ||-/- B).  
+Hypothesis f3 : (v ||-/- C).  
+Theorem sem_ex1 :  (v ||-/- (A  -> (B \/ C)) ). 
+Proof.  
 </code></pre>
 
-<p> <b class="uns"><i>IMPORTANTE.</i></b> Use os botões "CRTL + Setas UP/DOWN" para explorar os passos e ter certeza de ter compreender cada aplicação de regra.</p>
+<p>Carregamos o sistema SEM<sub>p</sub> importando a teoria <i>Semantics</i>, e acrescentamos sobre a valoração v as hipóteses <b>f1</b>, <b>f2</b> e <b>f3</b> que propomos serem capazes de permitir demonstrar o teorema <b>sem_ex1</b>.</p>
 
-<p>Aqui o Comando Focus permite alterar a <i>Subgoal</i> que se está trabalhando:</p>
-<pre> <code> Focus 2.
-impT2.
+<p>Agora iniciamos a demonstração do resultado enunciado a partir das hipóteses assumidas, usando as regras de SEM<sub>p</sub> para justificar cada um dos passos deste demonstração.  Como pretendemos concluir que uma sentença da forma α→β não é satisfeita, aplicamos a regra <b>impF</b>, para a falsidade de uma implicação:</p>
+
+<pre><code>
+impF.  
 </code></pre>
 
-<p>Agora é preciso aplicar um Unfocus, pois é preciso retornar ao ramo original <i>Subgoal</i> para explorar outro ramo:</p>
-<pre> <code> Unfocus.
-Focus 3.
-impF.
+<p>Observe que quase todas regras seguirão esse padrão <i>case-sensitive</i> de nomenclatura, tendo em minúsculo o nome abreviado do conectivo envolvido e em maiúsculo a letra <b>F</b> para dizer que a sentença que possui aquele conectivo como construtor principal <b>não é satisfeita</b> e <b>T</b> para dizer que tal sentença <b>é satisfeita</b>.</p>
+
+<p>Dando continuidade à demonstração anterior, nosso primeiro sub-objetivo agora é mostrar que v ⊩ A.  Mas isto corresponde justamente à nossa hipótese <b>f1</b>.  Podemos portanto identificá-la da seguinte forma:</p>
+
+<pre><code>
+exact f1. 
 </code></pre>
 
-<p><b class="uns"><i>Atenção!</i></b> Aqui nesse próximo passo, verifico que não pode ser "v <em class="uns">||-/-</em> S", pois em um ramo anterior dizemos "v <em class="sat">||--</em> S"! Pois contraria o requisito 2º : </p>
+<p>Nosso próximo sub-objetivo consiste em mostrar que a valoração v não satisfaz B∨C.  Para isso, aplicamos a regra correspondente:</p>
 
-<p><b>2º.</b> Para nenhum átomo proposicional X podem haver simultaneamente hipóteses da forma (v <em class="sat">||--</em> X) e (v <em class="uns">||-/-</em> X).</p>
-
-<p>Neste caso, voltamos até o passo em que fizemos uma escolha inadequada para a fórmula S, ou seja com a regra <b>conjF2</b>, desfazendo os passos com o comando <b>Undo</b> x 6 em <i>backtracking</i>:</p>
-<pre> <code> Undo.
-Undo.
-Undo.
-Undo.
-Undo.
-Undo.
-conjF1.
+<pre><code>
+disjF. 
 </code></pre>
 
-<p> Seguimos com a demonstração :</p>
-<pre> <code> Focus 2.
-impT2.
+<p>Por turnos, só nos resta agora identificar as hipóteses sobre v que servirão para justificar os sub-objetivos que acabaram de ser criados: </p>
+
+<pre><code>
+exact f2. 
+exact f3. 
 </code></pre>
 
-<p><b class="uns"><i>Atenção!</i></b> Agora estamos com uma escolha ruim com "v <em class="sat">||--</em> R". Voltamos com <i>backtracking</i>!</p>
-<pre> <code> Undo.
-impT1.
-Unfocus.
-Focus 3.
-impF.
-Focus 2.
-impF.
+<p><i>Quod erat demonstrandum</i>, concluímos assim de fato a construção da demonstração pretendida:</p>
+
+<pre><code>
+Qed. 
 </code></pre>
 
-<p>Novamente, outro problema com "v <em class="sat">||--</em> T"!</p>
+<p>Observe que para cada conectivo, em geral, há regras para satisfação e para a não satisfação de uma sentença que contenha este conectivo como construtor principal.  Note também que em SEM<sub>p</sub> nenhuma das regras (que são funções para a construção de árvores a partir de árvores) necessitam de parâmetros adicionais.</p>
 
-<p>Ainda não temos certeza, mas ao que indica temos um argumento demonstrável! Por isso cancelamos a verificação com a teoria <i>Semantics</i>: </p>
+<p>* * *</p>
 
-<code>Abort.</code>
-
-<p> Vamos confirmar usando uma analise heurística, suponha por absurdo que existe uma valoração v tal que </p>
-
-(1) v <em class="sat">||--</em> (R /\ S) -> P, <br/>
-(2) v <em class="sat">||--</em>  (Q -> R) e <br/> 
-(3) v <em class="uns">||-/-</em>  (S -> (Q -> P)) <br/>
-
-<p> Por  (3), sabemos que (4)  v <em class="sat">||--</em>  S e (5) v <em class="uns">||-/-</em> (Q -> P).</p>
-
-<p>Agora por (5), obtemos também que (6) v <em class="sat">||--</em> Q e (7) v <em class="uns">||-/-</em> P.</p>
-
-<p>Com efeito, por (2) e (6), verificamos que (8) v <em class="sat">||--</em> R.</p>
-
-<p> Já que sabemos (8)  e (4),  obtemos (9) v <em class="sat">||--</em> (R /\ S). Dessa forma, com (9) e (7) verificamos que </p>
-
-(10) v <em class="uns">||-/-</em> (R /\ S) -> P .<br/>
-
-<p>Absurdo de (1) com (10). Logo, não existe tal valoração que refute o argumento.</p>
-
-<p> Vamos tentar demonstrar em Dedução Natural, segue aqui:</p>
-
-<pre> <code> Reset Initial. 
- Require Import ProofWeb.
-Parameter  P Q R S: Prop.
-Hypothesis P1: ((R /\ S) -> P).
-Hypothesis P2 : (Q -> R).
-Theorem Sequitur : (S -> (Q -> P)).
-Proof.
-imp_i h1.
-imp_i h2.
-imp_e (R /\ S).
-ass P1.
-con_i.
-imp_e Q.
-ass P2.
-ass h2.
-ass h1.
-Qed.
-</code></pre>
-
-<br/>
-<br/>
-<center>* * *</center>
-<br/>
-<br/>
-
-
-
+<p><b>ATENÇÃO:</b> <i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
+<br>
+<b>1º.</b> Deve haver apenas átomos nas folhas da árvore, e cada <b>Hypothesis fn: (v ?? X)</b> deve envolver um átomo X da lista de parâmetros.<br/>
+<b>2º.</b> Para nenhum átomo X podem haver simultaneamente hipóteses da forma v ⊩ X e v ⊮ X).</p>

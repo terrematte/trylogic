@@ -1,52 +1,52 @@
-<h3>Regras da Negação I</h3>
+<h3>Regras da Implicação I</h3>
 
-<p>Na Lógica Proposicional, podemos -- em parte -- entender a <i>negação</i> (¬) através da <i>implicação</i>, a constante de absurdo (⊥) e mais algumas regras que vamos aprender.</p><br/>
-
-<p>Por isso, as regras da negação (¬ I) e (¬ E) são semelhantes às regras (→ I) e (→ E)</p>
- 
-<p>Vamos demonstrar o seguinte teorema: " ⊢ ¬ ¬( ¬ ¬ α → α)" para exemplicar as regras da negação e em seguida apresentamos suas definições exatas. </p>
-
-<pre><code>Reset Initial.
-Require Import ProofWeb.
-Variables A : Prop.
-Theorem example_07 : ~~(~~A -> A).
-Proof.</code></pre>
-
-<p>Como nosso conectivo mais externo é uma negação, nossa estratégia é usar a regra (¬ I), obtendo uma nova hipótese h1:</p> 
-<code>
-neg_i h1.
-</code><br/>
-
-<p>Agora temos que decidir de qual regra obtivemos o ⊥, a princípio poderíamos obter de qualquer aplicação da (¬ E) com diferentes parâmetros. Por praticidade, vamos dizer o ⊥ foi obtido por  (¬ E) em  ~(~~A -> A) e (~~A -> A), justamente para podermos identificá-lo com a hipótese h1:</p> 
-<pre><code>neg_e (~~A -> A).
-exact h1.</code></pre>
-
-<p>Em seguida, como temos uma implicação, usamos (→ I) e ganhamos uma nova hipótese h2:</p> 
-<code>
-imp_i h2.
-</code><br/>
-
-<p>Para de imediato usarmos a nova hipótese h1, indicamos que ⊥ foi obtido por (¬ E) em  (~~A) e (~A):</p>
-<pre><code>neg_e (~A).
-exact h2.</code></pre>
-
-<p>Nesse momento usamos a (¬ I) e obtemos uma nova hipótese (A) com a marca h3.</p>
-<code>
-neg_i h3.
-</code><br/>
-
-<p>Bom, a demonstração está quase no fim, <b><i>qual a sua sugestão para o parâmetro da (¬ E) ?</i></b></p>
-<code>
-neg_e ??
-</code><br/>
-
-<p><i><b>Dica</b></i>: Explore as opções possíveis (A), (~A) e (~~A -> A)</p><br/>
-
-<p><i>- Introdução da negação </i> (¬ I): Permite obter uma derivação ¬ α, a partir de uma derivação de ⊥, e um conjunto de hipóteses que <i>pode</i> conter α. No Coq, o comando utilizado é <b>neg_i h</b> , passando como parâmetro uma marca <i>h</i> para a hipótese α que eventualmente pode ser descartada. Esta marca <i>h</i> na regra (¬ I) deve pelo menos ser:<br/>
-<b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula α -- representando a formula a ser negada, ou <br/>
+<p><i>- Introdução da implicação</i> (→ I): Permite obter uma derivação α → β, a partir de uma derivação de β, e um conjunto de hipóteses que <i>pode</i> conter α. No Coq, o comando utilizado é <b>imp_i h</b> , passando como parâmetro uma marca <i>h</i> para a hipótese α que eventualmente pode ser descartada. Esta marca <i>h</i> na regra (→ I) deve pelo menos ser:<br/>
+<b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula α -- representando o antecedente da implicação introduzida, ou <br/>
 <b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação.</p><br/>
 
-<p><i>- Eliminação da negação</i> (¬ E): Permite concluir ⊥, a partir de derivações de "¬ α" e "α". No Coq, o comando utilizado é <b>neg_e α</b>, passando como parâmetro a fórmula contraditória α.</p><br/>
+<p><i>- Eliminação da implicação</i> (→ E): Permite concluir β, a partir de derivações de "α → β" e "β", também conhecido como <i>modus ponens</i>. No Coq, o comando utilizado é <b>imp_e α</b>, passando como parâmetro o antecedente α da implicação a ser eliminada.</p>
 
 
-<center><img  src="/pub/images/logic/r-neg.png" alt="Rules of Negation" width="560"  /></center><br/><br/>
+<p>Vamos demonstrar que "α → β, β → γ ⊢ α → γ".</p> 
+<br/>
+
+<pre><code>
+Reset Initial. 
+Require Import ProofWeb. 
+Variables A B C : Prop.
+Hypothesis P1 : A -> B.
+Hypothesis P2 : B -> C.
+Theorem example_04 : A -> C.
+Proof.
+</code></pre>
+
+<p>Começamos pela introdução da implicação (→ I), passando a marca <b>h1</b> para representar a hipótese <b>A</b>: </p>
+
+<code>
+imp_i h1.
+</code><br/>
+
+Agora, podemos obter <b>C</b>, através de <b>P2</b> eliminando a implicação, passando o antecedente <b>B</b> como parâmetro, por fim, identificamos a premissa <b>P2</b>:
+
+<pre><code> 
+imp_e B.
+exact P2.
+</code></pre>
+
+<p>Dessa vez, de forma análoga, eliminamos a implicação em <b>P1</b> com <b>A</b>.</p>
+
+<pre><code>
+imp_e A.
+exact P1.
+exact h1.
+</code></pre>
+
+<p>Assim, completamos a demonstração.</p>
+
+<code>
+Qed.
+</code>
+<br/><br/>
+
+<center><img  src="/pub/images/logic/r-imp.png" alt="Rules of Implication" width="560"  /></center><br/><br/>
+

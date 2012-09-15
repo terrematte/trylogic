@@ -1,9 +1,23 @@
-<h3>Resumo das Regras</h3>
+<h3>Regras da Biimplicação I</h3>
 
-Aqui está o resumo das regras de cada conectivo que apresentamos passo-a-passo:
+<p>Neste passo vamos explorar as regras da implicação (↔ I), (↔ E <sub>1</sub>) e (↔ E <sub>2</sub>).</p>
 
-<center><img  src="/pub/images/logic/all-r-dn.png" alt="Rules of Natural Deduction" width="560"  /></center><br/>
+<p>"¬α ↔ (α ∨ β) ⊢ (¬α ∧ β)".</p>
+  
+ 
+<pre><code>
+Reset Initial.
+Require Import ProofWeb.
+Variables A B : Prop.
+Hypothesis P1 : (~A <-> (A \/ B)).
+Theorem example_15 : (~A /\ B).
+Proof.
+</code></pre>
 
-<p>Observe que para cada conectivo há regras de introdução e eliminação.  </p><br/>
-<p>Note também que algumas regras são acompanhadas de <i>subfórmulas</i>, ou <i>marcas</i> das hipóteses que eventualmente são descartadas (trataremos com mais detalhes adiante). </p>
+iff_i h1 h2.<br/>
 
+iff_e1 (α).<br/>
+
+iff_e2 (α).<br/>
+
+<center><img  src="/pub/images/logic/r-iff.png" alt="Rules of Biimplication" width="560"  /></center><br/><br/>

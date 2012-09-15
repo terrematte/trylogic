@@ -1,2 +1,2 @@
 fun input output ->
-  find_in  "example_00" output
+  find_in  "example_15 is defined" output

@@ -414,10 +414,11 @@ let run () =
     let codes = Dom.list_of_nodeList (doc##getElementsByTagName(Js.string "code")) in
     List.iter (fun code ->
       let html =  code##innerHTML in
-      let txt = text_of_html (Js.to_string html) in
+      let tx = text_of_html (Js.to_string html) in
+      let txt = "<br>" ^ tx  in 
       code##title <- Js.string (Tutorial.translate "Click here to execute this code");
       code##onclick <- Html.handler (fun _ -> 
-			ignore (Js.Unsafe.fun_call  (Js.Unsafe.variable "code_proof")[|Js.Unsafe.inject txt|]);
+			ignore (Js.Unsafe.fun_call  (Js.Unsafe.variable "code_proof")[|Js.Unsafe.inject txt |]);
 			 code##style##backgroundColor <- Js.string "#CFFFCF";
 			 
       Js._true)          
@@ -482,7 +483,8 @@ let run () =
   DragnDrop.make ~events:ev container; *)
   (* End of Drag and drop part *)
   
-  let tbox_init_size = textbox##style##height in
+ (* @terrematte : Removed KeyCode. *)
+ (* let tbox_init_size = textbox##style##height in
   Html.document##onkeydown <-
     (Html.handler
        (fun e -> match e##keyCode with
@@ -524,7 +526,7 @@ let run () =
 	       Js._false
 	     | _ -> Js._true
 	 end
-	 | _ -> Js._true));
+	 | _ -> Js._true));*)
   
   let clear () = 
     output_area##innerHTML <- (Js.string "");

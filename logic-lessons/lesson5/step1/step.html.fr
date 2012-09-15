@@ -1,37 +1,64 @@
-<h3>Regras da Disjunção I</h3>
+<h3>Regras da Negação I</h3>
 
-<p>Para ilustrar as regras da disjunção <b>(∨ I <sub>1</sub>) e (∨ I <sub>2</sub>)</b>, vamos demonstrar algo intuitivo como "α ⊢  (α ∨ γ) ∧ (α ∨ β)":</p>
+<p>Na Lógica Proposicional, podemos -- em parte -- entender a <i>negação</i> (¬) através da <i>implicação</i>, a constante de absurdo (⊥) e mais algumas regras que vamos aprender.</p><br/>
 
-<pre><code> Reset Initial.
-Require Import ProofWeb.
-Variables A B C : Prop.
-Hypothesis P1 : (A).
-Theorem example_11 :  (A \/ B) /\ (C \/ A).
-Proof.</code></pre>
-
-<p>Note que o conectivo principal é a conjunção, logo aplicamos a regra (∧ I):</p>
-<code>
-con_i.
-</code><br/>
-
-<p>Agora, temos que verificar que (γ ∨ α) e (α ∨ β). No primeiro lado, usamos a regra (∨ I <sub>1</sub>) e identificarmos nossa premissa P1: </p>
-<pre><code>dis_i1.
-exact P1.</code></pre>
-
-<p>Em seguida, usamos a regra (∨ I <sub>2</sub>) e novamente identificarmos nossa premissa P1: </p>
-<pre><code>dis_i2.
-exact P1.</code></pre>
-
-<p>Assim usamos a introdução da disjunção à direita <b>(∨ I <sub>1</sub>) e a introdução da disjunção à esquerda (∨ I <sub>2</sub>). </p>
-<code>Qed.
-</code><br/>
-
-
-<p><i>- Introdução da disjunção à direita</i> (∨ I<sub>1</sub>): Significa que se a asserção α se verifica, então verifica-se "(α ∨ β)". 
-No Coq, o comando utilizado é <b>dis_i1</b>.</p><br/>
+<p>Por isso, as regras da negação (¬ I) e (¬ E) são semelhantes às regras (→ I) e (→ E)</p>
  
-<p><i>- Introdução da disjunção à esquerda</i> (∨ I<sub>2</sub>): De forma análoga, significa que se a asserção β se verifica, então verifica-se "(α ∨ β)". No Coq, o comando utilizado é <b>dis_i2</b>.</p><br/>
+<p>Vamos demonstrar o seguinte teorema: " ⊢ ¬ ¬( ¬ ¬ α → α)" para exemplicar as regras da negação e em seguida apresentamos suas definições exatas. </p>
 
-<p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 1, págs. 30-31. )</i></p><br/>
+<pre><code>
+Reset Initial.
+Require Import ProofWeb.
+Variables A : Prop.
+Theorem example_07 : ~~(~~A -> A).
+Proof.
+</code></pre>
 
-<center><img  src="/pub/images/logic/r-disj.png" alt="Rules of Disjunction" width="560"  /></center><br/><br/>
+<p>Como nosso conectivo mais externo é uma negação, nossa estratégia é usar a regra (¬ I), obtendo uma nova hipótese h1:</p>
+ 
+<code>
+neg_i h1.
+</code>
+
+<p>Agora temos que decidir de qual regra obtivemos o ⊥, a princípio poderíamos obter de qualquer aplicação da (¬ E) com diferentes parâmetros. Por praticidade, vamos dizer o ⊥ foi obtido por  (¬ E) em  ~(~~A -> A) e (~~A -> A), justamente para podermos identificá-lo com a hipótese h1:</p> 
+
+<pre><code>
+neg_e (~~A -> A).
+exact h1.
+</code></pre>
+
+<p>Em seguida, como temos uma implicação, usamos (→ I) e ganhamos uma nova hipótese h2:</p> 
+
+<code>
+imp_i h2.
+</code>
+
+<p>Para de imediato usarmos a nova hipótese h1, indicamos que ⊥ foi obtido por (¬ E) em  (~~A) e (~A):</p>
+
+<pre><code>
+neg_e (~A).
+exact h2.
+</code></pre>
+
+<p>Nesse momento usamos a (¬ I) e obtemos uma nova hipótese (A) com a marca h3.</p>
+
+<code>
+neg_i h3.
+</code>
+
+<p>Bom, a demonstração está quase no fim, <b><i>qual a sua sugestão para o parâmetro da (¬ E) ?</i></b></p>
+
+<code>
+neg_e ??
+</code>
+
+<p><i><b>Dica</b></i>: Explore as opções possíveis (A), (~A) e (~~A -> A)</p>
+
+<p><i>- Introdução da negação </i> (¬ I): Permite obter uma derivação ¬ α, a partir de uma derivação de ⊥, e um conjunto de hipóteses que <i>pode</i> conter α. No Coq, o comando utilizado é <b>neg_i h</b> , passando como parâmetro uma marca <i>h</i> para a hipótese α que eventualmente pode ser descartada. Esta marca <i>h</i> na regra (¬ I) deve pelo menos ser:<br/>
+<b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula α -- representando a formula a ser negada, ou <br/>
+<b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação.</p><br/>
+
+<p><i>- Eliminação da negação</i> (¬ E): Permite concluir ⊥, a partir de derivações de "¬ α" e "α". No Coq, o comando utilizado é <b>neg_e α</b>, passando como parâmetro a fórmula contraditória α.</p><br/>
+
+
+<center><img  src="/pub/images/logic/r-neg.png" alt="Rules of Negation" width="560"  /></center><br/><br/>

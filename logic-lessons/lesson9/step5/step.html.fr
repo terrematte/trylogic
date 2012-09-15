@@ -1,0 +1,29 @@
+
+<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
+
+<!-- - Apresentar a heurística de uma antilogia, no caso,  - (~A -> B) /\ (~A /\ ~B) 
+	 - Apresentar a ideia de que qualquer valoração falsifica uma fórmula que é uma antilogia.
+ -->
+
+<p> Vamos analisar o seguinte problema &#8881;  (¬A → B) ∧ (¬A ∧ ~B). </p>
+
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! Faremos a demonstração - ou refutaremos - <i>após</i> a heurística, para verificar o que descobrimos.</p>
+
+ <p>Suponha por absurdo que a fórmula seja <i>satisfeita</i>, isto é, suponha que exista uma valoração v tal que:</p> <br/>
+(1) v ⊩ ¬A→B  <br/>
+(2) v ⊩ ¬A∧¬B <br/>
+
+<p> De (2) pelo significado da conjunção, segue que (3) v ⊩ ¬A  e  (4) v ⊩ ¬B. </p>
+
+<p>  Já de (1) e (3), por <i>modus ponens</i> concluímos (5) v ⊮ B<br/>.Absurdo de (1) com (6). Logo, a fórmula é uma contradição.</p> 
+
+<p>Portanto, <i>qualquer</i> valoração refuta a fórmula  ⊭ (¬A → B) ∧ (¬A ∧ ~B). Se diz que ela é uma fórmula <b>insatisfatível</b>.</p>
+
+<p><i>Na próxima lição, vamos refutar aplicando nossa Teoria Semântica. </i></p>
+
+
+<p text-align="right"> <i>Continua no próximo passo ...</i></p>
+<br/>
+<br/>
+
+

@@ -1,23 +1,45 @@
-<h3>Regras da Negação I - Autoavaliação I</h3>
+<h3>Regras da Implicação II</h3>
 
-<p>Vimos que as regras da negação (¬ I) e (¬ E) são semelhantes às regras (→ I) e (→ E).</p><br/>
+<p>Vamos entender melhor o significado do <i>descarte</i> de hipóteses da regra <b>(→ I)</b>. Primeiro, vamos entender que o descarte de hipótese é um direito, i.e. com a regra <b>(→ I)</b> <i>ganhamos</i> hipóteses que podem eventualmente ser utilizadas, ou seja, pode ser que não precisemos. Informalmente, podemos supor diversas hipótese, mas não precisamos usar todas hipóteses para se chegar a determinada conclusão.</p><br/>
 
-<p>Teste se você compreendeu realmente demonstrando que : " ⊢ (α → ¬α) → ¬α"</p>
+<p>Exemplificando com o teorema: "⊢ α → (β → α)"</p>
  
-<pre><code> Reset Initial.
-Require Import ProofWeb.
-Variables A : Prop.
-Theorem example_08 :  (A -> ~A) -> ~A.
-Proof.</code></pre>
+<pre><code>
+Reset Initial.  
+Require Import ProofWeb. 
+Variables A B : Prop. 
+Theorem example_05 :  A -> (B -> A). 
+Proof.
+</code></pre>
 
-Mãos à obra! <br/>
+<p> Pelas lições anteriores, vimos que precisamos analisar os conectivos de todas as fórmulas do argumento. No caso, como temos uma implicação, tentaremos usar a regra <b>(→ I)</b>, com a marca h1 (poderia ser qualquer marca que fosse nova). </p> 
 
 <code>
-? ? ?
+imp_i h1. 
 </code>
-<br/><br/>
 
+<p> Agora ganhamos uma nova hipótese <b>A</b> com a marca <b>h1</b>. Mas ainda não podemos fazer muita coisa. Vamos tentar aplicar a regra <b>(→ I)</b>:</p> 
 
-<p><i><b>Dica:</b> Na primeira regra (¬ E) que você usar, explore as opções: <b>(A -> ~A)</b>, <b>(~A)</b> e <b>(A)</b></i>.</p>
+<code>
+imp_i h1. 
+</code>
 
-<center><img  src="/pub/images/logic/r-neg.png" alt="Rules of Negation" width="560"  /></center><br/><br/>
+<p><i><b>Ops! Há um erro, você poderia corrigi-lo? Só escrever ao lado o comando correto.</b></i> Lembre-se das restrições das marcas.</p><br/>
+
+<p>Bom, agora só dizer que esta fórmula é extamente a mesma da marca <b>h1</b>:</p>
+
+<code>
+exact h1. 
+</code>
+
+<p>Note que não usamos a hipótese <b>B</b> e a marca que você inseriu. Este é um exemplo de que <i>não somos obrigados</i> a usar todas as hipóteses descartadas pela regra (→ I), nem todas as premissas para completar uma derivação.</p>
+
+<p>Pronto, completamos a demonstração:</p>
+
+<code>
+Qed.
+</code>
+
+<br/>
+<br/>
+<center><img  src="/pub/images/logic/r-imp.png" alt="Rules of Implication" width="560"  /></center><br/><br/>

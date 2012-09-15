@@ -1,0 +1,90 @@
+<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
+
+<!-- 
+	Exemplificar uma Refutação de argumentos mais extensos
+ -->
+ 
+<p><b><i>Continuando o passo anterior.</i></b> Vamos agora sim usar nossa teoria semântica para <i>refutar</i> o nosso argumento :</p> <br/>
+ 
+ P1 : B∧((B∧F)→C) <br/>
+ P2 : ((A∧D)↔(B∧D))∧D <br/>
+ P3 : (D↔D)→(F∨F)<br/>
+ P4 :  D∧((D∨B)→( B↔D))  <br/>
+ P1, P2, P3, P4 &#8881; (C↔(D∧D))∧(¬B)  <br/>
+ 
+ 
+<p> Pois pelo passo anterior, completamos a valoração v sobre todos os átomos proposicionais, sem contradições com as premissas:</p> <br/>
+
+(1) v ⊩ A <br/>
+(2) v ⊩ B <br/>
+(3) v ⊩ C <br/>
+(4) v ⊩ D <br/>
+(5) v ⊩ F <br/>
+
+<p>Seguimos com nosso preâmbulo da teoria <i>Semantics</i>: </p>
+	
+<pre><code> 
+Reset Initial. 
+Require Import Semantics.
+Parameter A B C D E F: Prop.
+Hypothesis f0 : (v ||-- A).
+ Hypothesis f1 : (v ||-- B).
+ Hypothesis f2 : (v ||-- C).
+ Hypothesis f3 : (v ||-- D).
+(* Hypothesis f4 : (v ?? E). *)
+ Hypothesis f5 : (v ||-- F).
+Theorem T0 : (v ||-/-  ( ( ( B /\ ( ( B /\ F ) -> C ) ) /\ ( ( ( A /\ D ) <-> ( B /\ D ) ) /\ D ) /\ ( ( D <-> D ) -> ( F \/ F ) ) /\ ( D /\ ( ( D \/ B ) -> ( B <-> D ) ) ) ) -> ( ( ~ B ) /\ ( C <-> ( D /\ D ) ) ) ) ).
+Proof.
+</code></pre>
+
+<p>E eis aqui a verificação de que a refutação funciona :</p>
+
+<pre><code> 
+impF.
+conjT.
+conjT.
+ass f1.
+impT2.
+ass f2.
+conjT.
+conjT.
+iffTT.
+conjT.
+ass f0.
+ass f3.
+conjT.
+ass f1.
+ass f3.
+ass f3.
+conjT.
+impT2.
+disjT2.
+ass f5.
+conjT.
+ass f3.
+impT2.
+iffTT.
+ass f1.
+ass f3.
+conjF1.
+negF.
+ass f1.
+</code></pre>
+
+<p>Excelente! Finalizamos a Refutação, note que as nossas condições foram atendidas e assim, concluímos <i>quod erat demonstrandum</i>:</p>
+
+<code>
+Qed. 
+</code>
+
+<p>* * *</p>
+
+<p><b>ATENÇÃO:</b> <i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
+<br>
+<b>1º.</b> Deve haver apenas átomos nas folhas da árvore, e cada <b>Hypothesis fn: (v ?? X)</b> deve envolver um átomo X da lista de parâmetros.<br/>
+<b>2º.</b> Para nenhum átomo X podem haver simultaneamente hipóteses da forma v ⊩ X e v ⊮ X).</p>
+
+
+<p>* * *</p>
+
+

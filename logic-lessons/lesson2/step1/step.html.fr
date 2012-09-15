@@ -1,47 +1,26 @@
-<h3>Regras da Conjunção I</h3>
+<h3>Sistema dedutivo Np no Coq</h3>
 
-<p>Agora que vimos um primeiro exemplo, vamos nos concentrar nas regras de cada conectivo.</p> <br/>
+<p>Um sistema dedutivo é um procedimento para se <i>demonstrar</i> que uma formula é consequência de um conjunto de fórmulas utilizadas como hipóteses, ou seja, a partir de <a href="http://pt.wikipedia.org/wiki/Premissa">premissas</a>. </p>
 
-<p><i>- Introdução da conjunção</i> (∧ I): Representa o raciocínio em que se as asserções α e β verificam-se em separado, então verifica-se a sua conjunção. No Coq, o comando utilizado é <b>con_i</b>.</p><br/>
-
-<p><i>- Eliminação da conjunção à direita</i> (∧ E<sub>1</sub>): Significa que se a asserção α ∧ β se verifica, então verifica-se α em particular. 
-No Coq, o comando utilizado é <b>con_e1 β</b>, passando como parâmetro a fórmula proposicional à <i>direita</i> da conjunção eliminada.</p><br/>
- 
-<p><i>- Eliminação da conjunção à esquerda</i> (∧ E<sub>2</sub>): De forma análoga, significa que se a asserção α ∧ β se verifica, então verifica-se β em particular. 
-No Coq, o comando utilizado é <b>con_e2 α</b>, passando como parâmetro a fórmula proposicional à <i>esquerda</i> da conjunção eliminada.</p><br/>
+<p>A dedução natural é um formalismo dedutivo para a apresentação e a verificação de argumentos, e o sistema Np é um sistema de dedução natural adequado para descrever <a href="http://pt.wikipedia.org/wiki/Argumento">argumentos</a> aceitos pela lógica clássica proposicional.  Este sistema capitaliza sobre a representação sintática das sentenças da linguagem clássica e não faz referência às possíveis interpretações destas sentenças como valores booleanos.</p>
 
 
-<p>Vamos demonstrar a comutatividade da conjunção: "(α ∧ β) ⊢ (β ∧ α)". </p>
+<p>Uma demonstração em Dedução Natural é um estrutura de dados chamada de <i>árvore de derivação</i>. Demonstrar que "Γ ⊢ α", significa garantir que <i>existe pelo menos uma</i> árvore etiquetada construída com sucessivas regras de inferência, nas quais as <i>folhas abertas</i> são as premissas gama (Γ) e a <i>raiz</i> é a conclusão alfa (α). Por exemplo:</p>
 
-<pre><code>Reset Initial.
-Require Import ProofWeb.
-Variables A B : Prop.
-Hypothesis P1 : (A /\ B).
-Theorem example_02 : (B /\ A).
-Proof.</code></pre>
+<center><img  src="/pub/images/logic/ex1.png" alt="Example of Deduction 1" width="320"  /></center><br/>
+
+<p> Nesse exemplo, a raiz <b>α</b> é conclusão <b>C</b> e <b>Γ = {A → B, A, B → (C ∧ D)}</b>.</p><br/>
 
 
-<p>Como nossa conclusão possui a conjunção  como conectivo principal, podemos aplicar a regra de introdução da conjunção:</p>
-<code>
-con_i.
-</code><br/>
+<p><i>Mais detalhes?</i> leia o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 1, págs. 1-5 e 15-46.  Veja alguns materiais e Exercícios <a href="http://sites.google.com/site/sequiturquodlibet/courses/laac/dn-lcp">aqui</a>. E confira também os verbetes wikipédicos:</p><br/>
+- <a href="http://pt.wikipedia.org/wiki/L%C3%B3gica_proposicional">Lógica proposicional</a><br/>
+- <a href="http://pt.wikipedia.org/wiki/C%C3%A1lculo_proposicional">Cáculo Proprosicional</a><br/>
+- <a href="http://pt.wikipedia.org/wiki/Dedu%C3%A7%C3%A3o_natural">Dedução Natural</a>(PT)<br/>
+- <a href="http://en.wikipedia.org/wiki/Natural_deduction">Natural Deduction</a>(EN)<br/>
+- <a href="http://en.wikipedia.org/wiki/Sequent"> Sequente</a>(EN)<br/>
+- <a href="http://pt.wikipedia.org/wiki/Validade">Válidade Lógica</a><br/>
+- <a href="http://pt.wikipedia.org/wiki/Axioma">Axioma</a><br/>
+- <a href="http://pt.wikipedia.org/wiki/Regra_de_infer%C3%AAncia">Regra de Inferência</a><br/>
+- <a href="http://pt.wikipedia.org/wiki/Lista_de_regras_de_infer%C3%AAncia">Lista de Regras de Inferência</a>
 
-
-<p>Agora, devemos indicar de onde vieram <b>B</b> e <b>A</b>, ou seja, através das regras de (∧ E<sub>2</sub>) :</p>
-<code>
-con_e2 A.
-</code><br/>
-
-
-Seguida da identificação exata de P1:<br/>
-<code>
-exact P1.
-</code><br/>
-
-<p><b><i>Para ter certeza que você entendeu, complete o restante da demonstração, antes de passar para o próximo passo!</i></b></p><br/>
-<code>
-? ? ?
-</code>
-<br/><br/>
-
-<center><img  src="/pub/images/logic/r-conj.png" alt="Rules of Conjuction" width="560"  /></center>
+<br/>

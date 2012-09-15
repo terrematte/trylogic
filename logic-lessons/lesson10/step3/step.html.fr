@@ -1,0 +1,22 @@
+<h3>Dúvidas - Demonstrar (Np) vs Refutar (SEMp)</h3>
+
+<p><i><b> Existe algo estratégia melhor para chegar a conclusão que uma refutação é impossível? Eu começo procurando por átomos que só têm uma valoração possível e a faço o desenvolvimento respeitando essas valorações. Dessa forma melhora, mas até chegar a conclusão que é impossível eu tenho que testar muitas combinações diferentes. </b></i></p>
+
+<p>Se você encontrar uma estratégia para resolver este problema em "tempo polinomial" você terá resolvido o mais importante problema em aberto da computação contemporânea:</p>
+
+<a href="http://en.wikipedia.org/wiki/P_versus_NP_problem">http://en.wikipedia.org/wiki/P_versus_NP_problem</a>
+
+ou, em particular, a sua versão 3SAT:
+
+<a href="http://en.wikipedia.org/wiki/3SAT#3-satisfiability">
+http://en.wikipedia.org/wiki/3SAT#3-satisfiability
+</a>
+
+<br/>
+<br/>
+<center>* * *</center>
+<br/>
+<br/>
+
+
+
