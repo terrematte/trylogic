@@ -78,7 +78,7 @@ a{color:#0069d6;text-decoration:none;line-height:inherit;font-weight:inherit;}a:
 p{font-size:13px;font-weight:normal;line-height:18px;text-align:justify; display:inline-block; padding-top:3px}p small{font-size:11px;color:#bfbfbf;}
 .sat {color:green; display:inline; text-align:justify}
 .uns {color:red; display:inline; text-align:justify}
-.end {color:red; display:block; text-align:center; padding:2px}
+.end {font-weight:bold;display:block; text-align:center; padding:2px}
 h1,h2,h3,h4,h5,h6{font-weight:bold;color:#404040;}h1 small,h2 small,h3 small,h4 small,h5 small,h6 small{color:#bfbfbf;}
 h1{margin-bottom:18px;font-size:30px;line-height:36px;}h1 small{font-size:18px;}
 h2{font-size:24px;line-height:36px;}h2 small{font-size:14px;}

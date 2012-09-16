@@ -36,7 +36,7 @@ fls_e.
 neg_e B.
 ass h0.
 ass h2.
-</code>
+</code></pre>
 
 <p>Assim, finalizamos a demonstração! </p>
 
