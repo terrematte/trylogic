@@ -1,6 +1,6 @@
 <h3>Estratégias de Demonstração - Lemas I</h3>
 
-<p>Neste passo trabalhar com o uso de Lemas.</p>
+<p>Neste passo vamos trabalhar com o uso de Lemas.</p>
 
 <p>Vamos demonstrar o seguinte "¬(α ∧ δ), ¬(β ∧ ¬δ) ⊢ ¬(α ∧ β)" usando o terceiro excluído como lema "⊢ (δ ∨ ¬δ)".</p>
 
@@ -22,7 +22,11 @@ Proof.
 intros.
 </code></pre>
 
-<p>Veja que agora a variável proposicional <b>A</b> recebe um novo nome <b>A0</b>. Em seguida, realizamos a demonstração sem nenhuma distinção dos casos de demonstração proposicional.</p>
+<p>Veja que agora a variável proposicional <b>A</b> recebe um novo nome <b>A0</b>.</p>
+
+<p><b class="uns"><i>IMPORTANTE.</i></b> Use os atalhos "Control + Setas UP/DOWN" para explorar os passos e ter certeza de ter compreendido cada aplicação de regra. <i>Funcionando bem no browser <a href="http://www.mozilla.org/pt-BR/firefox/" target="_blank">Firefox</a></i></p>
+
+<p>Em seguida, realizamos a demonstração sem nenhuma distinção dos casos de demonstração proposicional.</p>
 
 <pre><code>
 PBC h0.
@@ -67,8 +71,8 @@ exact h3.
 Qed.
 </code></pre>
 
-<p>* * *</p>
+<p class="end">* * *</p>
 
 <p><b>ATENÇÃO:</b> Com o comando <b>Lemma</b> apenas podemos definir Teoremas. Não podemos definir Lemmas com o formato de argumentos com premissas tais como: α,β,γ ⊢ φ. Para tal, realize a demonstração da versão do argumento em formato de teorema  ⊢(α∧β∧γ)→φ </p>
 
-<p>* * *</p>
+<p class="end">* * *</p>
