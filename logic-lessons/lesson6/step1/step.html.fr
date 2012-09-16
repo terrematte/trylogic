@@ -41,6 +41,6 @@ No Coq, o comando utilizado é <b>dis_i1</b>.</p>
  
 <p><i>- Introdução da disjunção à esquerda</i> (∨ I<sub>2</sub>): De forma análoga, significa que se a asserção β se verifica, então verifica-se "(α ∨ β)". No Coq, o comando utilizado é <b>dis_i2</b>.</p>
 
-<p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 1, págs. 30-31. )</i></p><br/>
+<p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm"  target="_blank" >DGM</a>, Cap. 1, págs. 30-31. )</i></p><br/>
 
 <center><img  src="/pub/images/logic/r-disj.png" alt="Rules of Disjunction" width="560"  /></center><br/><br/>

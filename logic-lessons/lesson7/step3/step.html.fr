@@ -1,4 +1,4 @@
-<h3>Regras da Biimplicação - Autoavaliação</h3>
+<h3>Regras da Biimplicação - Autoavaliação II</h3>
 
 <p>Exercício: Demonstre o seguinte teorema. </p>
 
@@ -12,10 +12,14 @@ Theorem example_17 : (A -> B) <-> (~A \/ B).
 Proof.
 </code></pre>
 
-iff_i h1 h2.<br/>
+<p><b><i>Mãos à obra!</i></b></p>
 
-iff_e1 (α).<br/>
-
-iff_e2 (α).<br/>
+<code>
+? ? ?
+</code>
+<br/><br/>
 
 <center><img  src="/pub/images/logic/r-iff.png" alt="Rules of Biimplication" width="560"  /></center><br/><br/>
+
+
+<p class="end">* * *</p>

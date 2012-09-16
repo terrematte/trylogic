@@ -1,23 +1,48 @@
 <h3>Regras da Biimplicação I</h3>
 
-<p>Neste passo vamos explorar as regras da implicação (↔ I), (↔ E <sub>1</sub>) e (↔ E <sub>2</sub>).</p>
+<p>Neste passo vamos explorar a regra da implicação (↔ I).</p>
 
-<p>"¬α ↔ (α ∨ β) ⊢ (¬α ∧ β)".</p>
-  
+<p>Vamos conferir demonstrando que "¬(α ↔ β), ¬α ⊢ β".</p>
+
  
 <pre><code>
 Reset Initial.
 Require Import ProofWeb.
 Variables A B : Prop.
-Hypothesis P1 : (~A <-> (A \/ B)).
-Theorem example_15 : (~A /\ B).
+Hypothesis P0 : ~(A <-> B). 
+Hypothesis P1 : ~A.
+Theorem example_15 : B.
 Proof.
 </code></pre>
 
-iff_i h1 h2.<br/>
 
-iff_e1 (α).<br/>
+<p>Seguindo a estratégia usual, antes de todas as regras usamos o absurdo clássico com o objetivo de obtermos hipóteses para trabalharmos:</p>
 
-iff_e2 (α).<br/>
+<code>
+PBC h0.
+</code>
 
+<p> Agora que temos a premissa ¬A e a hipótese ¬B, podemos obter a equivalencia (¬A)↔(¬B), o que contradiz a premissa ¬(A↔B): </p>
+
+<pre><code>
+neg_e (A <-> B).
+ass P0.
+iff_i h1 h2.
+fls_e.
+neg_e A.
+ass P1.
+ass h1.
+fls_e.
+neg_e B.
+ass h0.
+ass h2.
+</code>
+
+<p>Assim, finalizamos a demonstração! </p>
+
+<code>
+Qed.
+</code><br/>
 <center><img  src="/pub/images/logic/r-iff.png" alt="Rules of Biimplication" width="560"  /></center><br/><br/>
+
+<p class="end">* * *</p>

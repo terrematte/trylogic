@@ -44,7 +44,7 @@ exact f2.
 Qed. 
 </code></pre>
 
-<p>* * *</p>
+<p class="end">* * *</p>
 
 <p>Vamos agora analisar o mesmo exemplo, mas o que ocorreria se tivéssemos aplicado outras regras : </p>
 
@@ -66,14 +66,12 @@ conjF2.
 </code></pre>
 
 
-<p>* * *</p>
+<p class="end">* * *</p>
 
-
-<p>* * *</p>
 
 <p><b>ATENÇÃO:</b> <i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
 <br>
 <b>1º.</b> Deve haver apenas átomos nas folhas da árvore, e cada <b>Hypothesis fn: (v ?? X)</b> deve envolver um átomo X da lista de parâmetros.<br/>
 <b>2º.</b> Para nenhum átomo X podem haver simultaneamente hipóteses da forma v ⊩ X e v ⊮ X).</p>
 
-<p>* * *</p>
+<p class="end">* * *</p>

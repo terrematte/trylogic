@@ -59,7 +59,7 @@ Qed.
 
 <p>Observe que para cada conectivo, em geral, há regras para satisfação e para a não satisfação de uma sentença que contenha este conectivo como construtor principal.  Note também que em SEM<sub>p</sub> nenhuma das regras (que são funções para a construção de árvores a partir de árvores) necessitam de parâmetros adicionais.</p>
 
-<p>* * *</p>
+<p class="end">* * *</p>
 
 <p><b>ATENÇÃO:</b> <i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
 <br>

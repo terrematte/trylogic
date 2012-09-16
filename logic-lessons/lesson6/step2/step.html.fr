@@ -30,6 +30,6 @@ ass h1.</code></pre>
 <p><i><b>Experimente:</b></i> demonstrar aplicando primeiro a regra (∨ I<sub>1</sub>), ao invés da (∨ I<sub>2</sub>). </p><br/>
 
 
-<p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 1, págs. 30-31. )</i></p>
+<p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm"  target="_blank">DGM</a>, Cap. 1, págs. 30-31. )</i></p>
 
 <center><img  src="/pub/images/logic/r-disj.png" alt="Rules of Disjunction" width="560"  /></center><br/><br/>

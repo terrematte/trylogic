@@ -77,7 +77,7 @@ ass f1.
 Qed. 
 </code>
 
-<p>* * *</p>
+<p class="end">* * *</p>
 
 <p><b>ATENÇÃO:</b> <i>Para a construção de refutações semânticas corretas, em</i> SEM<sub>p</sub><i>, devem ser respeitados os seguintes requisitos:</i><br/>
 <br>
@@ -85,6 +85,6 @@ Qed.
 <b>2º.</b> Para nenhum átomo X podem haver simultaneamente hipóteses da forma v ⊩ X e v ⊮ X).</p>
 
 
-<p>* * *</p>
+<center>* * *</center>
 
 

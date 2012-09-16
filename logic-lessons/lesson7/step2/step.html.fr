@@ -1,8 +1,8 @@
-<h3>Regras da Biimplicação II</h3>
+<h3>Regras da Biimplicação - Autoavaliação</h3>
 
 <p>Neste passo vamos explorar mais as regras da implicação (↔ I), (↔ E <sub>1</sub>) e (↔ E <sub>2</sub>).</p>
 
-<p>"(α ↔ β), (α ↔ γ) ⊢ (β ↔ γ)".</p>
+<p>Confira demonstrando que "(α ↔ β), (α ↔ γ) ⊢ (β ↔ γ)".</p>
 
 <pre><code> 
 Reset Initial.
@@ -14,10 +14,11 @@ Theorem example_16 : (B <-> C).
 Proof.
 </code></pre>
 
-iff_i h1 h2.<br/>
+<p><b><i>Mãos à obra!</i></b></p><br/>
 
-iff_e1 (α).<br/>
+<code>
+? ? ?
+</code>
 
-iff_e2 (α).<br/>
 
 <center><img  src="/pub/images/logic/r-iff.png" alt="Rules of Biimplication" width="560"  /></center><br/><br/>

@@ -1,8 +1,8 @@
 <h3>Sistema dedutivo Np no Coq</h3>
 
-<p>Um sistema dedutivo é um procedimento para se <i>demonstrar</i> que uma formula é consequência de um conjunto de fórmulas utilizadas como hipóteses, ou seja, a partir de <a href="http://pt.wikipedia.org/wiki/Premissa">premissas</a>. </p>
+<p>Um sistema dedutivo é um procedimento para se <i>demonstrar</i> que uma formula é consequência de um conjunto de fórmulas utilizadas como hipóteses, ou seja, a partir de <a href="http://pt.wikipedia.org/wiki/Premissa" target="_blank">premissas</a>. </p>
 
-<p>A dedução natural é um formalismo dedutivo para a apresentação e a verificação de argumentos, e o sistema Np é um sistema de dedução natural adequado para descrever <a href="http://pt.wikipedia.org/wiki/Argumento">argumentos</a> aceitos pela lógica clássica proposicional.  Este sistema capitaliza sobre a representação sintática das sentenças da linguagem clássica e não faz referência às possíveis interpretações destas sentenças como valores booleanos.</p>
+<p>A dedução natural é um formalismo dedutivo para a apresentação e a verificação de argumentos, e o sistema Np é um sistema de dedução natural adequado para descrever <a href="http://pt.wikipedia.org/wiki/Argumento"  target="_blank">argumentos</a> aceitos pela lógica clássica proposicional.  Este sistema capitaliza sobre a representação sintática das sentenças da linguagem clássica e não faz referência às possíveis interpretações destas sentenças como valores booleanos.</p>
 
 
 <p>Uma demonstração em Dedução Natural é um estrutura de dados chamada de <i>árvore de derivação</i>. Demonstrar que "Γ ⊢ α", significa garantir que <i>existe pelo menos uma</i> árvore etiquetada construída com sucessivas regras de inferência, nas quais as <i>folhas abertas</i> são as premissas gama (Γ) e a <i>raiz</i> é a conclusão alfa (α). Por exemplo:</p>
@@ -12,15 +12,15 @@
 <p> Nesse exemplo, a raiz <b>α</b> é conclusão <b>C</b> e <b>Γ = {A → B, A, B → (C ∧ D)}</b>.</p><br/>
 
 
-<p><i>Mais detalhes?</i> leia o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm">DGM</a>, Cap. 1, págs. 1-5 e 15-46.  Veja alguns materiais e Exercícios <a href="http://sites.google.com/site/sequiturquodlibet/courses/laac/dn-lcp">aqui</a>. E confira também os verbetes wikipédicos:</p><br/>
-- <a href="http://pt.wikipedia.org/wiki/L%C3%B3gica_proposicional">Lógica proposicional</a><br/>
-- <a href="http://pt.wikipedia.org/wiki/C%C3%A1lculo_proposicional">Cáculo Proprosicional</a><br/>
-- <a href="http://pt.wikipedia.org/wiki/Dedu%C3%A7%C3%A3o_natural">Dedução Natural</a>(PT)<br/>
-- <a href="http://en.wikipedia.org/wiki/Natural_deduction">Natural Deduction</a>(EN)<br/>
-- <a href="http://en.wikipedia.org/wiki/Sequent"> Sequente</a>(EN)<br/>
-- <a href="http://pt.wikipedia.org/wiki/Validade">Válidade Lógica</a><br/>
-- <a href="http://pt.wikipedia.org/wiki/Axioma">Axioma</a><br/>
-- <a href="http://pt.wikipedia.org/wiki/Regra_de_infer%C3%AAncia">Regra de Inferência</a><br/>
-- <a href="http://pt.wikipedia.org/wiki/Lista_de_regras_de_infer%C3%AAncia">Lista de Regras de Inferência</a>
+<p><i>Mais detalhes?</i> leia o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm" target="_blank">DGM</a>, Cap. 1, págs. 1-5 e 15-46.  Veja alguns materiais e Exercícios <a href="http://sites.google.com/site/sequiturquodlibet/courses/laac/dn-lcp" target="_blank">aqui</a>. E confira também os verbetes wikipédicos:</p><br/>
+- <a href="http://pt.wikipedia.org/wiki/L%C3%B3gica_proposicional" target="_blank">Lógica proposicional</a><br/>
+- <a href="http://pt.wikipedia.org/wiki/C%C3%A1lculo_proposicional" target="_blank">Cáculo Proprosicional</a><br/>
+- <a href="http://pt.wikipedia.org/wiki/Dedu%C3%A7%C3%A3o_natural" target="_blank">Dedução Natural</a>(PT)<br/>
+- <a href="http://en.wikipedia.org/wiki/Natural_deduction" target="_blank">Natural Deduction</a>(EN)<br/>
+- <a href="http://en.wikipedia.org/wiki/Sequent" target="_blank"> Sequente</a>(EN)<br/>
+- <a href="http://pt.wikipedia.org/wiki/Validade" target="_blank">Válidade Lógica</a><br/>
+- <a href="http://pt.wikipedia.org/wiki/Axioma" target="_blank">Axioma</a><br/>
+- <a href="http://pt.wikipedia.org/wiki/Regra_de_infer%C3%AAncia" target="_blank"  >Regra de Inferência</a><br/>
+- <a href="http://pt.wikipedia.org/wiki/Lista_de_regras_de_infer%C3%AAncia" target="_blank">Lista de Regras de Inferência</a>
 
 <br/>

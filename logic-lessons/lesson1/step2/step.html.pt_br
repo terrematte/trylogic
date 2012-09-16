@@ -1,15 +1,15 @@
 <h3>Descrição da Tarefa - Demonstrar vs Refutar</h3>
 
-<p>Vocês receberam um conjunto de problemas cuja tarefa envolve <i>Demonstrar </i> ou <i>Refutar</i>. Nós adquirir as habilidades necessárias para aplicar as regras do <i>jogo</i> de demonstração em Dedução Natural, bem como o <i>jogo</i> semântico de Refutação, a árvore de verificação pela Teoria Semântica.</p>
+<p>Vocês receberam um conjunto de exercícios cuja tarefa envolve <i>Demonstrar </i> ou <i>Refutar</i>. Nós vamos adquirir as habilidades necessárias para aplicar de forma adequada as regras do <i>jogo</i> de demonstração em Dedução Natural, bem como o <i>jogo</i> semântico de Refutação.</p>
 
 <p>Ao acessar sua conta do ProofWeb, vocês verão uma lista de exercícios : </p><br>
 
-<b>aval_nivel1_0_ND.v</b><br>
+<b>aval_nivel1_0_DN.v</b><br>
 <b>aval_nivel1_0_SEM.v</b><br>
 
 <p>Para cada par destes arquivos, apenas um deles pode ser resolvido corretamente.</p>
 
-<p> O arquivo <b>aval_nivel1_0_ND.v</b> está formulado no Template de dedução natural e equivale a demonstrar que P1,P2,P3 ⊢ C . </p>
+<p> O arquivo <b>aval_nivel1_0_DN.v</b> está formulado no Template de dedução natural e representa a conjectura de <i><b>demonstração</b></i> que P0,P1 ⊢ C . </p>
 
 <pre><code>
 Reset Initial.	
@@ -17,25 +17,33 @@ Require Import ProofWeb.
 Parameter A B C: Prop.
 Hypothesis P0 : ( C -> ( B /\ A ) ).
 Hypothesis P1 : ( ( A -> A ) -> ( C <-> B ) ).
-Theorem T0 : ( ( C \/ ( C -> A ) ) -> ( A -> C ) ).
+Theorem C : ( ( C \/ ( C -> A ) ) -> ( A -> C ) ).
 </code></pre>
 
-<p>Já o arquivo com <b>aval_nivel1_0_ND.v</b> está formulado no <i>template</i> da teoria Semântica e equivale a verificar que ⊭(P1∧P2∧P3)→C . </p>
+<p>Já o arquivo com <b>aval_nivel1_0_SEM.v</b> está formulado no <i>template</i> da teoria Semântica e representa a conjectura de <i><b>refutação</b></i> ⊭(P0∧P1)→ C, ou seja, existe uma valoração v tal que v ||-/-(P0∧P1)→ C.</p>
 
 <pre><code>
 Reset Initial.
 Require Import Semantics.
 Parameter A B C: Prop.
-(* Hypothesis P0 : (v ?? A). *)
-(* Hypothesis P1 : (v ?? B). *)
-(* Hypothesis P2 : (v ?? C). *)
-Theorem T0 : (v ||-/- ( ( ( C -> ( B /\ A ) ) /\ ( ( A -> A ) -> ( C <-> B ) ) ) -> ( ( C \/ ( C -> A ) ) -> ( A -> C ) ) ) ).
+(* Hypothesis f0 : (v ?? A). *)
+(* Hypothesis f1 : (v ?? B). *)
+(* Hypothesis f2 : (v ?? C). *)
+Theorem F : (v ||-/- ( ( ( C -> ( B /\ A ) ) /\ ( ( A -> A ) -> ( C <-> B ) ) ) -> ( ( C \/ ( C -> A ) ) -> ( A -> C ) ) ) ).
 </code></pre>
 
 
-<p><b class="uns"><i>ATENÇÃO!</i></b>  Apenas uma dessas duas formulações do problema pode e precisa ser resolvido.</p>
+<p><b class="uns"><i>ATENÇÃO!</i></b>  Apenas uma dessas duas conjecturas pode e precisa ser resolvida.</p>
+
+<p>A tarefa de resolver <b>aval_nivel1_0_DN.v</b> significa: <br>
+- Aplicar a sequência adequada de regras de inferência para produzir uma <i><b>demonstração</b></i> em Dedução Natural no sistema N<sub>p</sub>.  </p>
+
+<p>A tarefa de resolver <b>aval_nivel1_0_SEM.v</b> significa: <br>
+(1) Descobrir a valoração v tal que v ||-/-(P0∧P1)→ C, indicando quais átomos são suficientes para definir a valoração v de forma que para cada átomo A, apenas <b>(v ||-- A)</b>, ou <b>(v ||-/- A)</b> seja o caso.<br>
+(2) Aplicar a sequência adequada de regras para verificar conjectura de <i><b>refutação</b></i> v ||-/-(P0∧P1)→ C na teoria Semântica do sistema SEM<sub>p</sub>.
+</p>
 
 
-<p>* * *</p>
 
-<br/>
+<p class="end">* * *</p>
+
