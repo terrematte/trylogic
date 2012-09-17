@@ -17,7 +17,7 @@ Require Import ProofWeb.
 Parameter A B C: Prop.
 Hypothesis P0 : ( C -> ( B /\ A ) ).
 Hypothesis P1 : ( ( A -> A ) -> ( C <-> B ) ).
-Theorem C : ( ( C \/ ( C -> A ) ) -> ( A -> C ) ).
+Theorem T0 : ( ( C \/ ( C -> A ) ) -> ( A -> C ) ).
 </code></pre>
 
 <p>Já o arquivo com <b>aval_nivel1_0_SEM.v</b> está formulado no <i>template</i> da teoria Semântica e representa a conjectura de <i><b>refutação</b></i> ⊭(P0∧P1)→ C, ou seja, existe uma valoração v tal que v ||-/-(P0∧P1)→ C.</p>
@@ -29,7 +29,7 @@ Parameter A B C: Prop.
 (* Hypothesis f0 : (v ?? A). *)
 (* Hypothesis f1 : (v ?? B). *)
 (* Hypothesis f2 : (v ?? C). *)
-Theorem F : (v ||-/- ( ( ( C -> ( B /\ A ) ) /\ ( ( A -> A ) -> ( C <-> B ) ) ) -> ( ( C \/ ( C -> A ) ) -> ( A -> C ) ) ) ).
+Theorem T0 : (v ||-/- ( ( ( C -> ( B /\ A ) ) /\ ( ( A -> A ) -> ( C <-> B ) ) ) -> ( ( C \/ ( C -> A ) ) -> ( A -> C ) ) ) ).
 </code></pre>
 
 
