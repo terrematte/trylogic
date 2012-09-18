@@ -64,7 +64,8 @@ let logged _ (cgi:Netcgi_types.cgi_activation) =
   cgi # output # output_string ("<input type=\"hidden\" name=\"pass\" value=\"" ^ pass ^ "\">\n");
   cgi # output # output_string ("<input type=\"hidden\" name=\"adminlogin\" value=\"" ^ adminlogin ^ "\">\n");
   cgi # output # output_string ("<input type=\"hidden\" name=\"adminpass\" value=\"" ^ adminpass ^ "\">\n");
-  output_provers cgi;
+  cgi # output # output_string ("<input type=\"hidden\" name=\"cmdarguments\" value=\"trylogic.v\">\n")
+  cgi # output # output_string ("<input type=\"hidden\" name=\"prover\" value=\"coq\">\n");
   cgi # output # output_string "<input type=\"submit\" value=\"Access the TryLogic:\"></form></li>\n"; 
   if slogin = "nobody" then (
     cgi # output # output_string "<li><h4>You are not logged in as a registered user.
@@ -109,7 +110,7 @@ let logged _ (cgi:Netcgi_types.cgi_activation) =
     if (len > 4 && (String.sub name (len - 5) 5 = ".vnok")) then () else
     cgi # output # output_string ("<input type=\"radio\" name=\"cmdarguments\" value=\"" ^ name ^ "\">" ^ name ^ "<br/>\n")
   in
-  cgi # output # output_string "<form action=\"index.html\" method=\"post\">\n";
+  cgi # output # output_string "<form action=\"index.html\" method=\"post\" target=\"_blank\">\n";
   cgi # output # output_string ("<input type=\"hidden\" name=\"login\" value=\"" ^ login ^ "\">\n");
   cgi # output # output_string ("<input type=\"hidden\" name=\"pass\" value=\"" ^ pass ^ "\">\n");
   cgi # output # output_string ("<input type=\"hidden\" name=\"adminlogin\" value=\"" ^ adminlogin ^ "\">\n");

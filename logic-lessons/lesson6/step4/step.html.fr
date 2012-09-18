@@ -7,7 +7,7 @@
 <pre><code> Reset Initial.
 Require Import ProofWeb.
 Variables A B C : Prop.
-Theorem example_14 :  (A \/ (B /\ C)) -> ((A \/ B) /\ (A \/ C)).
+Theorem exDN6_4 :  (A \/ (B /\ C)) -> ((A \/ B) /\ (A \/ C)).
 Proof.</code></pre>
 
 <p><b><i>Mãos à obra!</i></b></p><br/>

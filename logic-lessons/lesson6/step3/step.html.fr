@@ -7,7 +7,7 @@ Variables A B C D : Prop.
 Hypothesis P1 : A \/ B.
 Hypothesis P2 : A -> C.
 Hypothesis P3 : B -> D.
-Theorem example_13 :  (C \/ D).
+Theorem exDN6_3 :  (C \/ D).
 Proof.</code></pre>
 
 <p>Bom, a regra <b>(∨ E)</b>, significa que se verificamos uma disjunção como "α ∨ β", assim como verificamos que de α derivamos uma fórmula φ e também verificamos que de  β derivamos igualmente uma fórmula φ, então pela regra <b>(∨ E)</b> verifica-se φ. Assim como a regra (⊥<sub>c</sub>), ela possibilita o uso de hipótese, funciona do seguinte modo: </p>

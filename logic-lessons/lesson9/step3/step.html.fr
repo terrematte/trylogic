@@ -30,7 +30,7 @@ Require Import Semantics.
 Parameter A B: Prop. 
 Hypothesis f1 : (v ||-/- A). 
 Hypothesis f2 : (v ||-- B). 
-Theorem sem_ex4 :  (v ||-/- (((A -> B) /\ B) -> A)). 
+Theorem exSEM9_3 :  (v ||-/- (((A -> B) /\ B) -> A)). 
 Proof. 
 ? ? ?
 </code></pre>

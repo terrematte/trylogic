@@ -8,7 +8,7 @@ Require Import ProofWeb.
 Variables A B: Prop.
 Hypothesis P1 : (A -> B).
 Hypothesis P2 : (~ B).
-Theorem example_10 : ~A.
+Theorem exDN5_4 : ~A.
 Proof.
 </code></pre>
 

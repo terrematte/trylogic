@@ -10,7 +10,7 @@ Require Import ProofWeb.
 Variables A B C : Prop.
 Hypothesis P1 : (A <-> B).
 Hypothesis P2 : (A <-> C).
-Theorem example_16 : (B <-> C).
+Theorem exDN7_2 : (B <-> C).
 Proof.
 </code></pre>
 

@@ -11,7 +11,7 @@ Require Import ProofWeb.
 Variables A B : Prop.
 Hypothesis P0 : ~(A <-> B). 
 Hypothesis P1 : ~A.
-Theorem example_15 : B.
+Theorem exDN7_1 : B.
 Proof.
 </code></pre>
 

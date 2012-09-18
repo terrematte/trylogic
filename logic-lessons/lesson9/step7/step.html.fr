@@ -12,7 +12,7 @@
 Reset Initial. 
 Require Import Semantics.
 Parameter  P Q R S: Prop.
-Theorem Sequitur : (v ||-/- ((((R /\ S) -> P) /\ (Q -> R)) -> (S -> (Q -> P)))).
+Theorem exSEM9_7 : (v ||-/- ((((R /\ S) -> P) /\ (Q -> R)) -> (S -> (Q -> P)))).
 Proof.
 impF.
 conjT.
@@ -106,7 +106,7 @@ Require Import ProofWeb.
 Parameter  P Q R S: Prop.
 Hypothesis P1: ((R /\ S) -> P).
 Hypothesis P2 : (Q -> R).
-Theorem Sequitur : (S -> (Q -> P)).
+Theorem exSEM9_7 : (S -> (Q -> P)).
 Proof.
 imp_i h1.
 imp_i h2.

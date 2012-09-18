@@ -16,7 +16,7 @@ Require Import ProofWeb.
 Variables A B C : Prop.
 Hypothesis P1 : A -> B.
 Hypothesis P2 : B -> C.
-Theorem example_04 : A -> C.
+Theorem exDN4_1 : A -> C.
 Proof.
 </code></pre>
 

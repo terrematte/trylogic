@@ -18,7 +18,7 @@ Parameter A B C : Prop.
 Hypothesis f1 : (v ||-- A). 
 Hypothesis f2 : (v ||-/- B).  
 Hypothesis f3 : (v ||-/- C).  
-Theorem sem_ex1 :  (v ||-/- (A  -> (B \/ C)) ). 
+Theorem exSEM9_1 :  (v ||-/- (A  -> (B \/ C)) ). 
 Proof.  
 </code></pre>
 

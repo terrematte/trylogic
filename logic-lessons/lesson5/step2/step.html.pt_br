@@ -8,7 +8,7 @@
 Reset Initial.
 Require Import ProofWeb.
 Variables A : Prop.
-Theorem example_08 :  (A -> ~A) -> ~A.
+Theorem exDN5_2 :  (A -> ~A) -> ~A.
 Proof.
 </code></pre>
 

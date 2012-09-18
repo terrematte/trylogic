@@ -7,7 +7,7 @@ Reset Initial.
 Require Import ProofWeb.
 Variables A B C : Prop.
 Hypothesis P1 : A /\ (B /\ C).
-Theorem example_03 : (A /\ B) /\ C.
+Theorem exDN3_2 : (A /\ B) /\ C.
 Proof.
 </code></pre>
 

@@ -33,7 +33,7 @@ Hypothesis f0 : (v ||-- A).
  Hypothesis f3 : (v ||-- D).
 (* Hypothesis f4 : (v ?? E). *)
  Hypothesis f5 : (v ||-- F).
-Theorem T0 : (v ||-/-  ( ( ( B /\ ( ( B /\ F ) -> C ) ) /\ ( ( ( A /\ D ) <-> ( B /\ D ) ) /\ D ) /\ ( ( D <-> D ) -> ( F \/ F ) ) /\ ( D /\ ( ( D \/ B ) -> ( B <-> D ) ) ) ) -> ( ( ~ B ) /\ ( C <-> ( D /\ D ) ) ) ) ).
+Theorem exSEM9_9 : (v ||-/-  ( ( ( B /\ ( ( B /\ F ) -> C ) ) /\ ( ( ( A /\ D ) <-> ( B /\ D ) ) /\ D ) /\ ( ( D <-> D ) -> ( F \/ F ) ) /\ ( D /\ ( ( D \/ B ) -> ( B <-> D ) ) ) ) -> ( ( ~ B ) /\ ( C <-> ( D /\ D ) ) ) ) ).
 Proof.
 </code></pre>
 
