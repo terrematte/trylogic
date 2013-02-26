@@ -6,8 +6,8 @@ body {
 #toplevel {
     margin-left: 5px;
     width: 300px;
-    /*height: 50px;*/
-    height: 0px;*/
+    height: 50px;
+    /*height: 0px;*/
     float: left;
 }
 

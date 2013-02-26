@@ -86,8 +86,11 @@ function undo_cb(z) {
     return;
   }
   var index = z.indexOf ("__PWT__");
-  var out = "<pre>" + z.substring(0, index) + "</pre>";
-  var out = unicode(out);
+  var out = "<pre>" + z.substring(0, index) + "Teste ! </pre>";
+  
+  tl_output = document.getElementById("output");
+  tl_output.innerHTML += "example_00";
+  //tl_output.innerHTML = unicode(z.substring(0, index));
   get_frame("frame_state").body.innerHTML = out;
   var rest = z.substring(index + 7);
   index = rest.indexOf ("__PWT__");
