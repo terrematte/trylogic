@@ -10,42 +10,32 @@
 <p>Vamos demonstrar que "α → β, β → γ ⊢ α → γ".</p> 
 <br/>
 
-<pre><code>
-Reset Initial. 
+<pre><code>Reset Initial. 
 Require Import ProofWeb. 
 Variables A B C : Prop.
 Hypothesis P1 : A -> B.
 Hypothesis P2 : B -> C.
 Theorem exDN4_1 : A -> C.
-Proof.
-</code></pre>
+Proof.</code></pre>
 
 <p>Começamos pela introdução da implicação (→ I), passando a marca <b>h1</b> para representar a hipótese <b>A</b>: </p>
 
-<code>
-imp_i h1.
-</code><br/>
+<code>imp_i h1.</code><br/>
 
 Agora, podemos obter <b>C</b>, através de <b>P2</b> eliminando a implicação, passando o antecedente <b>B</b> como parâmetro, por fim, identificamos a premissa <b>P2</b>:
 
-<pre><code> 
-imp_e B.
-exact P2.
-</code></pre>
+<pre><code>imp_e B.
+exact P2.</code></pre>
 
 <p>Dessa vez, de forma análoga, eliminamos a implicação em <b>P1</b> com <b>A</b>.</p>
 
-<pre><code>
-imp_e A.
+<pre><code>imp_e A.
 exact P1.
-exact h1.
-</code></pre>
+exact h1.</code></pre>
 
 <p>Assim, completamos a demonstração.</p>
 
-<code>
-Qed.
-</code>
+<code>Qed.</code>
 <br/><br/>
 
 <center><img  src="/pub/images/logic/r-imp.png" alt="Rules of Implication" width="560"  /></center><br/><br/>

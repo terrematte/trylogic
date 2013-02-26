@@ -2,8 +2,7 @@
 
 <p>Para ilustrar as regras da disjunção <b>(∨ I <sub>1</sub>) e (∨ I <sub>2</sub>)</b>, vamos demonstrar algo intuitivo como "α ⊢  (α ∨ γ) ∧ (α ∨ β)":</p>
 
-<pre><code>
-Reset Initial.
+<pre><code>Reset Initial.
 Require Import ProofWeb.
 Variables A B C : Prop.
 Hypothesis P1 : (A).
@@ -19,15 +18,13 @@ con_i.
 
 <p>Agora, temos que verificar que (γ ∨ α) e (α ∨ β). No primeiro lado, usamos a regra (∨ I <sub>1</sub>) e identificarmos nossa premissa P1: </p>
 
-<pre><code>
-dis_i1.
+<pre><code>dis_i1.
 exact P1.
 </code></pre>
 
 <p>Em seguida, usamos a regra (∨ I <sub>2</sub>) e novamente identificarmos nossa premissa P1: </p>
 
-<pre><code>
-dis_i2.
+<pre><code>dis_i2.
 exact P1.
 </code></pre>
 

@@ -8,16 +8,14 @@
 
 <p>Este é nosso template inicial padrão para realizar a Demonstração:</p>
 
-<pre><code>
-Reset Initial. 
+<pre><code>Reset Initial. 
 Require Import ProofWeb.
 Variables A B C D : Prop.
 </code></pre>
 
 <p>Precisamos primeiro demonstrar o Lema a ser utilizado. Note a diferença entre o template <b>Theorem</b> para se definir uma conclusão e o template <b>Lemma</b>. Veja que é preciso quantificar sobre as variáveis proposicionais e <b>forall X</b> e em seguida aplicar o comando <b>intros</b> :</p>
 
-<pre><code>
-Lemma TE : forall A , (A \/ ~A).
+<pre><code>Lemma TE : forall A , (A \/ ~A).
 Proof.
 intros.
 </code></pre>
@@ -28,8 +26,7 @@ intros.
 
 <p>Em seguida, realizamos a demonstração sem nenhuma distinção dos casos de demonstração proposicional.</p>
 
-<pre><code>
-PBC h0.
+<pre><code>PBC h0.
 neg_e (A0 \/ ~ A0).
 ass h0.
 dis_i2.
@@ -43,8 +40,7 @@ Qed.
 
 <p>Agora sim, iniciamos a demonstração principal.</p>
 
-<pre><code>
-Hypothesis P1 : ~(A /\ D).
+<pre><code>Hypothesis P1 : ~(A /\ D).
 Hypothesis P2 : ~(B /\ ~D).
 Theorem exDN8_2 : ~(A /\ B).
 Proof.
@@ -54,8 +50,7 @@ dis_e (D \/ ~D) h2 h3.
 
 <p>Veja que é sempre melhor aplicarmos as regras que oferecem hipóteses. Agora já podemos realizar a demonstração aplicando o teorema do Terceiro Excluído.</p>
 
-<pre><code>
-apply TE.
+<pre><code>apply TE.
 neg_e (A /\ D).
 exact P1.
 con_i .

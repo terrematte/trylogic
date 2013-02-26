@@ -8,16 +8,14 @@
 
 <p>Começamos com nosso preâmbulo :  </p>
 
-<pre><code>
-Reset Initial. 
+<pre><code>Reset Initial. 
 Require Import Semantics. 
 Parameter A B : Prop. 
 </code></pre>
 
 <p>Descobrimos no passo anterior que a fórmula abaixo é uma contradição, assim escolhemos uma valoração v qualquer para refutar, tal que v ⊮ B e v ⊮ A:</p>
 
-<pre><code> 
-Hypothesis f1 : (v ||-/- A).
+<pre><code>Hypothesis f1 : (v ||-/- A).
 Hypothesis f2 : (v ||-/- B).
 Theorem exSEM9_6 :  (v ||-/-  ((~A -> B) /\ (~A /\ ~B))).
 Proof.  	
@@ -31,8 +29,7 @@ conjF1.
 
 <p>Agora aplicamos a regra da implicação falsa, seguida da regra da negação verdadeira e identificamos com a nossa estrutura escolhida:</p>
 
-<pre><code>
-impF. 
+<pre><code>impF. 
 negT.
 exact f1.
 exact f2.
@@ -40,16 +37,14 @@ exact f2.
 
 <p>Excelente! Finalizamos a verificação da Refutação, note que nossas três condições foram satisfeitas:</p>
 
-<pre><code>
-Qed. 
+<pre><code>Qed. 
 </code></pre>
 
 <p class="end">* * *</p>
 
 <p>Vamos agora analisar o mesmo exemplo, mas o que ocorreria se tivéssemos aplicado outras regras : </p>
 
-<pre><code> 
-Reset Initial. 
+<pre><code>Reset Initial. 
 Require Import Semantics. 
 Parameter A B : Prop.
 Hypothesis f1 : (v ||-/- A).
@@ -61,8 +56,7 @@ conjF2.
 
 <p><b><i>Você pode continuar? Continue digite os comandos seguintes e veja se poderíamos finalizar a verificação assim. Pense um pouco sobre a razão disso! </i></b></p>
 
-<pre><code> 
-? ? ?
+<pre><code>? ? ?
 </code></pre>
 
 

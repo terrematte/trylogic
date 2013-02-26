@@ -4,8 +4,7 @@
 
 <p>Realize a demonstração de ⊢ (A∨(B→C))↔(B→(A∨C)).</p>
 
-<pre><code>
-Reset Initial. 
+<pre><code>Reset Initial. 
 Require Import ProofWeb.
 Variables A B C P Q : Prop.
 </code></pre>
@@ -14,8 +13,7 @@ Variables A B C P Q : Prop.
 <p>Como sugestão, utilize o lema ¬(φ→ψ)↔(¬φ∧ψ)" :</p>
 
 
-<pre><code>
-Lemma TE : forall P Q , ~(P -> Q) <-> (~P /\ Q).
+<pre><code>Lemma TE : forall P Q , ~(P -> Q) <-> (~P /\ Q).
 Proof.
 intros.
 </code></pre
@@ -28,8 +26,7 @@ intros.
 
 <p>Em seguida, demonstre o desejado:</p>
 
-<pre><code>
-Theorem exDN8_3 : (A \/ (B -> C)) <-> (B -> ( A \/ C)).
+<pre><code>Theorem exDN8_3 : (A \/ (B -> C)) <-> (B -> ( A \/ C)).
 Proof.
 </code></pre>
 

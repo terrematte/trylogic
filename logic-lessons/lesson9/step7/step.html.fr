@@ -8,8 +8,7 @@
 
 <p>Inicialmente, vamos explorar a heurística através do sistema SEM<sub>p</sub>: </p>
 
-<pre><code>
-Reset Initial. 
+<pre><code>Reset Initial. 
 Require Import Semantics.
 Parameter  P Q R S: Prop.
 Theorem exSEM9_7 : (v ||-/- ((((R /\ S) -> P) /\ (Q -> R)) -> (S -> (Q -> P)))).
@@ -24,15 +23,13 @@ conjF2.
 
 <p>Aqui o comando <b>Focus</b> permite alterar a <i>Subgoal</i> que se está trabalhando:</p>
 
-<pre><code> 
-Focus 2.
+<pre><code>Focus 2.
 impT2.
 </code></pre>
 
 <p>Agora é preciso aplicar um <b>Unfocus</b>, pois é preciso retornar ao ramo original <i>Subgoal</i> para explorar outro ramo:</p>
 
-<pre><code> 
-Unfocus.
+<pre><code>Unfocus.
 Focus 3.
 impF.
 </code></pre>
@@ -43,8 +40,7 @@ impF.
 
 <p>Neste caso, voltamos até o passo em que fizemos uma escolha inadequada para a fórmula S, ou seja com a regra <b>conjF2</b>, desfazendo os passos com o comando <b>Undo</b> x 6 em <i>backtracking</i>:</p>
 
-<pre><code> 
-Undo.
+<pre><code>Undo.
 Undo.
 Undo.
 Undo.
@@ -55,15 +51,13 @@ conjF1.
 
 <p> Seguimos com a demonstração :</p>
 
-<pre><code>
-Focus 2.
+<pre><code>Focus 2.
 impT2.
 </code></pre>
 
 <p><b class="uns"><i>ATENÇÃO!</i></b> Agora estamos com uma escolha ruim com "v ⊩ R". Voltamos com <i>backtracking</i>!</p>
 
-<pre><code> 
-Undo.
+<pre><code>Undo.
 impT1.
 Unfocus.
 Focus 3.
@@ -100,8 +94,7 @@ Abort.
 
 <p> Vamos tentar demonstrar em Dedução Natural, segue aqui:</p>
 
-<pre><code>
-Reset Initial. 
+<pre><code>Reset Initial. 
 Require Import ProofWeb.
 Parameter  P Q R S: Prop.
 Hypothesis P1: ((R /\ S) -> P).

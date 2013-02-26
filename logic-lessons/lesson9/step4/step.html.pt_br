@@ -29,8 +29,7 @@ Da mesma forma, por (7) e (2), obtemos : (8) v ⊩ C. <br/>
 
 <p> <b class="uns"><i>REFUTAÇÃO.</i></b> Agora, vamos usar a valoração v para refutar em nossa teoria semântica:</p>
 
-<pre><code>
-Reset Initial. 
+<pre><code>Reset Initial. 
 Require Import Semantics.
 Parameter A B C D : Prop.
 

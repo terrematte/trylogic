@@ -4,8 +4,7 @@
 
 <p>Teste se você compreendeu realmente demonstrando que : " ⊢ (α → ¬α) → ¬α"</p>
  
-<pre><code> 
-Reset Initial.
+<pre><code>Reset Initial.
 Require Import ProofWeb.
 Variables A : Prop.
 Theorem exDN5_2 :  (A -> ~A) -> ~A.

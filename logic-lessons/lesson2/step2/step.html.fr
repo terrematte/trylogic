@@ -6,21 +6,17 @@
 
 <p>Primeiro, carregamos a teoria com o Sistema Dedutivo e as regras de inferência:</p>
 
-<pre><code>
-Reset Initial.
+<pre><code>Reset Initial.
 Require Import ProofWeb. 
 </code></pre>
 
 <p>Em seguida, declaramos as <b>variáveis</b> que utilizaremos na demonstração: </p>
 
-<code>
-Variables A B C D: Prop. 
-</code>
+<code>Variables A B C D: Prop. </code>
 
 <p>Observe que <b>A B C D</b> são do tipo <b>Prop</b>, ou seja, são <i>variáveis proposicionais</i>. Na sequência, declaramos as marcas <b>P1</b>, <b>P2</b> e <b>P3</b> para as Premissas:</p>
 
-<pre><code>
-Hypothesis P1 : A.
+<pre><code>Hypothesis P1 : A.
 Hypothesis P2: (A -> B). 
 Hypothesis P3: (B -> (C /\ D)). 
 </code></pre>
@@ -33,9 +29,7 @@ Hypothesis P3: (B -> (C /\ D)).
 
 <p>Para iniciar a demonstração é preciso o comando:</p>
 
-<code>
-Proof. 
-</code>
+<code>Proof.</code>
 
 <p>Agora, sim podemos inserir as regras de inferência adequadas até demonstrarmos o desejado.</p>
 

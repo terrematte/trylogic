@@ -5,8 +5,7 @@
 <p>Vamos conferir demonstrando que "¬(α ↔ β), ¬α ⊢ β".</p>
 
  
-<pre><code>
-Reset Initial.
+<pre><code>Reset Initial.
 Require Import ProofWeb.
 Variables A B : Prop.
 Hypothesis P0 : ~(A <-> B). 
@@ -18,14 +17,11 @@ Proof.
 
 <p>Seguindo a estratégia usual, antes de todas as regras usamos o absurdo clássico com o objetivo de obtermos hipóteses para trabalharmos:</p>
 
-<code>
-PBC h0.
-</code>
+<code>PBC h0.</code>
 
 <p> Agora que temos a premissa ¬A e a hipótese ¬B, podemos obter a equivalencia (¬A)↔(¬B), o que contradiz a premissa ¬(A↔B): </p>
 
-<pre><code>
-neg_e (A <-> B).
+<pre><code>neg_e (A <-> B).
 ass P0.
 iff_i h1 h2.
 fls_e.
@@ -40,9 +36,8 @@ ass h2.
 
 <p>Assim, finalizamos a demonstração! </p>
 
-<code>
-Qed.
-</code><br/>
+<code>Qed.</code><br/>
+
 <center><img  src="/pub/images/logic/r-iff.png" alt="Rules of Biimplication" width="560"  /></center><br/><br/>
 
 <p class="end">* * *</p>

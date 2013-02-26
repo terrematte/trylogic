@@ -4,15 +4,13 @@
 
 <p>Confira demonstrando que "(α ↔ β), (α ↔ γ) ⊢ (β ↔ γ)".</p>
 
-<pre><code> 
-Reset Initial.
+<pre><code>Reset Initial.
 Require Import ProofWeb.
 Variables A B C : Prop.
 Hypothesis P1 : (A <-> B).
 Hypothesis P2 : (A <-> C).
 Theorem exDN7_2 : (B <-> C).
-Proof.
-</code></pre>
+Proof.</code></pre>
 
 <p><b><i>Mãos à obra!</i></b></p><br/>
 

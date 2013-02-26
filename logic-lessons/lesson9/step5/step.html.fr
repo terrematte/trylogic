@@ -13,7 +13,7 @@
 (1) v ⊩ ¬A→B  <br/>
 (2) v ⊩ ¬A∧¬B <br/>
 
-<p>De (2) pelo significado da conjunção, segue que (3) v ⊩ ¬A  e  (4) v ⊩ ¬B.  Pelo significado da negação em (4), sabemos que (5) v ⊮ B. </p>
+<p> De (2) pelo significado da conjunção, segue que (3) v ⊩ ¬A  e  (4) v ⊩ ¬B.  Pelo significado da negação em (4), sabemos que (5) v ⊮ B. </p>
 
 <p>No entanto, por <i>modus ponens</i>  de (1) e (3), concluímos (6) v ⊩ B.<br/> </p>
 

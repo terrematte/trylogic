@@ -6,8 +6,7 @@
  
 <p>Vamos demonstrar o seguinte teorema: " ⊢ ¬ ¬( ¬ ¬ α → α)" para exemplicar as regras da negação e em seguida apresentamos suas definições exatas. </p>
 
-<pre><code>
-Reset Initial.
+<pre><code>Reset Initial.
 Require Import ProofWeb.
 Variables A : Prop.
 Theorem exDN5_1 : ~~(~~A -> A).
@@ -22,8 +21,7 @@ neg_i h1.
 
 <p>Agora temos que decidir de qual regra obtivemos o ⊥, a princípio poderíamos obter de qualquer aplicação da (¬ E) com diferentes parâmetros. Por praticidade, vamos dizer o ⊥ foi obtido por  (¬ E) em  ~(~~A -> A) e (~~A -> A), justamente para podermos identificá-lo com a hipótese h1:</p> 
 
-<pre><code>
-neg_e (~~A -> A).
+<pre><code>neg_e (~~A -> A).
 exact h1.
 </code></pre>
 
@@ -35,8 +33,7 @@ imp_i h2.
 
 <p>Para de imediato usarmos a nova hipótese h1, indicamos que ⊥ foi obtido por (¬ E) em  (~~A) e (~A):</p>
 
-<pre><code>
-neg_e (~A).
+<pre><code>neg_e (~A).
 exact h2.
 </code></pre>
 
