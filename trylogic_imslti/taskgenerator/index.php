@@ -16,6 +16,11 @@ $context = new BLTI("secrettryl0g1cLTI", false, false);
     <script src="jquery-1.7.1.min.js"></script>
 	<script type='text/javascript'>    
 	<?php
+		/**
+		 * Get the logins of Enrolled User in the Course by the context of IMS-LTI.
+		 * 
+		 * PHP Array to a JS Array. 
+		 * */
 		$students = json_encode($context->getEnrolledLogins());
 		echo "var students = ". $students . ";\n";
 		echo "var num_students = students.length;\n";
@@ -27,15 +32,17 @@ $context = new BLTI("secrettryl0g1cLTI", false, false);
   <body>
 		
 <?php
+	/**
+	 *  Verify if the user role (is a Administrator or a Teacher) by the context of IMS-LTI.
+	 * */
+	 
 	if ( $context->isInstructor() ) {
 ?>	
 
 	
 <h2>TryLogic - Task Generator LTI</h2>
 
-<!-- <h4> Olá <?php echo($context->getUserName()."!"); ?> </h4> -->
-
-    
+   
     <form>
 		
 	  <h1>Generate Tasks</h1>

@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * class Node
+ * 
+ * @var content of a Formula
+ * @var value of a Formula
+ * 
+ * */
 abstract class Node {
 	public $content;
 	public $value;
@@ -7,11 +15,5 @@ abstract class Node {
 		return ($this instanceof Atom);
 	}
 	
-	/* Nao implementado ainda :)
-	public function __toString() {
-		$t = new WFFTranslator();
-		return $t->showFormulaInfix( $this );
-	}
-	*/
 }
 ?>

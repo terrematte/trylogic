@@ -1,4 +1,9 @@
 <?php
+/**
+ * class FormulaGenerator
+ * 
+ * 
+ * */
 class FormulaGenerator {
 	public $connectives = array();
 	public $atoms = array();
