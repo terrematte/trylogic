@@ -1,0 +1,20 @@
+<h3>Regras da Conjunção - Autoavaliação</h3>
+
+<p>Agora é sua vez, tente demonstrar o seguinte argumento: "α ∧ (β ∧ γ) ⊢ (α ∧ β) ∧ γ". </p> <br/>
+
+<pre><code>Reset Initial.
+Require Import ProofWeb.
+Variables A B C : Prop.
+Hypothesis P1 : A /\ (B /\ C).
+Theorem exDN3_2 : (A /\ B) /\ C.
+Proof.
+</code></pre>
+
+<p><b><i>Mãos à obra!</i></b></p><br/>
+
+<code>
+? ? ?
+</code>
+<br/><br/>
+
+<center><img  src="/pub/images/logic/r-conj.png" alt="Rules of Conjuction" width="560"  /></center>

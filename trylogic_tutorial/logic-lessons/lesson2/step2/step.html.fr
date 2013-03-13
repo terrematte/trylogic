@@ -1,0 +1,38 @@
+<h3>Template para a Demonstração no Coq</h3>
+
+<p>Vamos aplicar o Coq para produzir uma árvore de derivação demonstrando que: "A, A → B, B → (C ∧ D) ⊢ D".</p><br/>
+
+<p>Siga a sequência de comandos clicando - ou digitando ao lado - em cada bloco de comandos na ordem que aparecem a seguir. <b>Não pule comandos! nem esqueça de colocar o ponto final em cada comando!</b></p>
+
+<p>Primeiro, carregamos a teoria com o Sistema Dedutivo e as regras de inferência:</p>
+
+<pre><code>Reset Initial.
+Require Import ProofWeb. 
+</code></pre>
+
+<p>Em seguida, declaramos as <b>variáveis</b> que utilizaremos na demonstração: </p>
+
+<code>Variables A B C D: Prop. </code>
+
+<p>Observe que <b>A B C D</b> são do tipo <b>Prop</b>, ou seja, são <i>variáveis proposicionais</i>. Na sequência, declaramos as marcas <b>P1</b>, <b>P2</b> e <b>P3</b> para as Premissas:</p>
+
+<pre><code>Hypothesis P1 : A.
+Hypothesis P2: (A -> B). 
+Hypothesis P3: (B -> (C /\ D)). 
+</code></pre>
+
+<p>E declaramos o que desejamos demonstrar :</p>
+
+<p><b class="uns"><i>IMPORTANTE.</i></b> Use os atalhos "Control + Setas UP/DOWN" para explorar os passos e ter certeza de ter compreendido cada aplicação de regra. <i>Funcionando bem no browser <a href="http://www.mozilla.org/pt-BR/firefox/" target="_blank">Firefox</a></i></p>
+
+<code>Theorem exDN2_2 : C. </code><br/>
+
+<p>Para iniciar a demonstração é preciso o comando:</p>
+
+<code>Proof.</code>
+
+<p>Agora, sim podemos inserir as regras de inferência adequadas até demonstrarmos o desejado.</p>
+
+<p><i>Vemos no próximo passo.</i></p>
+
+

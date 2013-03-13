@@ -1,0 +1,43 @@
+<h3>Regras da Disjunção I</h3>
+
+<p>Para ilustrar as regras da disjunção <b>(∨ I <sub>1</sub>) e (∨ I <sub>2</sub>)</b>, vamos demonstrar algo intuitivo como "α ⊢  (α ∨ γ) ∧ (α ∨ β)":</p>
+
+<pre><code>Reset Initial.
+Require Import ProofWeb.
+Variables A B C : Prop.
+Hypothesis P1 : (A).
+Theorem exDN6_1 :  (A \/ B) /\ (C \/ A).
+Proof.
+</code></pre>
+
+<p>Note que o conectivo principal é a conjunção, logo aplicamos a regra (∧ I):</p>
+
+<code>
+con_i.
+</code>
+
+<p>Agora, temos que verificar que (γ ∨ α) e (α ∨ β). No primeiro lado, usamos a regra (∨ I <sub>1</sub>) e identificarmos nossa premissa P1: </p>
+
+<pre><code>dis_i1.
+exact P1.
+</code></pre>
+
+<p>Em seguida, usamos a regra (∨ I <sub>2</sub>) e novamente identificarmos nossa premissa P1: </p>
+
+<pre><code>dis_i2.
+exact P1.
+</code></pre>
+
+<p>Assim usamos a introdução da disjunção à direita <b>(∨ I <sub>1</sub>) e a introdução da disjunção à esquerda (∨ I <sub>2</sub>). </p>
+<code>Qed.
+</code><br/>
+
+
+<p><i>- Introdução da disjunção à direita</i> (∨ I<sub>1</sub>): Significa que se a asserção α se verifica, então verifica-se "(α ∨ β)". 
+No Coq, o comando utilizado é <b>dis_i1</b>.</p>
+ 
+<p><i>- Introdução da disjunção à esquerda</i> (∨ I<sub>2</sub>): De forma análoga, significa que se a asserção β se verifica, então verifica-se "(α ∨ β)". No Coq, o comando utilizado é <b>dis_i2</b>.</p>
+
+<p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm"  target="_blank" >DGM</a>, Cap. 1, págs. 30-31. )</i></p><br/>
+
+<center><img  src="/pub/images/logic/r-disj.png" alt="Rules of Disjunction" width="560"  /></center><br/><br/>

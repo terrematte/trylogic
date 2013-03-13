@@ -1,0 +1,22 @@
+<h3>Regras da Disjunção - Autoavaliação</h3>
+
+<p>Vimos as regras (∨ I <sub>1</sub>), (∨ I <sub>2</sub>) e (∨ E). </p><br/>
+
+<p>Confira demonstrando que : "⊢ (α ∨ (β ∧ γ)) → ((α ∨ β) ∧ (α ∨ γ))".</p>
+ 
+<pre><code>Reset Initial.
+Require Import ProofWeb.
+Variables A B C : Prop.
+Theorem exDN6_4 :  (A \/ (B /\ C)) -> ((A \/ B) /\ (A \/ C)).
+Proof.</code></pre>
+
+<p><b><i>Mãos à obra!</i></b></p><br/>
+
+<code>
+? ? ?
+</code>
+<br/><br/>
+
+<p><i>(Confira o Livro <a href="http://www.dimap.ufrn.br/%7Ejmarcos/courses/LC/Ementa.htm"  target="_blank">DGM</a>, Cap. 1, págs. 30-31. )</i></p><br/>
+
+<center><img  src="/pub/images/logic/r-disj.png" alt="Rules of Disjunction" width="560"  /></center><br/><br/>

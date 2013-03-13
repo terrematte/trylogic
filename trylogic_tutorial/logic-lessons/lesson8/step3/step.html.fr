@@ -1,0 +1,41 @@
+<h3>Estratégias de Demonstração - Lemas - Autoavaliação</h3>
+
+<p>Neste passo vamos continuar a trabalhar com o uso de Lemas.</p>
+
+<p>Realize a demonstração de ⊢ (A∨(B→C))↔(B→(A∨C)).</p>
+
+<pre><code>Reset Initial. 
+Require Import ProofWeb.
+Variables A B C P Q : Prop.
+</code></pre>
+
+
+<p>Como sugestão, utilize o lema ¬(φ→ψ)↔(¬φ∧ψ)" :</p>
+
+
+<pre><code>Lemma TE : forall P Q , ~(P -> Q) <-> (~P /\ Q).
+Proof.
+intros.
+</code></pre
+
+<p>Demonstre aqui primeiro : </p>
+
+<code>
+???	
+</code>
+
+<p>Em seguida, demonstre o desejado:</p>
+
+<pre><code>Theorem exDN8_3 : (A \/ (B -> C)) <-> (B -> ( A \/ C)).
+Proof.
+</code></pre>
+
+<p>Prossiga com a demonstração principal:</p>
+
+<code>
+???	
+</code>
+
+
+
+<p class="end">* * *</p>

@@ -1,0 +1,52 @@
+<h3>Regras da Conjunção I</h3>
+
+<p>Agora que vimos um primeiro exemplo, vamos nos concentrar nas regras de cada conectivo.</p> <br/>
+
+<p><i>- Introdução da conjunção</i> (∧ I): Representa o raciocínio em que se as asserções α e β verificam-se em separado, então verifica-se a sua conjunção. No Coq, o comando utilizado é <b>con_i</b>.</p><br/>
+
+<p><i>- Eliminação da conjunção à direita</i> (∧ E<sub>1</sub>): Significa que se a asserção α ∧ β se verifica, então verifica-se α em particular. 
+No Coq, o comando utilizado é <b>con_e1 β</b>, passando como parâmetro a fórmula proposicional à <i>direita</i> da conjunção eliminada.</p><br/>
+ 
+<p><i>- Eliminação da conjunção à esquerda</i> (∧ E<sub>2</sub>): De forma análoga, significa que se a asserção α ∧ β se verifica, então verifica-se β em particular. 
+No Coq, o comando utilizado é <b>con_e2 α</b>, passando como parâmetro a fórmula proposicional à <i>esquerda</i> da conjunção eliminada.</p><br/>
+
+
+<p>Vamos demonstrar a comutatividade da conjunção: "(α ∧ β) ⊢ (β ∧ α)". </p>
+
+<pre><code> Reset Initial.
+Require Import ProofWeb.
+Variables A B : Prop.
+Hypothesis P1 : (A /\ B).
+Theorem exDN3_1 : (B /\ A).
+Proof.
+</code></pre>
+
+
+<p>Como nossa conclusão possui a conjunção  como conectivo principal, podemos aplicar a regra de introdução da conjunção:</p>
+
+<code>
+con_i.
+</code>
+
+
+<p>Agora, devemos indicar de onde vieram <b>B</b> e <b>A</b>, ou seja, através das regras de (∧ E<sub>2</sub>) :</p>
+
+<code>
+con_e2 A.
+</code>
+
+
+Seguida da identificação exata de P1:<br/>
+<code>
+exact P1.
+</code>
+
+<p><b><i>Para ter certeza que você entendeu, complete o restante da demonstração, antes de passar para o próximo passo!</i></b></p>
+
+<code>
+? ? ?
+</code>
+
+<br/><br/>
+
+<center><img  src="/pub/images/logic/r-conj.png" alt="Rules of Conjuction" width="560"  /></center>

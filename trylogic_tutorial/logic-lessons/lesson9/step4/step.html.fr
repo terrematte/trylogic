@@ -1,0 +1,59 @@
+<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional)</h3>
+
+<!-- 
+	- Aprensentar uma nova aplicação da heurística e da refutação semântica
+ -->
+
+
+<p>Vamos usar heurística para se descobrir qual das duas opções é o argumento (A -> B), (B -> C), (D -> C) &#8881; A -> D </p>
+
+(i) <i>Demonstrável</i>  - A→B, B→C, D→C ⊢ A→D, ou <br/>
+(ii) <i>Refutável</i> - A→B, B→C, D→C ⊭ A→D. <br/>
+
+<p>Vamos supor que exista uma valoração tal que  </p>
+
+(1) v ⊩ A→B <br/>
+(2) v ⊩ B→C <br/>
+(3) v ⊩ D→C <br/>
+(4) v ⊮ A→D
+
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Note que esta ainda não é uma <i>demonstração</i> - nem <i>refutação</i> - trata-se de uma análise <i>heurística</i>! </p>
+
+Por (4), sabemos que (5) v ⊩ A  e (6) v ⊮ D.<br/>
+
+Com efeito, por (5) e (1), confirmamos que B é satisfeita por v : (7) v ⊩ B. <br/>
+
+Da mesma forma, por (7) e (2), obtemos : (8) v ⊩ C. <br/>
+
+<p>Assim, conferimos que para todos os átomos (5), (6), (7) e (8), a valoração v satisfaz as fórmulas complexas (1), (2) e (3).</p>
+
+<p> <b class="uns"><i>REFUTAÇÃO.</i></b> Agora, vamos usar a valoração v para refutar em nossa teoria semântica:</p>
+
+<pre><code>Reset Initial. 
+Require Import Semantics.
+Parameter A B C D : Prop.
+
+Hypothesis f8 : (v ||-- A).
+Hypothesis f9 : (v ||-- B). 
+Hypothesis f10 : (v ||-- C). 
+Hypothesis f11 : (v ||-/- D). 
+
+Theorem exSEM9_4 : (v ||-/- (((A -> B) /\ (B -> C) /\ (D -> C)) -> (A -> D))).
+Proof.
+impF.
+conjT.
+impT2.
+exact f9.
+conjT.
+impT2.
+ass f10.
+impT2.
+ass f10.
+impF.
+ass f8.
+ass f11.
+Qed.
+</code></pre>
+
+<p class="end">* * *</p>
+

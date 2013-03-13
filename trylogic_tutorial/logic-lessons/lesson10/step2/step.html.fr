@@ -1,0 +1,16 @@
+<h3>Dúvidas - Demonstrar (Np) vs Refutar (SEMp)</h3>
+
+<p><i><b>O que aconteceria se eu acidentalmente acreditasse que um teorema é verdade quando talvez ele fosse falso e usando valorações arbitrárias provasse que o mesmo é verdade? ( v ⊩ α), no lugar de v ⊮ α )</b></i></p>
+
+<p>De fato, com uma valoração arbitrária se você verificar que <b>(v ⊩ α)</b> , o que você verificou é que existe uma valoração que satisfaz a proposição <b>α</b>.</p>
+
+<p> P pode ser uma contingência, ou uma tautologia.</p> 
+
+<p> Portanto, isto <i>não significa necessariamente</i>, que ⊢ α seja um teorema. </p>
+
+<p> Suponha  que α seja  A∨B, dessa forma existe uma valoração v(A)=1 que satisfaz v⊩A∨B, tal que torna v(A∨B) =1, mas isso não significa que seja um teorema  ⊢ A∨B. De fato, não é um teorema. Pois consigo apresentar uma outra valoração v' tal que (v'⊮ A∨B),  quando v'⊮ A e v'⊮B.</p>
+
+<p class="end">* * *</p>
+
+
+

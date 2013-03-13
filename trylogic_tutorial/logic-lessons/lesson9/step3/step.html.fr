@@ -1,0 +1,38 @@
+<h3>SEM<sub>p</sub> - Sistema de Refutação por Via Semântica (proposicional) - Autoavaliação</h3>
+
+<!-- 
+	 - Apresentar um exemplo simples do uso da heurística (A -> B), B |~ A, antes de aplicar o Sistema SEMp.
+	 - Fazer o aluno continuar completar o exemplo.
+ -->
+ 
+<p>Vamos usar heurística para se descobrir qual das duas opções é o argumento A→B,B &#8881; A :</p><br/>
+
+(i) <i>Demonstrável</i> <b>A→B, B ⊢ A</b> 
+(ii) </i>Refutável</i> <b>A→B,B ⊭ A</b>. 
+
+<p> Usando a noção de consequência semântica, se supormos que o argumento é válido, então vamos ter que analisar se <b>toda valoração</b> que satisfaz <b>(A→B)</b> e <b>B</b>, também satisfaz <b>A</b>. Neste argumento simples, podemos explorar todos os casos, mas esta não é a melhor estratégia para argumentos mais complexos.</p>
+
+<p>Assim, nossa estratégia será supor que o argumento seja refutável, <b>(A→B),B ⊭ A</b>. Ou seja, <i>existe pelo menos uma valoração</i> v, tal que:</p>
+
+(1) v ⊩ (A -> B)  <br/>
+(2) v ⊩ B  <br/>
+(3) v ⊮  A. <br/>
+
+<p> <b class="uns"><i>IMPORTANTE.</i></b> Note novamente que esta ainda não é a <i>Demonstração</i> - nem a <i>Refutação</i> - trata-se de uma <i>heurística</i>!</p>
+
+<p>Bom, por (2), sabemos que  v ⊩ A→B pela afirmação do consequente. Assim como por (1), inferimos também que v ⊩ A→B , pela falsificação do antecedente. Temos que com v ⊮ A e v ⊩ B, podemos refutar a fórmula que representa a conjunção das premissas implicando na conclusão, ou seja, v ⊮ ((A→B)∧B)→A.</p>
+
+<p>Agora é a sua vez de refutar usando o sistema SEMp que <i>existe pelo menos uma valoração</i> v, tal que :  A→B, B ⊭ A</p>
+
+<pre><code>Reset Initial.  
+Require Import Semantics. 
+Parameter A B: Prop. 
+Hypothesis f1 : (v ||-/- A). 
+Hypothesis f2 : (v ||-- B). 
+Theorem exSEM9_3 :  (v ||-/- (((A -> B) /\ B) -> A)). 
+Proof. 
+? ? ?
+</code></pre>
+
+
+<p class="end">* * *</p>

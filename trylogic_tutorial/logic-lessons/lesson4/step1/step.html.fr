@@ -1,0 +1,42 @@
+<h3>Regras da Implicação I</h3>
+
+<p><i>- Introdução da implicação</i> (→ I): Permite obter uma derivação α → β, a partir de uma derivação de β, e um conjunto de hipóteses que <i>pode</i> conter α. No Coq, o comando utilizado é <b>imp_i h</b> , passando como parâmetro uma marca <i>h</i> para a hipótese α que eventualmente pode ser descartada. Esta marca <i>h</i> na regra (→ I) deve pelo menos ser:<br/>
+<b>(i)</b> uma marca de uma ou mais hipóteses abertas da fórmula α -- representando o antecedente da implicação introduzida, ou <br/>
+<b>(ii)</b> uma marca <i>nova</i> que não ocorre na derivação.</p><br/>
+
+<p><i>- Eliminação da implicação</i> (→ E): Permite concluir β, a partir de derivações de "α → β" e "β", também conhecido como <i>modus ponens</i>. No Coq, o comando utilizado é <b>imp_e α</b>, passando como parâmetro o antecedente α da implicação a ser eliminada.</p>
+
+
+<p>Vamos demonstrar que "α → β, β → γ ⊢ α → γ".</p> 
+<br/>
+
+<pre><code>Reset Initial. 
+Require Import ProofWeb. 
+Variables A B C : Prop.
+Hypothesis P1 : A -> B.
+Hypothesis P2 : B -> C.
+Theorem exDN4_1 : A -> C.
+Proof.</code></pre>
+
+<p>Começamos pela introdução da implicação (→ I), passando a marca <b>h1</b> para representar a hipótese <b>A</b>: </p>
+
+<code>imp_i h1.</code><br/>
+
+Agora, podemos obter <b>C</b>, através de <b>P2</b> eliminando a implicação, passando o antecedente <b>B</b> como parâmetro, por fim, identificamos a premissa <b>P2</b>:
+
+<pre><code>imp_e B.
+exact P2.</code></pre>
+
+<p>Dessa vez, de forma análoga, eliminamos a implicação em <b>P1</b> com <b>A</b>.</p>
+
+<pre><code>imp_e A.
+exact P1.
+exact h1.</code></pre>
+
+<p>Assim, completamos a demonstração.</p>
+
+<code>Qed.</code>
+<br/><br/>
+
+<center><img  src="/pub/images/logic/r-imp.png" alt="Rules of Implication" width="560"  /></center><br/><br/>
+

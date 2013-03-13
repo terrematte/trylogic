@@ -1,0 +1,73 @@
+<h3>Estratégias de Demonstração - Lemas I</h3>
+
+<p>Neste passo vamos trabalhar com o uso de Lemas.</p>
+
+<p>Vamos demonstrar o seguinte "¬(α ∧ δ), ¬(β ∧ ¬δ) ⊢ ¬(α ∧ β)" usando o terceiro excluído como lema "⊢ (δ ∨ ¬δ)".</p>
+
+<p>Observe as premissas e analise como a eliminação da disjunção juntamente com teorema do terceiro excluído pode contribuir para realizar a demonstração.</p>
+
+<p>Este é nosso template inicial padrão para realizar a Demonstração:</p>
+
+<pre><code>Reset Initial. 
+Require Import ProofWeb.
+Variables A B C D : Prop.
+</code></pre>
+
+<p>Precisamos primeiro demonstrar o Lema a ser utilizado. Note a diferença entre o template <b>Theorem</b> para se definir uma conclusão e o template <b>Lemma</b>. Veja que é preciso quantificar sobre as variáveis proposicionais e <b>forall X</b> e em seguida aplicar o comando <b>intros</b> :</p>
+
+<pre><code>Lemma TE : forall A , (A \/ ~A).
+Proof.
+intros.
+</code></pre>
+
+<p>Veja que agora a variável proposicional <b>A</b> recebe um novo nome <b>A0</b>.</p>
+
+<p><b class="uns"><i>IMPORTANTE.</i></b> Use os atalhos "Control + Setas UP/DOWN" para explorar os passos e ter certeza de ter compreendido cada aplicação de regra. <i>Funcionando bem no browser <a href="http://www.mozilla.org/pt-BR/firefox/" target="_blank">Firefox</a></i></p>
+
+<p>Em seguida, realizamos a demonstração sem nenhuma distinção dos casos de demonstração proposicional.</p>
+
+<pre><code>PBC h0.
+neg_e (A0 \/ ~ A0).
+ass h0.
+dis_i2.
+neg_i h1.
+neg_e (A0 \/ ~ A0).
+ass h0.
+dis_i1.
+ass h1.
+Qed.
+</code></pre>
+
+<p>Agora sim, iniciamos a demonstração principal.</p>
+
+<pre><code>Hypothesis P1 : ~(A /\ D).
+Hypothesis P2 : ~(B /\ ~D).
+Theorem exDN8_2 : ~(A /\ B).
+Proof.
+neg_i h1.
+dis_e (D \/ ~D) h2 h3.
+</code></pre>
+
+<p>Veja que é sempre melhor aplicarmos as regras que oferecem hipóteses. Agora já podemos realizar a demonstração aplicando o teorema do Terceiro Excluído.</p>
+
+<pre><code>apply TE.
+neg_e (A /\ D).
+exact P1.
+con_i .
+con_e1 (B).
+exact h1.
+exact h2.
+neg_e (B /\ ~D).
+exact P2.
+con_i .
+con_e2 (A).
+exact h1.
+exact h3.
+Qed.
+</code></pre>
+
+<p class="end">* * *</p>
+
+<p><b>ATENÇÃO:</b> Com o comando <b>Lemma</b> apenas podemos definir Teoremas. Não podemos definir Lemmas com o formato de argumentos com premissas tais como: α,β,γ ⊢ φ. Para tal, realize a demonstração da versão do argumento em formato de teorema  ⊢(α∧β∧γ)→φ </p>
+
+<p class="end">* * *</p>
