@@ -77,7 +77,7 @@ function relevant($premises, $conclusion) {
 }
 
 /**
- * Verify if a formula is a tautology.
+ * Verify if a formula is a tautology. 
  * @param string $formula
  * @return boolean True, if it's a tautology
  * */

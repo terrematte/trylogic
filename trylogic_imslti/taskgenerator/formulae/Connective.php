@@ -1,5 +1,17 @@
 <?php
 require_once 'Node.php';
+/**
+ * class Connective
+ * Iherint the class Node
+ * @var $infix
+ * @var value of a Formula
+ * @var $infix
+ * @var $functional
+ * @var $polish
+ * @var $arity
+ * @var $order
+ * @var Array $children
+ * */
 class Connective extends Node {
 	public $infix;
 	public $functional;
@@ -18,7 +30,7 @@ class Connective extends Node {
 		$this->children = array();
 	}
 	function toInfixNotation() {
-		if ($this->arity > 2) throw new Exception("Utilizacao de notacao infixa para operador com aridade maior que 2: $functional");
+		if ($this->arity > 2) throw new Exception("Operator of infix Notation with arity bigger than two: $functional");
 		$result = "( ";
 		if ($this->arity == 1) $result .= $this->infix . " ";
 		$n = 1;

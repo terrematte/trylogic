@@ -1,4 +1,10 @@
 <?php
+/**
+ * class FormulaChecker
+ * @var $connectives
+ * @var $connectiveInfixPattern
+ * @var $connectiveFunctionalPattern
+ * */
 class FormulaChecker {
 	private $connectives;
 	public $connectiveInfixPattern;
@@ -13,6 +19,8 @@ class FormulaChecker {
 			$i--;
 			
 			/*
+			 * @todo Check Infix Notation
+			 *  
 			$op->infix =
 				str_replace(array(".","+","^","$","?","*","|"),array("\\.","\\+","\\^","\\$","\\?","\\*","\\|"),$op->infix);
 			$this->connectiveInfixPattern .= $op->infix;
@@ -40,10 +48,13 @@ class FormulaChecker {
 	}
 	
 	public function getFunctionalFormula($string) {
-		$id = "[a-zA-Z_][a-zA-Z0-9_]+"; //regular expression to IDs
-		$func = $this->connectiveFunctionalPattern; //regular expression to functions
-		
-		if (preg_match("/^$id$/",$string)) return Atom($string); //base case
+		//regular expression to IDs
+		$id = "[a-zA-Z_][a-zA-Z0-9_]+"; 
+		//regular expression to functions
+		$func = $this->connectiveFunctionalPattern; 
+				
+		//base case
+		if (preg_match("/^$id$/",$string)) return Atom($string); 
 		if (preg_match("/^$func\\((.*?)\\)$/",$string,$matches)) {
 			print_r($matches);
 		} 
@@ -52,7 +63,7 @@ class FormulaChecker {
 		foreach ($this->connectives as $con) {
 			if ($con->infix == $infixn) return $con;
 		}
-		throw new Exception("Conectivo desconhecido: $infixn");
+		throw new Exception("Unknown Connective: $infixn");
 	}
 }
 ?>

@@ -1,15 +1,12 @@
 # Overview
 
-TryLogic is the easiest way to learn Formal Logic.
-
-A funny way to learn Logic. It is available here:
+TryLogic is the tutorial for learning strategies to Prove or Refute propositional Logic. It is available here:
 
 http://lolita.dimap.ufrn.br/trylogic
 
 
-TryLogic is based on ProofWeb (http://prover.cs.ru.nl/ ) and the TryOCaml (http://try.ocamlpro.com/) 
-developed with (http://ocsigen.org/js_of_ocaml/files/toplevel/index.html) and built with
-js_of_ocaml (see http://ocsigen.org/js_of_ocaml/).
+TryLogic is based on [ProofWeb](http://prover.cs.ru.nl/) and the [TryOCaml](http://try.ocamlpro.com/) 
+developed and built [Js_of_ocaml](http://ocsigen.org/js_of_ocaml/).
 
 # Requirements
 
@@ -59,10 +56,7 @@ in the terminal to see what the input and output strings are.
 Once everything works, send a "pull request" via Github, or send us a
 patch. You can also come on #ocamlpro IRC channel to discuss with us.
 
-# Online
-
-http://try.ocamlpro.com/
 
 # License
 
-[GNU General Public License] (https://github.com/OCamlPro/tryocaml/blob/master/tryocaml/LICENSE.GPL)
+[GNU General Public License]

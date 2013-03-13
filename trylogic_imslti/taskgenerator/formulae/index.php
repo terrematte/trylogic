@@ -1,12 +1,14 @@
 <html >
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-<title>Testando php (:</title>
+<title>Testing the Formula Generator</title>
 <style type="text/css">
 body{font-family:"Consolas",Times,serif;font-size:13}
 </style>
 </head>
 <body>
+	
+	<h1>Testing the Formula Generator</h1>
 <?php
 
 
@@ -19,7 +21,7 @@ require_once 'FormulaChecker.php';
 
 
 
-echo "<h2> Fórmulas na sintaxe do ProofWeb</h2>";
+echo "<h2> Sintax of Formulae on ProofWeb</h2>";
 
 	
 
@@ -51,7 +53,7 @@ for ($i = 0; $i < $numero_formulas; $i++) {
 
 echo "<br/><br/><br/>";
 
-echo "<h2> Fórmulas na sintaxe do Limboole</h2>";
+echo "<h2> Sintax of Formulae on Limboole</h2>";
 
 
 $p0 = new Atom("o");
@@ -87,7 +89,7 @@ for ($i = 0; $i < $numero_formulas; $i++) {
 
 echo "<br/><br/><br/>";
 
-echo "<h2> Fórmulas em Latex</h2>";
+echo "<h2> Sintax of Formulae on Latex</h2>";
 
 
 
