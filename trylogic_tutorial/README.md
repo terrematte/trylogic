@@ -10,8 +10,8 @@ developed and built [Js_of_ocaml](http://ocsigen.org/js_of_ocaml/).
 
 # Requirements
 
-  * Findlib
-  * Lwt (version 2.3.0** at least, see http://ocsigen.org/lwt/)
+ * Findlib
+ * Lwt (version 2.3.0** at least, see http://ocsigen.org/lwt/)
 
 # Try it
 
@@ -59,4 +59,4 @@ patch. You can also come on #ocamlpro IRC channel to discuss with us.
 
 # License
 
-[GNU General Public License]
+*GNU General Public License*

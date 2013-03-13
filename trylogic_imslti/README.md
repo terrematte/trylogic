@@ -1,68 +1,43 @@
 # Overview
 
-TryLogic is the easiest way to learn Formal Logic.
-
-A funny way to learn Logic. It is available here:
-
-http://lolita.dimap.ufrn.br/trylogic
+This is the integration with the Moodle is provided by the IMS - [Learning Tool Interoperability](http://www.imsglobal.org/toolsinteroperability2.cfm) for the [ProofWeb](http://prover.cs.ru.nl/)
 
 
-TryLogic is based on ProofWeb (http://prover.cs.ru.nl/ ) and the TryOCaml (http://try.ocamlpro.com/) 
-developed with (http://ocsigen.org/js_of_ocaml/files/toplevel/index.html) and built with
-js_of_ocaml (see http://ocsigen.org/js_of_ocaml/).
+# What is the ProofWeb ?
+
+ProofWeb is a system for practising natural deduction on Web. A system for teaching logic and for using proof assistants, like [Coq](http://coq.inria.fr/), or [Isabelle](http://isabelle.in.tum.de/). 
+
+# What is IMS-LTI ?
+
+IMS is developing Learning Tools Interoperability (LTI) to allow remote tools and content to be integrated into a Learning Management System (LMS). So basically it is a set of standard integration methods that enable two systems talk to each other in a common language/protocol. See :
+    
+* Basic LTI: [30 min video](http://vimeo.com/8073453)
+* Breaking down barries	through Learning Tool Interoperability: [10 min video](http://www.youtube.com/watch?v=Hqezqc3ukhM)
+* A [Blog Review](http://www.somerandomthoughts.com/blog/2012/01/08/review-lti-provider-for-moodle-2-2/)
 
 # Requirements
 
-  * Findlib
-  * Lwt (version 2.3.0** at least, see http://ocsigen.org/lwt/)
+* A ProofWeb server [installed](http://prover.cs.ru.nl/install.php)
+* A Moodle server available. 
+  
+  
+# Install and Try it
 
-# Try it
 
-    $ make
+1. Add the line in above to the lib file of Moodle server of IMS-LTI */var/www/{installed-directory}/mod/lti/locallib.php*, by the line ~56 :
 
-Then, you will need to install the ProofWeb, as descrived here http://prover.cs.ru.nl/install.php and copy the 'pub/' directory to the CHROOT diretory of the ProofWeb.
+	require_once($CFG->dirroot . '/enrol/externallib.php');
 
-Finally use the Firefox to lauch the TryLogic.
+And add the line in above to the same lib file of Moodle server of IMS-LTI */var/www/{installed-directory}/mod/lti/locallib.php*, by the line ~245 :
 
-# Contribute lessons/steps/fixes
+	// Call the external function.
+	$enrolledusers =  core_enrol_external::get_enrolled_users($course->id);
+    $requestparams['enrolledusers'] = json_encode($enrolledusers);
+    
 
-Lessons are in the "lessons/" top directory.
+Add in your apache server and define you BLTI Key. Use you BLTI Key for add the Task Generator as *External Tool* in our *Moodle's course*.
 
-Each lesson is a sub-directory "lessonN", where N is the lesson
-number, and contains a file "lesson.html", with a title in a &lt;h3&gt; tag
-on the first line, and a set of steps. Each step is a sub-directory
-"stepM" of "lessons/lessonN", where M is the step number in the
-lesson.
-
-Each step is composed of two files:
-- "step.html": the text of the step. The first line MUST contain the step title,
- in a &lt;h3&gt; tag. Code that should be copied in the terminal should be in
- &lt;code&gt; tags.
-- "step.ml": the function testing if the step has been completed. It takes
- the user input (a string) and the compiler output (a string) as arguments,
- and returns a boolean, true if the user has succeeded, false otherwise.
- "step.ml" can directly use functions defined in "lessons/goodies.ml"
- (that is included, so NEVER use "open Goodies" or "Goodies.something),
- in particular the "find_in" function.
-
-To recompile when you have done a modification:
-
-    $ make update-lessons
-
-Failure to comply to the lesson/step specification will make the
-tryocaml/tutorial/make_lessons command fail.
-
-If you want to debug at some point, you can type 
-   debug true 
-in the terminal to see what the input and output strings are.
-
-Once everything works, send a "pull request" via Github, or send us a
-patch. You can also come on #ocamlpro IRC channel to discuss with us.
-
-# Online
-
-http://try.ocamlpro.com/
-
+    
 # License
 
-[GNU General Public License] (https://github.com/OCamlPro/tryocaml/blob/master/tryocaml/LICENSE.GPL)
+*GNU General Public License*
