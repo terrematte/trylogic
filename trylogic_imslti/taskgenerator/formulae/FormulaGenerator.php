@@ -1,11 +1,4 @@
 <?php
-/**
- * class FormulaGenerator
- * @var Array $connectives
- * @var Array $atoms
- * @var Integer $connectives_left
- * @var $root
- * */
 class FormulaGenerator {
 	public $connectives = array();
 	public $atoms = array();
@@ -19,12 +12,12 @@ class FormulaGenerator {
 	public function generateFormula($complexity) {		
 		if ($complexity < 0) {
 			return;
+			//erro aqui ;P
 		}
 		
-		// Generate
+		//Gerar!
 		$this->connectives_left = $complexity;
-		// Get arbitrary atom
-		if ($this->connectives_left == 0) $this->root = $this->atoms[array_rand($this->atoms,1)]; 
+		if ($this->connectives_left == 0) $this->root = $this->atoms[array_rand($this->atoms,1)]; //Any atom
 		else {
 			$this->root = $this->rConnective();
 			$this->connectives_left--;
@@ -35,36 +28,29 @@ class FormulaGenerator {
 	}
 	private function recursiveGenerator(&$root) {
 		if ($root instanceof Atom) return;
-		
-		// It's not a Atom, and There is no more connective to add. Complexity Requirement satisfied, then adding Atoms to the Nodes.
-		if ($this->connectives_left == 0) { 
+		if ($this->connectives_left == 0) { //Nao há mais conectivos para serem adicionados, então, completar com átomos
 			if ($root instanceof Connective) {
 				for($i = $root->arity - count($root->children); $i > 0; $i--) {
 					$root->children[] = $this->atoms[array_rand($this->atoms,1)];			
 				}
 			}
 		}
-		else { 
-		// It's not a Atom, and there is more connective to add. Complexity Requirement not satisfied.
+		else { //Nao é atomo, e ainda temos conectivos para adicionar
 			if ($this->connectives_left > $root->arity) $min = $root->arity;
 			else $min = $this->connectives_left;
-			// Calculating the number of Connectives to be add
-			$connectives_to_add = rand(1,$min); 
+			$connectives_to_add = rand(1,$min); //Calculando o numero de conectivos que serao adicionados ao conectivo atual nessa chamada
 			
-			for($i = 0; $i < $connectives_to_add; $i++) { 
-				// Adding the connectives
+			for($i = 0; $i < $connectives_to_add; $i++) { //Adicionando os conectivos
 				$x = $this->rConnective();
 				$root->children[] = $x;
 				$this->connectives_left--;
 			}
 
-			for($i = count($root->children); $i < $root->arity; $i++) { 
-				// Adding Atoms to the Connectives.
+			for($i = count($root->children); $i < $root->arity; $i++) { //Completando o conectivo atual com atomos
 				$root->children[] = $this->atoms[array_rand($this->atoms,1)];	
 			}
 			
-			// Shuffling
-			shuffle($root->children); 
+			shuffle($root->children); //Elarmhabando
 			
 			foreach($root->children as $child) {
 				$this->recursiveGenerator($child);

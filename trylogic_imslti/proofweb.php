@@ -2,8 +2,8 @@
 // Load up the Basic LTI Support code
 require_once 'ims-blti/blti.php';
 
-// Initialize, all secrets are 'secret', do not set session, and do not redirect
-$context = new BLTI("secrettryl0g1cLTI", false, false);
+// Initialize, all secrets are 'password', do not set session, and do not redirect
+$context = new BLTI("password", false, false);
 ?>
 
 <html><body>
@@ -27,6 +27,7 @@ if ( $context->valid ) {
 ?>	
 	
 </form>
+
 
 <script language="JavaScript">
 document.frm.submit();

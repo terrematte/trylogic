@@ -25,7 +25,7 @@ function read_atoms(name) {
 
 function form_value() {
     return {
-		code: $("input[name='code']").val(),
+	code: $("input[name='code']").val(),
         num_exercises: read_num('num_exercises') * num_students,
         num_students: num_students,
         atoms: read_atoms('atoms'),
@@ -38,6 +38,15 @@ function form_value() {
     };
 }
 
+function students_value() {
+    return {
+        num_students: num_students,
+	students: students,
+        students_fullname: students_fullname,
+        course: $("input[name='course']").val()
+    };
+}
+
 function proofweb(e) {
     return e.replace(/&/g, "/\\").replace(/\|/g, "\\/").replace(/!/g, "~");
 }
@@ -45,7 +54,7 @@ function proofweb(e) {
 function natural_ded(atoms, ex, n) {
 
     var m = ["Require Import ProofWeb.",
-	     "(* DEMONSTRAR EM DEDUCAO NATURAL: *)",
+	     "(* Try to Prove it with Natural Deduction: *)",
 	     "Parameter "].join('\n\n');
 
     m += atoms.join(' ');
@@ -63,7 +72,7 @@ function natural_ded(atoms, ex, n) {
     m += "Theorem T" + n + " : " + proofweb(ex.conclusion) + ".\n\n";
 
     m += ["Proof.",
-	  "(* Demonstra aqui *)",
+          "(*! prop_proof *)",
 	  "Qed.\n"].join("\n\n");
 
     return m;
@@ -72,12 +81,13 @@ function natural_ded(atoms, ex, n) {
 function semantic(atoms, ex, n) {
 
     var m = ["Require Import Semantics.",
-	    "(* REFUTAR EM TEORIA SEMANTICA: *)",
+	    "(* Try to Refute it with Semantics: *)",
 	     "Parameter "].join('\n\n');
 
     m += atoms.join(' ');
 
     m += ": Prop.\n\n";
+    m += "(* Edit ||-- or ||-/- on Hypothesis.*)\n\n";
 
     var k = 0;
 
@@ -106,12 +116,11 @@ function semantic(atoms, ex, n) {
     m += "Theorem T" + n + " : (v ||-/- " + p + ").\n\n";
 
     m += ["Proof.",
-	  "(* Verifica a refutacao aqui *)",
+          "(*! prop_refute *)",
 	  "Qed.\n"].join("\n\n");
 
     return m;
 }
-
 
 
 function shuffle(array) {
@@ -127,45 +136,62 @@ function shuffle(array) {
     return array;
 }
 
-function combine(res) {
+function shuffles(obj1, obj2) {
+  var index = obj1.length;
+  var rnd, tmp1, tmp2;
 
-    var a = shuffle(res.exercises.valid.concat(res.exercises.invalid));
+  while (index) {
+    rnd = Math.floor(Math.random() * index);
+    index -= 1;
+    tmp1 = obj1[index];
+    tmp2 = obj2[index];
+    obj1[index] = obj1[rnd];
+    obj2[index] = obj2[rnd];
+    obj1[rnd] = tmp1;
+    obj2[rnd] = tmp2;
+  }
+}
+
+
+function combine(res) {
+    var arg = res.exercises.valid.concat(res.exercises.invalid);
+    
+    // var v_args = Array(rte+1).join('1').split('').concat(Array(rte+1).join('0').split(''));
+    var a = shuffle(arg);
 
     // console.log(a);
 
     var r = {};
 
     $.each(students, function(i, val) {
-	r[val] = { nd: [], sem: [] };
+        r[val] = { nd: [], sem: [], vld:[]};
 
-	var l = r[val];
+        var l = r[val];
 
-	var j;
+        var j;
 
-	var rte = res.request.num_exercises / num_students;
-	
-	if( include(res.request.restrictions, 'refutable_provable')){
-		for (j = 0; j < rte; j++) {
-			//console.log(i + " " + j);
-			l.nd[j] = natural_ded(res.request.atoms, a[i * rte + j], j);
-			l.sem[j] = semantic(res.request.atoms, a[i * rte + j], j);
-		}
-	} 
-	
+        var rte = res.request.num_exercises / num_students;
+
+        if( include(res.request.restrictions, 'refutable_provable')){
+                for (j = 0; j < rte; j++) {
+                        //console.log(i + " " + j);
+                        l.nd[j] = natural_ded(res.request.atoms, a[i * rte + j], j);
+                        l.sem[j] = semantic(res.request.atoms, a[i * rte + j], j);
+                        l.vld[j] = a[i* rte +j].is_valid ? 'valid' : 'invalid';
+                }
+	}
 	if (include(res.request.restrictions, 'only_provable')){
 		for (j = 0; j < rte; j++) {
 			//console.log(i + " " + j);
 			l.nd[j] = natural_ded(res.request.atoms, a[i * rte + j], j);
 		}
-	} 
-	
+	}
 	if (include(res.request.restrictions, 'only_refutable')){
 		for (j = 0; j < rte; j++) {
 			//console.log(i + " " + j);
 			l.sem[j] = semantic(res.request.atoms, a[i * rte + j], j);
 		}
-	}	
-
+	}
     });
     return {
         code: res.request.code,
@@ -188,6 +214,21 @@ function select(nome) {
 var test;
 
 $(document).ready(function () {
+    $("a#prepare_course").click(function (ev) {
+        $.ajax({
+            url:"prepare_course.php",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(students_value()),
+            error: function(obj, status) {
+                alert("Error on saving: " + status);
+            },
+            success: function(data) {
+                alert(data.msg);
+            }
+        });
+    });
 
     $("a#salvar").click(function (ev) {
         $.ajax({
@@ -197,16 +238,118 @@ $(document).ready(function () {
             dataType: "json",
             data: JSON.stringify(combine(test)),
             error: function(obj, status) {
-                alert("Erro ao salvar: " + status);
+                alert("Error on saving:: " + status + obj);
             },
             success: function(data) {
-		alert("Saved Tasks!");		
+		alert("Saved Tasks!");
             }
         });
     });
 
+    $("a#lcp_save").click(function (ev) {
+        $.ajax({
+            url:"lcp_save.php",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(students_value()),
+            error: function(obj, status) {
+                alert("Error on saving: " + status);
+            },
+            success: function(data) {
+                alert(data.msg);
+            }
+        });
+    });
+
+    $("a#lcpo_save").click(function (ev) {
+        $.ajax({
+            url:"lcpo_save.php",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(students_value()),
+            error: function(obj, status) {
+                alert("Error on saving: \n" + status + obj);
+            },
+            success: function(data) {
+                alert(data.msg);
+            }
+        });
+    });
+
+    $("a#lcp_hidden").click(function (ev) {
+        $.ajax({
+            url:"lcp_hidden.php",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(students_value()),
+            error: function(obj, status) {
+                alert("Error on hidden/unhidden:\n" + status + obj);
+            },
+            success: function(data) {
+                alert(data.msg);
+            }
+        });
+    });
+
+    $("a#lcpo_hidden").click(function (ev) {
+        $.ajax({
+            url:"lcpo_hidden.php",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(students_value()),
+            error: function(obj, status) {
+                alert("Error on hidden/unhidden:\n" + status + obj);
+            },
+            success: function(data) {
+                alert(data.msg);
+            }
+        });
+    });
+
+    $("a#lcp_rm").click(function (ev) {
+	if (confirm("Are you sure?")) {
+          $.ajax({
+            url:"lcp_rm.php",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(students_value()),
+            error: function(obj, status) {
+                alert("Error on removing: \n" + status + obj);
+            },
+            success: function(data) {
+                alert(data.msg);
+            }
+        });
+      }
+    });
+
+    $("a#lcpo_rm").click(function (ev) {
+      if (confirm("Are you sure?")) {
+	$.ajax({
+            url:"lcpo_rm.php",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(students_value()),
+            error: function(obj, status) {
+                alert("Error on removing:\n" + status + obj);
+            },
+            success: function(data) {
+                alert(data.msg);
+            }
+        });
+      }
+    });
+
+
     $("a#send").click(function (ev) {
 		$('a#send').toggle();
+                $('img#load').show();
 		$('a#salvar').hide();
 
         $.ajax({
@@ -216,7 +359,7 @@ $(document).ready(function () {
             dataType: "json",
             data: JSON.stringify(form_value()),
             error: function(obj, status) {
-                alert("Erro ao enviar os dados: " + status);
+                alert("Error to submit the data: \n" + status + obj);
             },
             success: function(data) {
                 $('#c_detalhes').show().html('<pre>' + JSON.stringify(data, null, 4));
@@ -225,6 +368,7 @@ $(document).ready(function () {
 		test = data;
 
                 $('a#send').toggle();
+                $('img#load').hide();
                 $('#menu').show();
                 $('a#salvar').show();
 		
@@ -250,6 +394,234 @@ $(document).ready(function () {
         .val(def.num_exercises)
         .trigger('blur');
 
+
+$('#tasktype').change(function()
+	{
+		/* setting currently changed option value to option variable */
+		var option = "";
+    
+		var option = $('#tasktype').val();
+		
+		/* setting input box value to selected option value */
+		if(option == "provable-level1"){
+			$('#code').val('Proof_level1');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('2');
+			$('#compl_max').val('4');
+			$('#num_premises').val('2');
+			$('#same_proportion').prop('checked', false);
+			$('#relevant').prop('checked', true);
+			$('#no_superfluous').prop('checked', true);
+			$('#premise_contingent').prop('checked', true);
+			$('#only_provable').attr('checked', 'checked');
+		}
+		if(option == "provable-level2"){
+			$('#code').val('Proof_level2');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C, D');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('3');
+			$('#compl_max').val('4');
+			$('#num_premises').val('3');
+			$('#relevant').prop('checked', true);
+			$('#same_proportion').prop('checked', false);
+			$('#no_superfluous').prop('checked', true);
+			$('#premise_contingent').prop('checked', true);
+			$('#only_provable').attr('checked', 'checked');
+		}
+		if(option == "provable-level3"){
+			$('#code').val('Proof_level3');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C, D, E');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('3');
+			$('#compl_max').val('5');
+			$('#num_premises').val('3');
+			$('#relevant').prop('checked', true);
+			$('#same_proportion').prop('checked', false);
+			$('#no_superfluous').prop('checked', true);
+			$('#premise_contingent').prop('checked', true);
+			$('#only_provable').attr('checked', 'checked');
+		}
+		if(option == "provable-level4"){
+			$('#code').val('Proof_level4');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C, D, E');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('4');
+			$('#compl_max').val('5');
+			$('#num_premises').val('4');
+			$('#relevant').prop('checked', true);
+			$('#same_proportion').prop('checked', false);
+			$('#no_superfluous').prop('checked', true);
+			$('#premise_contingent').prop('checked', true);
+			$('#only_provable').attr('checked', 'checked');
+		} 
+		/* ONLY REFUTABLE */
+		if(option == "refutable-level1"){
+			$('#code').val('Refute_level1');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('2');
+			$('#compl_max').val('4');
+			$('#num_premises').val('2');
+			$('#same_proportion').prop('checked', false);
+			$('#relevant').prop('checked', true);
+			$('#no_superfluous').prop('checked', true);
+			$('#premise_contingent').prop('checked', true);
+			$('#only_refutable').attr('checked', 'checked');
+		}
+		if(option == "refutable-level2"){
+			$('#code').val('Refute_level2');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C, D');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('3');
+			$('#compl_max').val('4');
+			$('#num_premises').val('3');
+			$('#relevant').prop('checked', true);
+			$('#same_proportion').prop('checked', false);
+			$('#no_superfluous').prop('checked', true);
+			$('#premise_contingent').prop('checked', true);
+			$('#only_refutable').attr('checked', 'checked');
+		}
+		if(option == "refutable-level3"){
+			$('#code').val('Refute_level3');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C, D, E');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('3');
+			$('#compl_max').val('5');
+			$('#num_premises').val('3');
+			$('#relevant').prop('checked', true);
+			$('#same_proportion').prop('checked', false);
+			$('#no_superfluous').prop('checked', true);
+			$('#premise_contingent').prop('checked', true);
+			$('#only_refutable').attr('checked', 'checked');
+		}
+		if(option == "refutable-level4"){
+			$('#code').val('Refute_level4');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C, D, E');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('4');
+			$('#compl_max').val('5');
+			$('#num_premises').val('4');
+			$('#relevant').prop('checked', true);
+			$('#same_proportion').prop('checked', false);
+			$('#no_superfluous').prop('checked', true);
+			$('#premise_contingent').prop('checked', true);
+			$('#only_refutable').attr('checked', 'checked');
+		} 		
+		
+		/* CONJECTURE TO PROVE or REFUTE */
+		if(option == "conjecture-level1"){
+			$('#code').val('Conjecture_level1');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('2');
+			$('#compl_max').val('4');
+			$('#num_premises').val('2');
+			$('#same_proportion').prop('checked', true);
+			$('#relevant').prop('checked', true);
+			$('#no_superfluous').prop('checked', true);
+			$('#refutable_provable').attr('checked', 'checked');
+		}
+		if(option == "conjecture-level2"){
+			$('#code').val('Conjecture_level2');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C, D');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('3');
+			$('#compl_max').val('4');
+			$('#num_premises').val('3');
+			$('#relevant').prop('checked', true);
+			$('#same_proportion').prop('checked', true);
+			$('#no_superfluous').prop('checked', true);
+			$('#premise_contingent').prop('checked', true);
+			$('#refutable_provable').attr('checked', 'checked');
+		}
+		if(option == "conjecture-level3"){
+			$('#code').val('Conjecture_level3');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C, D, E');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('3');
+			$('#compl_max').val('5');
+			$('#num_premises').val('3');
+			$('#relevant').prop('checked', true);
+			$('#same_proportion').prop('checked', true);
+			$('#no_superfluous').prop('checked', true);
+			$('#premise_contingent').prop('checked', true);
+			$('#refutable_provable').attr('checked', 'checked');
+		}
+		if(option == "conjecture-level4"){
+			$('#code').val('Conjecture_level4');
+			$('#num_exercises').val('2');
+			$('#atoms').val('A, B, C, D, E');
+			$('#not').prop('checked', true);
+			$('#or').prop('checked', true);
+			$('#and').prop('checked', true);
+			$('#imp').prop('checked', true);
+			$('#biimp').prop('checked', true);
+			$('#compl_min').val('4');
+			$('#compl_max').val('5');
+			$('#num_premises').val('4');
+			$('#relevant').prop('checked', true);
+			$('#same_proportion').prop('checked', true);
+			$('#no_superfluous').prop('checked', true);
+			$('#premise_contingent').prop('checked', true);
+			$('#refutable_provable').attr('checked', 'checked');
+		}		
+	});
 
 });
 

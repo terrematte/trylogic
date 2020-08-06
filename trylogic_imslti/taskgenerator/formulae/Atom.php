@@ -1,10 +1,4 @@
 <?php
-/**
- * Class of Atoms
- * Iherint the class Node
- * 
- * 
- * */
 require_once 'Node.php';
 class Atom extends Node {
 	function __construct($content) {

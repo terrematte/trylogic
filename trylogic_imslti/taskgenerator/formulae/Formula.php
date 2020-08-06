@@ -1,18 +1,12 @@
 <?php
 require_once 'Node.php';
-/**
- * class Formula
- * @var $root
- * */
 class Formula {
 	public $root;
 	function __construct($root) {
 		$this->root = $root;
 
-		/* @TODO Verify Notations
-		 * 
-		 * $this->verifyConsistence();
-		 * */
+		// Verificar inconsistencias na formula :)
+		// $this->verifyConsistence();
 	}
 	public function toInfixNotation() {
 		return $this->root->toInfixNotation();

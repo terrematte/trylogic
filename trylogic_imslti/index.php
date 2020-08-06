@@ -1,261 +1,365 @@
-
-
 <?php 
-try {
-    session_start(); 
-} catch (Exception $e) {
-    $warning_session = true;
-}
-
 // Load up the Basic LTI Support code
 require_once 'ims-blti/blti.php';
 
-// Establish the database connnection
-require_once("ims-blti/db.php");
-
-// Establish the context
-$context = new BLTI(array('table' => 'blti_keys'));
-if ( $context->complete ) exit();
-if ( ! $context->valid ) {
-    print "Could not establish context: ".$context->message."<p>\n";
-    exit();
+// Initialize, all secrets are 'password', do not set session, and do not redirect
+$context = new BLTI("password", false, false);
+$students =  $context->getEnrolledUsers();
+$course = $context->getCourseName();
+$user = $context->getUserShortName();
+$users = array();
+foreach($students as $st){
+	$users[] =  $st['username'];
 }
-
-// Start of the ad code
-$self = $_SERVER['PHP_SELF'];
-$action = $_REQUEST['action'];
-$message = false;
-$title = false;
-$description = false;
-$idvalue = false;
-
-// print_r($_REQUEST);
-
-// AuthZ WHERE clause terms
-$authzsql = "course_key=".
-              "'".mysql_real_escape_string($context->getCourseKey())."'";
-if ( ! $context->isInstructor() ) {
-    $authzsql = $authzsql . "AND user_key=".
-              "'".mysql_real_escape_string($context->getUserKey())."'";
-}
-
-if ( $action == 'delete' ) {
-    $idvalue = $_REQUEST['id'];
-    if ( $idvalue ) {
-        $sql = 'DELETE FROM ads WHERE id=' .
-            "'".mysql_real_escape_string($idvalue)."' AND ".$authzsql;
-        $result = mysql_query($sql);
-        $retval = mysql_affected_rows();
-        if ( $retval != 1 ) {
-            $message = "Error, unable to delete ad.";
-            $action = 'main';
-        } else {
-            $message = "Deleted record id=".$idvalue;
-            $action = 'main';
-        }
-    }
-}
-
-if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-    $title = $_REQUEST['title'];
-    $description = $_REQUEST['description'];
-    $idvalue = $_REQUEST['id'];
-    if ( $title && $description ) {
-       if ( $idvalue ) {
-           $sql = 'UPDATE ads SET ' .
-              "title='".mysql_real_escape_string($title)."', " .
-              "description='".mysql_real_escape_string($description)."', " .
-              "updated_at= NOW() " .
-              "WHERE id=".
-              "'".mysql_real_escape_string($idvalue)."' AND ".$authzsql;
-           $result = mysql_query($sql);
-           $retval = mysql_affected_rows();
-           if ( $retval != 1 ) {
-               $message = "Error, unable to update ad.";
-               $action = 'edit';
-           } else {
-               $message = "Updated record for '".$title."' id=".$idvalue;
-               $action = 'main';
-           }
-       } else {
-           $sql = 'INSERT INTO ads ' .
-              '( title, description, course_key, user_key, user_name, created_at, updated_at ) ' .
-              ' VALUES ( ' .
-              "'".mysql_real_escape_string($title)."', " .
-              "'".mysql_real_escape_string($description)."', " .
-              "'".mysql_real_escape_string($context->getCourseKey())."', " .
-              "'".mysql_real_escape_string($context->getUserKey())."', " .
-              "'".mysql_real_escape_string($context->getUserName())."', " .
-              " NOW(), NOW() ) ";
-           $result = mysql_query($sql);
-           $retval = mysql_affected_rows();
-           if ( $retval != 1 ) {
-               $message = "Error, unable to insert ad.";
-               $action = 'add';
-           } else {
-               $idvalue = mysql_insert_id();
-               $message = "Inserted ad '".$name."' id=".$idvalue;
-               $action = 'main';
-               $context->redirect();
-           }
-       }
-    } else {
-       $message = "Error, please specify all data.";
-       $action = 'add';
-       if ( $idvalue ) $action = 'edit';
-    }
-}
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
- "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-  <head>
-   <title>Basic LTI Classified Ad System</title>
-   <link href="glike.css" rel="stylesheet" type="text/css" />
-  </head>
-<body>
-	
-
-<h2>TryLogic - Basic LTI</h2>
-
-<h3><a href="/proofweb/guest.php" target="frame_trylogic">ProofWeb</a> | <a href="/trylogic/index.html" target="frame_trylogic">Tutorial TryLogic</a> | <a href="gen/" target="frame_trylogic">Gerador de Exercícios</a>  | <a href="/logicamente/" target="frame_trylogic">Logicamente</a> </h3>
-
-<h4> Olá <?php echo($context->getUserName()."!"); ?> </h4>
-
-
-<iframe name="frame_trylogic" height="800px" width="100%"></iframe>
-
-
- 
-<?php
-
-if ( $action == 'edit' || $action == 'view' ) {
-    $idvalue = $_REQUEST['id'];
-    if ( $idvalue ) {
-       $sql = 'SELECT * FROM ads WHERE id=' .
-          "'".mysql_real_escape_string($idvalue)."' AND ".$authzsql;
-      $result = mysql_query($sql);
-      $num_rows = mysql_num_rows($result);
-      if ( $num_rows != 1 ) {
-          $message = "Error, could not locate ad.";
-          $action = 'main';
-      } else {
-          while ($row = mysql_fetch_assoc($result)) {
-              $title = $row['title'];
-              $description = $row['description'];
-              $user_name = $row['user_name'];
-              $updated_at = $row['updated_at'];
-          }
-      }
-    }
-}
-
-if ( $action == 'view' ) {
-    if ( $message ) {
-       echo('<p style="color:red;">'.$message."</p>\n");
-    }
-    echo("<p><b>$title</b><br/>\n");
-    echo($description."</p>\n");
-    echo("<p>$user_name ($updated_at) </p>\n");
-    ?>
-        <input type="submit" value="Back To List" 
-            onclick="window.location='<?=$self?>'; return false;"/>
-    <?php
-    exit();
-}
-
-if ( $action == 'add' || $action == 'edit') {
-    if ( $message ) {
-       echo('<p style="color:red;">'.$message."</p>\n");
-    }
-    $enabled="";
-    if ( $action == 'add' ) {
-        echo("<p>Add New Classified Ad</p>\n");
-    } else {
-        echo("<p>Edit Classified Ad</p>\n");
-    }
-    ?>
-    <form method="post">
-    <?php
-    if ( $idvalue ) echo('<input type="hidden" value="'.$idvalue.'">'."\n");
-    ?>
-    <p>Title<br/>
-    <input type="text" name="title" size="70" value="<?=$title?>"></p>
-    <p>Description<br/>
-    <textarea id="description" name="description" rows="12" cols="70"><?=$description?></textarea></p>
-    <p><input type='submit'>
-    <input type="submit" value="Cancel" 
-        onclick="window.location='<?=$self?>'; return false;"/>
-    </p>
-    </form>
-    <?php
-    exit();
-}
-
-$sql = "SELECT * FROM  ads WHERE course_key=".
-    "'".mysql_real_escape_string($context->getCourseKey())."' " .
-    "ORDER BY created_at DESC";
-
-$result = mysql_query($sql);
-$num_rows = mysql_num_rows($result);
-
-if ( $message ) {
-    echo('<p style="color:red;">'.$message."</p>\n");
-}
-
-if( mysql_num_rows( $result ) == 0 ) {
-    echo "<p>No Ads available for '".$context->getCourseName()."'";
-    echo(' (<a title="New Ad" href="'.$self.'?action=add">Create New Ad</a>)'."\n");
-} else {
-    ?>
-    <table style="width: 100%">
-    <tr><th style="width: 70%">
-Title 
-(<a title="New Ad" href="<?=$self?>?action=add">Create New Ad</a>)
-</th><th>Date</th><th>Action</th></tr>
-    <?php
-    while( $row = mysql_fetch_array( $result ) ) {
-         ?>
-         <tr>
-         <td>
-         <a title="View" href="<?=$self?>?action=view&id=<?=$row[id]?>"><?=$row['title']?></a></td>
-         <td><?=$row['updated_at']?></td>
-         <td>
-         <?php 
-         if ( $context->isInstructor() || $row['user_key'] == $context->getUserKey() ) {
-         ?>
-             <a title="Edit" href="<?=$self?>?action=edit&id=<?=$row[id]?>">edit</a>
-             <a title="Delete" href="<?=$self?>?action=delete&id=<?=$row[id]?>">delete</a>
-         <?php
-         }
-         ?>
-         </td>
-         </tr>
-         <?php
-    }
-    ?>
-    </table>
-    <?php
-  
-}
-
-echo("<pre>\n");
-echo("Debug Output:\n");
-echo($context->dump());
-echo("</pre>\n");
-
-echo("É professor :".$context->isInstructor()."\n");
-
-
-print "<pre>\n";
-print "Raw POST Parameters:\n\n";
-foreach($_POST as $key => $value ) {
-    print $key."=".$value."\n";
-}
-print "</pre>";
-
-
+arsort($users); 
 ?>
 
 
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Adicionar Exercícios</title>
+    <link rel="stylesheet" type="text/css" href="taskgenerator/base.css" />
+    <script src="taskgenerator/jquery-1.7.1.min.js"></script>
+	<script type='text/javascript'>    
+	<?php
+		$students = json_encode($context->getEnrolledLogins());
+		$students_fullname = json_encode($context->getEnrolledFullname());
+		echo "var students = ". $students . ";\n";
+        echo "var students_fullname = ". $students_fullname . ";\n";
+		echo "var num_students = students.length;\n";
+		echo "var def = {\n    num_exercises: 1 \n };\n";
+	?>	
+	
+	function openTab(evt, tabName) {
+		  var i, tabcontent, tablinks;
+		  tabcontent = document.getElementsByClassName("tabcontent");
+		  for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		  }
+		  tablinks = document.getElementsByClassName("tablinks");
+		  for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		  }
+		  document.getElementById(tabName).style.display = "block";
+		  evt.currentTarget.className += " active";
+	}
+	
+	function all_exercises() {
+        var iframe = document.getElementById("frame_all_ex");
+        var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+        var all_ex = innerDoc.getElementsByTagName('table')[0];
+        var tasks = document.getElementById("all_exercises");
+		if(all_ex){
+			if(tasks) tasks.innerHTML = all_ex.outerHTML;
+		}
+	}
+	
+	<?php
 
-</body>
+       foreach($users as $s){
+        echo("$.ajax({
+                url : '/cgi/admin.ml',
+                type: 'post',
+                data : {'login' : '"."$user"."','pass' : '"."$user"."', 'course' : '"."$course"."-"."$s"."'},
+                success: function(res) {
+                    var parser = new DOMParser();
+                    doc = parser.parseFromString(res, 'text/html');
+                    if(doc) var line = doc.getElementsByTagName('tr')[1];
+                    var all_tasks = document.getElementById('all_tasks');
+                    if(all_tasks && line) all_tasks.after(line)
+                  console.log( line );
+                },
+                error: function() {
+                    alert('Error occured');
+                }
+                });");
+        }
+	?>
+	
+    </script>
+    <script src="taskgenerator/query_lti.js"></script>
+  </head>
+
+<body onload="document.all_ex.submit()">
+
+<?php
+	if ( $context->isInstructor() ) {
+?>
+
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'tab1')">ProofWeb Settings</button>
+  <button class="tablinks" onclick="openTab(event, 'tab2')">Generate Tasks</button>
+  <button class="tablinks" onclick="openTab(event, 'tab3')">Check Students</button>
+</div>
+
+
+<div id="tab1" class="tabcontent">
+<form>
+	  <h1>ProofWeb Settings</h2>
+
+      <div class="box">
+
+	  <div class="row">
+        <div class="cell">
+              <div class="name">Set ProofWeb exercises</div>
+        </div>
+
+        <div class="cell">
+			<div class="block hover">
+                        <a id="prepare_course">Set exercises</a>
+            </div>
+		</div>
+        <div class="name_descr">*Set-up the ProofWeb's exercises on Propositional Logic (PL) and First Order Logic (FOL) for all Students.</div>
+		</div>
+
+        <div class="row">
+          <div class="cell">
+                        <div class="name">Propositional Logic Challenges</div>
+          </div>
+          <div class="cell">
+            <div class="block hover">
+                        <a id="lcp_save">Save</a>
+                        <a id="lcp_hidden">Hidden/Unhidden</a>
+                        <a id="lcp_rm">Remove</a>
+            </div>
+          </div>
+		<div class="name_descr">*Set-up 10 personalized exercises of Propositional Logic (PL) for each Students.</div>
+        </div>
+
+        <div class="row">
+          <div class="cell">
+                        <div class="name">First Order Logic Challenges</div>
+          </div>
+          <div class="cell">
+            <div class="block hover">
+                        <a id="lcpo_save">Save</a> 
+                        <a id="lcpo_hidden">Hidden/Unhidden</a>
+                        <a id="lcpo_rm">Remove</a>
+            </div>
+          </div>
+          <div class="name_descr">*Set-up 10 personalized exercises of First Order Logic (FOL) for each Students.</div>
+         </div>
+		<br/>
+      </div>
+	</form>	
+</div>
+
+<div id="tab2" class="tabcontent">
+	<form>
+      <div class="box">
+
+         <h1>Generate Tasks</h1>
+
+		<div class="row">
+          <div class="cell"><div class="name">Defined Tasks</div></div>
+          <div class="cell">
+			  <div class="block">
+			  <select id="tasktype">
+					<option value="None">-- Select --</option>
+					<option value="provable-level1">Only Proofs - Level 1</option>
+					<option value="provable-level2">Only Proofs - Level 2</option>
+					<option value="provable-level3">Only Proofs - Level 3</option>
+					<option value="provable-level4">Only Proofs - Level 4</option>
+					<option value="refutable-level1">Only Refutations - Level 1</option>
+					<option value="refutable-level2">Only Refutations - Level 2</option>
+					<option value="refutable-level3">Only Refutations - Level 3</option>
+					<option value="refutable-level4">Only Refutations - Level 4</option>
+					<option value="conjecture-level1">Conjectures to Prove or Refute - Level 1</option>
+					<option value="conjecture-level2">Conjectures to Prove or Refute - Level 2</option>
+					<option value="conjecture-level3">Conjectures to Prove or Refute - Level 3</option>
+					<option value="conjecture-level4">Conjectures to Prove or Refute - Level 4</option>
+			 </select>
+			</div>
+	      </div>
+		<div class="name_descr">*Select a pre-configured difficulty level.</div>
+          </div>
+        <div class="row">
+          <div class="cell"><div class="name">Name of Tasks</div></div>
+          <div class="cell">
+            <div class="block">
+              <input type="text" id="code" name="code" value="abc"/>
+            </div>
+          </div>
+		<div class="name_descr">*Provide a prefix name for the tasks. The students will see this prefix on each task.</div>          
+        </div>
+        <div class="row">
+          <div class="cell"><div class="name">Tasks by Student</div></div>
+          <div class="cell">
+            <div class="block">
+              <input type="text" class="num"  id="num_exercises" name="num_exercises" value="0"/> (<span id="num_total">0</span> in total)
+            </div>
+          </div>
+		<div class="name_descr">*Provide the number of different task per student. Note that for each conjecture has two templates, one for students to prove, another template to refute, only one is feasible.</div>          
+        </div>
+        <div class="row">
+          <div class="cell"><div class="name">Atoms</div></div>
+          <div class="cell">
+            <div class="block">
+               <input type="text" id="atoms" name="atoms" value="A, B, C, D" />
+            </div>
+          </div>
+		<div class="name_descr">*Provide the letters for the propositional atoms. The number of distinct letters will provide the set of possible generated formula.</div>            
+        </div>
+        <div class="row">
+          <div class="cell"><div class="name">Connectives</div></div>
+          <div class="cell">
+            <div class="block">
+              <ul>
+               <!-- <li><label><input type="checkbox" name="conectives" value="bottom" />Bottom</label></li> -->
+               <!-- <li><label><input type="checkbox" name="conectives" value="top" />Top</label></li>		 -->
+                <li><label><input type="checkbox" name="conectives" id="not" value="not" checked />Negation</label></li>
+                <li><label><input type="checkbox" name="conectives" id="or" value="or" checked />Disjuction</label></li>
+              </ul>
+              <ul>
+                <li><label><input type="checkbox" name="conectives" id="and" value="and" checked />Conjuction</label></li>
+                <li><label><input type="checkbox" name="conectives" id="imp" value="imp" checked />Implication</label></li>
+                <li><label><input type="checkbox" name="conectives" id="biimp" value="biimp" checked />Biimplication</label></li>
+              </ul>
+              <br />
+
+            </div>
+          </div>
+		<div class="name_descr">*Select the possibles connectives on each formula.</div>          
+        </div>
+        <div class="row">
+          <div class="cell"><div class="name">Complexity</div></div>
+          <div class="cell">
+            <div class="block">
+              <input type="text" class="num" id="compl_min" name="compl_min" value="2" /> à
+              <input type="text" class="num" id="compl_max" name="compl_max" value="6" />
+            </div>
+          </div>
+		<div class="name_descr">*Select the range of complexity of each formula. The complexity is measured by the total number of connectives on a formula.</div>          
+        </div>
+        <div class="row">
+          <div class="cell"><div class="name">Number of Premises</div></div>
+          <div class="cell">
+            <div class="block">
+              <input type="text" class="num" id="num_premises" name="num_premises" value="2" />
+            </div>
+          </div>
+   		<div class="name_descr">*Select the number of premises on each tasks.</div>          
+        </div>
+        <div class="row">
+          <div class="cell"><div class="name">Restrictions</div></div>
+          <div class="cell">
+            <div class="block">
+
+                <label><input type="checkbox" id="same_proportion" name="restrictions" value="same_proportion" checked />Same proportions</label>
+		<br />
+                <label><input type="checkbox" id="relevant" name="restrictions" value="must_be_relevant" checked />Relevant Premises</label>
+		<br />
+                <label><input type="checkbox" id="no_superfluous" name="restrictions" value="no_superfluous_premises_allowed" checked />All premises needed</label>
+		<br />
+                <label><input type="checkbox" id="premise_contingent" name="restrictions" value="premise_conjunction_must_be_contingent" checked />Contingent Conjunction of Premises</label>
+		<br />
+                <label><input type="radio" id="only_provable" name="restrictions" value="only_provable"/>Only Refutables</label>
+		<br />
+                <label><input type="radio" id="only_refutable" name="restrictions" value="only_refutable" />Only Provables</label>
+		<br />
+                <label><input type="radio" id="refutable_provable" name="restrictions" value="refutable_provable" checked />Provables and Refutables</label>
+		<br />
+
+			</div>
+			</div>
+			
+			  		<div class="name_descr">
+						<ul>
+							<li><b>Same proportions:</b>Indicates the same total number of tasks for Proof and Refute, i.e. 50% of provable tasks, and 50% of refutable tasks. But the tasks are assign by random, so each students might receive an arbitrary number of each type, provable or refutable.</li>
+							<li><b>Relevant Premises:</b> Each premise share at least one atom with the conclusion.</li>
+							<li><b>All premises needed:</b> The conclusion is not satisfactible without any of premises.</li>
+							<li><b>Contingent Conjunction of Premises:</b> The conjunction of premises is not a tautology neither a contradiction.</li>
+							<li><b>Only Refutables, Provables, or Provables and Refutables:</b> Indicates the type of generated conjectures.</li>
+						</ul>
+			  		
+			  		</div>          
+		</div>
+        
+        <div class="row">
+          <div class="cell">
+			<div class="name">Course</div>
+          </div>
+          
+          <div class="cell">
+            <div class="block">
+					<input type="hidden" name="course" value="<?php echo($context->getCourseName());?>" />
+					<?php echo($context->getCourseName());?>
+			</div>
+          </div>
+		</div>
+		
+        <div class="row">
+          <div class="cell"><div class="name"></div></div>
+          <div class="cell"><div class="block hover">
+				<img id="load" src="taskgenerator/loadbar.gif" alt="loadbar" height="42" style="display: none">
+				<a id="send">Send</a> <a id="salvar"  style="display: none">Save to ProofWeb</a></div></div>
+		<div class="name_descr">*This might take several minutes. <br/> Be patient with our SAT solver, he is working NP-hard. :)</div>
+        </div>
+      </div>
+
+    <div id="side">
+      <div id="menu" style="display: none">
+        <a id="codigo" class="click hover">Code</a>
+        <a id="exerc" class="click hover">Tasks</a>
+        <a id="detalhes" class="click hover">Details</a>
+      </div>
+      <div id="c_codigo" class="tab">
+        <textarea name="codigo"></textarea>
+      </div>
+	<div id="c_exerc" class="tab"  style="display: none"></div>
+      	<div id="c_detalhes" class="tab"  style="display: none"></div>
+   </div>
+  </form>
+	    
+</div>
+
+<div id="tab3" class="tabcontent">
+
+
+<div class="box-form">
+	
+<br/><br/>
+<h2> Students Exercices on course <?php echo($course);?> </h2>
+<br/><br/>
+	<form action="/cgi/admin.ml" style="display:inline" name="all_ex"  method="post"  target="frame_all_ex">
+			<input type="hidden" name="login" value="<?php echo($user);?>">
+			<input type="hidden" name="pass" value="<?php echo($user);?>">
+			<input type="hidden" name="course" value="<?php echo($course);?>">
+	</form>
+
+
+<div id="all_exercises"></div>
+
+<br/><br/>
+
+<h2> Students Challenging Task's on course <?php echo($course);?> </h2>
+
+<br/><br/>
+
+	<table border="1" id="table_ex">
+		<tbody>
+			<tr id="all_tasks">
+			<td><b>Name (login)</b></td><td><b>Not touched</b></td><td style="color: red;"><b>Incomplete</b></td><td style="color: orange;"><b>Correct</b></td><td style="color: green;"><b>Solved</b></td><td>Look</td>
+			</tr>
+
+		 </tbody>
+	</table>
+
+<iframe name="frame_all_ex" id="frame_all_ex" onload="all_exercises()" style="display: none;"></iframe>
+
+</div>
+
+
+<?php
+} else {
+    print "<p style=\"color:red\"> Você não tem permissão de Adminstrador!<br/><br/>".$context->message."<p>\n";
+}
+
+?>	    
+  </body>
+</html>
+
+

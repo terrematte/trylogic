@@ -189,16 +189,17 @@ class BLTI {
     }
 
     function getUserShortName() {
-	$givenname = $this->info['lis_person_name_given'];
-	$givenname = str_replace(' ','',$givenname); 
-       /* $email = $this->getUserEmail();
+        $username = $this->info['ext_user_username'];
+       /* $givenname = str_replace(' ','',$givenname); 
+        $email = $this->getUserEmail();
         $familyname = $this->info['lis_person_name_family'];
         $fullname = $this->info['lis_person_name_full'];
         #if ( strlen($email) > 0 ) return $email;
         if ( strlen($givenname) > 0 ) return $givenname;
         if ( strlen($familyname) > 0 ) return $familyname;*/
-        return $givenname;
+        return $username;
     }
+
   
     function getUserName() {
         $givenname = $this->info['lis_person_name_given'];
@@ -278,6 +279,22 @@ class BLTI {
 			}
 		return $logins;
 	}
+
+    function getEnrolledFullname(){
+                $enrolledUsers = $this->getEnrolledUsers();
+
+                $logins = Array();
+                
+                foreach($enrolledUsers as &$userv)
+                        {
+                                foreach($userv as $uk => $uv){
+                                        if ($uk == 'fullname' ){
+                                                array_push($logins, $uv);
+                                        }
+                                }
+                        }
+                return $logins;
+        }
 
     // TODO: Add javascript version if headers are already sent
     function redirect() {

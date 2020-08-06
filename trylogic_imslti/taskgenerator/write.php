@@ -10,24 +10,36 @@ $decoded = $dec['data'];
 
 $course = $dec['course'];
 
-$dirfiles = '/opt/proofweb/files/'.$course ;
+//$dirfiles = '/opt/proofweb/files/'.$course ;
+$dirfiles = '/opt/proofweb/tasks/'.$course ;
 
 $fail = 0;
 
 foreach($decoded as $n => $s) {
-    $d = $dirfiles .'/'. $n;
+//    $d = $dirfiles .'/'. $n;
+    $d = $dirfiles .'-'. $n;
 
     mkdir($d);
-    
+
     foreach($decoded[$n]['nd'] as $i => $v){
-        file_put_contents($d . '/' . 'aval_' . $dec['code'] . '_' . $i . '_DN.v', $v);
-        if(! file_exists($d. '/' . 'aval_' . $dec['code'] . '_' . $i . '_DN.v')){ $fail=$fail+1; }
+		$file = $d. '/' .  $dec['code'] . '_' . ($i+1) . '_DN.v';
+	        file_put_contents($file, $v);
+	        if(! file_exists($file)){ $fail=$fail+1; }
+		//exec("chown 1018:www-data -R $file");
 	}
-    
+
     foreach($decoded[$n]['sem'] as $i => $v){
-        file_put_contents($d . '/' . 'aval_' . $dec['code'] . '_' . $i . '_SEM.v', $v);
-       	if(! file_exists($d. '/' . 'aval_' . $dec['code'] . '_' . $i . '_SEM.v')){ $fail=$fail+1; }
+		$file = $d . '/' . $dec['code'] . '_' . ($i+1) . '_SM.v';
+	        file_put_contents($file, $v);
+	        if(! file_exists($file)){ $fail=$fail+1; }
+	       	//exec("chown 1018:www-data -R $file");
 	}
+    foreach($decoded[$n]['vld'] as $i => $v){
+			$file = $d . '/.' . $dec['code'] . '_' . ($i+1) . "-$v". '.v';
+			file_put_contents($file, "$v");
+		if(! file_exists($file)){ $fail=$fail+1; }
+                //exec("chown 1018:www-data -R $file");
+        }
 
 
 }
