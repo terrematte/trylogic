@@ -86,7 +86,7 @@ function undo_cb(z) {
     return;
   }
   var index = z.indexOf ("__PWT__");
-  var out = "<pre>" + z.substring(0, index) + "Teste ! </pre>";
+  var out = "<pre>" + z.substring(0, index) + "</pre>";
   
   tl_output = document.getElementById("output");
   tl_output.innerHTML += "example_00";

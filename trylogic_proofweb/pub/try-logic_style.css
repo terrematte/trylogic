@@ -35,8 +35,8 @@ body {
 
 #toplevel-container {
    padding: 10px;
-   /*height: 100px;*/
-   height: 0px;
+   height: 100px;
+   /*height: 0px;*/
    width: 100%;
    overflow: auto;
    overflow-x: hidden;

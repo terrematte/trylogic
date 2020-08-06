@@ -513,11 +513,6 @@ domMenu_data.set('domMenu_BJ', new Hash(
             'uri', 'javascript:var wnd = window.open("http://www.cs.ru.nl/~cek/proofweb/", "", ""); wnd.focus();',
             'statusText', 'Developers homepage'
         )
-    ),
-    15, new Hash(
-        'contents', 'Logout',
-        'uri', 'javascript:window.location="http://lolita.dimap.ufrn.br/proofweb/";',
-        'statusText', 'Logout'
     )
 ));
 
@@ -1031,11 +1026,6 @@ domMenu_data.set('domMenu_TRY', new Hash(
             'uri', 'javascript:var wnd = window.open("http://www.cs.ru.nl/~cek/proofweb/", "", ""); wnd.focus();',
             'statusText', 'Developers homepage'
         )
-    ),
-    10, new Hash(
-        'contents', 'Logout',
-        'uri', 'javascript:window.location="http://lolita.dimap.ufrn.br/proofweb/";',
-        'statusText', 'Logout'
     )
 ));
 
