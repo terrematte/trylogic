@@ -3,7 +3,7 @@
 require_once 'ims-blti/blti.php';
 
 // Initialize, all secrets are 'secret', do not set session, and do not redirect
-$context = new BLTI("password", false, false);
+$context = new BLTI("secret", false, false);
 ?>
 
 <html><body>

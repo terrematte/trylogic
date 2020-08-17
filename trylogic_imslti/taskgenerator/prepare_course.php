@@ -53,6 +53,7 @@ foreach($students as $n => $s) {
 	$d = $dir_save.'/'.$s;
 	if(! file_exists($d) ) {
 	     	mkdir($d, 0755);
+		exec('/usr/bin/sudo /bin/chown -R 1018:1018 '.$d);
 		$login = $course . '/' . $s . ',' . md5( $s ) . ',' . $students_fullname[$n] ;
 		exec('echo ' . $login . ' >> ' . $f_logins);
 	}
@@ -62,6 +63,7 @@ foreach($students as $n => $s) {
 	$d = $dir_save .'-'. $s;
 	if(! file_exists($d) ) {
                 mkdir($d, 0755);
+                exec('/usr/bin/sudo /bin/chown -R 1018:1018 '.$d);
 		$login = $course . '-' . $s .  '/' . $s . ',' . md5( $s ) . ',' . $students_fullname[$n] ;
 		exec('echo ' . $login . ' >> ' . $f_logins);
 	}
@@ -69,11 +71,11 @@ foreach($students as $n => $s) {
 
 if($fail > 0){
         $return = array();
-        $return['msg']="The exercises are updated on ProofWeb!\n\n Update permissons on Server.";
+        $return['msg']="The exercises are updated on ProofWeb!";
         echo json_encode($return);
 } else{
         $return = array();
-        $return['msg']="The exercises are setted on ProofWeb!\n\n Update permissons on Server.";
+        $return['msg']="The exercises are setted on ProofWeb!";
         echo json_encode($return);
 }
 

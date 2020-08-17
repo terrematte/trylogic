@@ -2,8 +2,8 @@
 // Load up the Basic LTI Support code
 require_once 'ims-blti/blti.php';
 
-// Initialize, all secrets are 'password', do not set session, and do not redirect
-	$context = new BLTI("password", false, false);
+// Initialize, all secrets are 'secret', do not set session, and do not redirect
+	$context = new BLTI("secret", false, false);
 	$students =  $context->getEnrolledUsers();
 	$course = $context->getCourseName();
 	$user = $context->getUserShortName();

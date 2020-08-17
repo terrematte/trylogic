@@ -1,9 +1,11 @@
 <?php 
 // Load up the Basic LTI Support code
-require_once '../ims-blti/blti.php';
+require_once 'ims-blti/blti.php';
 
-// Initialize, all secrets are 'password', do not set session, and do not redirect
-$context = new BLTI("password", false, false);
+ini_set('max_execution_time', 5000); 
+
+// Initialize, all secrets are 'secret', do not set session, and do not redirect
+$context = new BLTI("secret", false, false);
 $students =  $context->getEnrolledUsers();
 $course = $context->getCourseName();
 $user = $context->getUserShortName();
@@ -27,11 +29,11 @@ arsort($users);
 		$students = json_encode($context->getEnrolledLogins());
 		$students_fullname = json_encode($context->getEnrolledFullname());
 		echo "var students = ". $students . ";\n";
-        echo "var students_fullname = ". $students_fullname . ";\n";
+	        echo "var students_fullname = ". $students_fullname . ";\n";
 		echo "var num_students = students.length;\n";
 		echo "var def = {\n    num_exercises: 1 \n };\n";
-	?>	
-	
+	?>
+
 	function openTab(evt, tabName) {
 		  var i, tabcontent, tablinks;
 		  tabcontent = document.getElementsByClassName("tabcontent");
@@ -45,7 +47,7 @@ arsort($users);
 		  document.getElementById(tabName).style.display = "block";
 		  evt.currentTarget.className += " active";
 	}
-	
+
 	function all_exercises() {
         var iframe = document.getElementById("frame_all_ex");
         var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
@@ -55,7 +57,7 @@ arsort($users);
 			if(tasks) tasks.innerHTML = all_ex.outerHTML;
 		}
 	}
-	
+
 	<?php
 
        foreach($users as $s){
@@ -69,7 +71,7 @@ arsort($users);
                     if(doc) var line = doc.getElementsByTagName('tr')[1];
                     var all_tasks = document.getElementById('all_tasks');
                     if(all_tasks && line) all_tasks.after(line)
-                  console.log( line );
+                  //console.log( line );
                 },
                 error: function() {
                     alert('Error occured');
@@ -183,7 +185,7 @@ arsort($users);
               <input type="text" id="code" name="code" value="abc"/>
             </div>
           </div>
-		<div class="name_descr">*Provide a prefix name for the tasks. The students will see this prefix on each task.</div>          
+		<div class="name_descr">*Provide a prefix name for the tasks. The students will see this prefix on each task.</div>
         </div>
         <div class="row">
           <div class="cell"><div class="name">Tasks by Student</div></div>
@@ -256,33 +258,29 @@ arsort($users);
 		<br />
                 <label><input type="checkbox" id="premise_contingent" name="restrictions" value="premise_conjunction_must_be_contingent" checked />Contingent Conjunction of Premises</label>
 		<br />
-                <label><input type="radio" id="only_provable" name="restrictions" value="only_provable"/>Only Refutables</label>
+                <label><input type="radio" id="only_provable" name="restrictions" value="only_provable"/>Only Provables</label>
 		<br />
-                <label><input type="radio" id="only_refutable" name="restrictions" value="only_refutable" />Only Provables</label>
+                <label><input type="radio" id="only_refutable" name="restrictions" value="only_refutable" />Only Refutables</label>
 		<br />
                 <label><input type="radio" id="refutable_provable" name="restrictions" value="refutable_provable" checked />Provables and Refutables</label>
 		<br />
 
 			</div>
 			</div>
-			
 			  		<div class="name_descr">
 						<ul>
 							<li><b>Same proportions:</b>Indicates the same total number of tasks for Proof and Refute, i.e. 50% of provable tasks, and 50% of refutable tasks. But the tasks are assign by random, so each students might receive an arbitrary number of each type, provable or refutable.</li>
 							<li><b>Relevant Premises:</b> Each premise share at least one atom with the conclusion.</li>
 							<li><b>All premises needed:</b> The conclusion is not satisfactible without any of premises.</li>
 							<li><b>Contingent Conjunction of Premises:</b> The conjunction of premises is not a tautology neither a contradiction.</li>
-							<li><b>Only Refutables, Provables, or Provables and Refutables:</b> Indicates the type of generated conjectures.</li>
+							<li><b>Only Provables, Refutables, or Provables and Refutables:</b> Indicates the type of generated conjectures.</li>
 						</ul>
-			  		
-			  		</div>          
+			  		</div>
 		</div>
-        
         <div class="row">
           <div class="cell">
 			<div class="name">Course</div>
           </div>
-          
           <div class="cell">
             <div class="block">
 					<input type="hidden" name="course" value="<?php echo($context->getCourseName());?>" />
@@ -290,13 +288,13 @@ arsort($users);
 			</div>
           </div>
 		</div>
-		
         <div class="row">
           <div class="cell"><div class="name"></div></div>
           <div class="cell"><div class="block hover">
 				<img id="load" src="loadbar.gif" alt="loadbar" height="42" style="display: none">
 				<a id="send">Send</a> <a id="salvar"  style="display: none">Save to ProofWeb</a></div></div>
-		<div class="name_descr">*This might take several minutes. <br/> Be patient with our SAT solver, he is working NP-hard. :)</div>
+		<div class="name_descr"> *This might take several minutes. For instance, to generate 50 conjectures on Level 4, it takes 40 minutes. <br/>
+					  Be patient with our SAT solver, he is working NP-hard. :)</div>
         </div>
       </div>
 
@@ -313,14 +311,12 @@ arsort($users);
       	<div id="c_detalhes" class="tab"  style="display: none"></div>
    </div>
   </form>
-	    
 </div>
 
 <div id="tab3" class="tabcontent">
 
 
 <div class="box-form">
-	
 <br/><br/>
 <h2> Students Exercices on course <?php echo($course);?> </h2>
 <br/><br/>
@@ -354,11 +350,17 @@ arsort($users);
 
 
 <?php
+
+// Mostra todas as informações, usa o padrão INFO_ALL
+ phpinfo();
+
 } else {
     print "<p style=\"color:red\"> Você não tem permissão de Adminstrador!<br/><br/>".$context->message."<p>\n";
 }
 
-?>	    
+
+
+?>
   </body>
 </html>
 

@@ -1,5 +1,7 @@
 <?php
 
+ini_set('max_execution_time', 5000); 
+
 require_once 'formulae/Atom.php';
 require_once 'formulae/Node.php';
 require_once 'formulae/Connective.php';
